@@ -14,6 +14,7 @@ public class frmLogin extends javax.swing.JFrame {
     /** Creates new form frmLogin */
     public frmLogin() {
         initComponents();
+        setTitle("SEGUIMIENTO DE EGRESADOS");
     }
 
     /** This method is called from within the constructor to

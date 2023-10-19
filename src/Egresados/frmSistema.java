@@ -26,23 +26,173 @@ public class frmSistema extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jtxtcodigoE = new javax.swing.JTextField();
+        jbtnbuscar = new javax.swing.JButton();
+        jbtnguardar = new javax.swing.JButton();
+        jtxtnacionalidad = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jbtnnuevo = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jtxtcorreo1 = new javax.swing.JTextField();
+        jtxtnombre1 = new javax.swing.JTextField();
+        jtxttelefono1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(248, 248, 251));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 530, -1, -1));
+
+        jtxtcodigoE.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
+        jtxtcodigoE.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código del egresado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jtxtcodigoE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtcodigoEActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxtcodigoE, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 419, 76));
+
+        jbtnbuscar.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnbuscar.setFont(new java.awt.Font("Garamond", 1, 24)); // NOI18N
+        jbtnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        jbtnbuscar.setText("BUSCAR");
+        jbtnbuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jbtnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnbuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 240, 75));
+
+        jbtnguardar.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnguardar.setFont(new java.awt.Font("Garamond", 1, 24)); // NOI18N
+        jbtnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar.png"))); // NOI18N
+        jbtnguardar.setText("GUARDAR");
+        jbtnguardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jbtnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnguardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 40, 224, 75));
+
+        jtxtnacionalidad.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
+        jtxtnacionalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Nacionalidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jtxtnacionalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtnacionalidadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxtnacionalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 419, 76));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL1_1.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jbtnnuevo.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnnuevo.setFont(new java.awt.Font("Garamond", 1, 24)); // NOI18N
+        jbtnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo.png"))); // NOI18N
+        jbtnnuevo.setText("NUEVO");
+        jbtnnuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jbtnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnnuevoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, 249, 75));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rojo1_1.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvv.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 530, 190, 160));
+
+        jtxtcorreo1.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
+        jtxtcorreo1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Correo Electrónico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jtxtcorreo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtcorreo1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxtcorreo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 419, 76));
+
+        jtxtnombre1.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
+        jtxtnombre1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Apellidos y Nombres", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jtxtnombre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtnombre1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxtnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 419, 76));
+
+        jtxttelefono1.setFont(new java.awt.Font("Garamond", 0, 18)); // NOI18N
+        jtxttelefono1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Teléfono/N°Celular", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jtxttelefono1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxttelefono1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxttelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 419, 76));
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setFont(new java.awt.Font("Garamond", 0, 20)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Labura", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Garamond", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 270, 230, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1292, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtxtcodigoEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtcodigoEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtcodigoEActionPerformed
+
+    private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnbuscarActionPerformed
+
+    private void jbtnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnnuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnnuevoActionPerformed
+
+    private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnguardarActionPerformed
+
+    private void jtxtnacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtnacionalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtnacionalidadActionPerformed
+
+    private void jtxtnombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtnombre1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtnombre1ActionPerformed
+
+    private void jtxtcorreo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtcorreo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtcorreo1ActionPerformed
+
+    private void jtxttelefono1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxttelefono1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxttelefono1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +230,19 @@ public class frmSistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbtnbuscar;
+    private javax.swing.JButton jbtnguardar;
+    private javax.swing.JButton jbtnnuevo;
+    private javax.swing.JTextField jtxtcodigoE;
+    private javax.swing.JTextField jtxtcorreo1;
+    private javax.swing.JTextField jtxtnacionalidad;
+    private javax.swing.JTextField jtxtnombre1;
+    private javax.swing.JTextField jtxttelefono1;
     // End of variables declaration//GEN-END:variables
 }
