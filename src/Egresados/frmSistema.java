@@ -4,7 +4,7 @@
  */
 package Egresados;
 
-/**jjjjjjjj
+/**
  *
  * @author anton
  */
