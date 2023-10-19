@@ -125,6 +125,7 @@ public class frmLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
@@ -138,6 +139,7 @@ public class frmLogin extends javax.swing.JFrame {
             if (contra.equals("0")){
                 frmSistema f = new frmSistema();
                 f.setVisible(true);
+                dispose();
             }
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
