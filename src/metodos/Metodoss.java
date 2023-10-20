@@ -75,27 +75,33 @@ public class Metodoss{
 
     }
     //METODO BUSCAR POR CODIGO
-    public String buscarPorCodigo(String codigo) {
-    try {
-        FileReader fr = new FileReader("Datos Egresados.txt");
-        BufferedReader br = new BufferedReader(fr);
+    public Datos buscarPorCodigo(String codigo) {
+        try {
+            FileReader fr = new FileReader("Datos Egresados.txt");
+            BufferedReader br = new BufferedReader(fr);
 
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            String[] partes = linea.split("\\|");
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split("\\|");
 
-            if (partes.length > 0 && partes[0].equals(codigo)) {
-                br.close();
-                return linea;
+                if (partes.length > 0 && partes[0].equals(codigo)) {
+                    br.close();
+                    Datos datosEncontrados = new Datos();
+                    datosEncontrados.setCodigoUCV(partes[0]);
+                    datosEncontrados.setApellidos(partes[1]);
+                    datosEncontrados.setCorreo(partes[2]);
+                    datosEncontrados.setNacionalidad(partes[3]);
+                    datosEncontrados.setTel(Integer.parseInt(partes[4]));
+                    datosEncontrados.setLabura(partes[5]);
+                    return datosEncontrados;
+                }
             }
+            br.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo");
         }
-        br.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al leer el archivo");
+        return null; // Si no se encuentra el código UCV
     }
-
-    return null; // Si no se encuentra el código UCV
-}
 
     
 }

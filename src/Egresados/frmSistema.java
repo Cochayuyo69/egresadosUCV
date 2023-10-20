@@ -135,7 +135,7 @@ public class frmSistema extends javax.swing.JFrame {
         jLabel3.setText("Labura:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 300, 80, 40));
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Egresados", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,30 +158,22 @@ public class frmSistema extends javax.swing.JFrame {
 
     private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed
         String codigoBusqueda = jtxtcodigoE.getText();
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            Datos datosEncontrados = metodos.buscarPorCodigo(codigoBusqueda);
 
-    if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-        String lineaEncontrada = metodos.buscarPorCodigo(codigoBusqueda);
-
-        if (lineaEncontrada != null) {
-            // Haz algo con la línea encontrada, por ejemplo, mostrarla en el formulario.
-            
-            String[] partes = lineaEncontrada.split("\\|");
-
-            // Asegurarse de que hay suficientes partes en la línea
-            if (partes.length >= 6) {
-             jtxtcodigoE.setText(partes[0]);
-             jtxtnombre1.setText(partes[1]);
-             jtxtcorreo1.setText(partes[2]);
-             jtxtnacionalidad.setText(partes[3]);
-             jtxttelefono1.setText(partes[4]);
-             jcbxlabura.setSelectedItem(partes[5]);
-    }
+            if (datosEncontrados != null) {
+                jtxtcodigoE.setText(datosEncontrados.getCodigoUCV());
+                jtxtnombre1.setText(datosEncontrados.getApellidos());
+                jtxtcorreo1.setText(datosEncontrados.getCorreo());
+                jtxtnacionalidad.setText(datosEncontrados.getNacionalidad());
+                jtxttelefono1.setText(String.valueOf(datosEncontrados.getTel()));
+                jcbxlabura.setSelectedItem(datosEncontrados.getLabura());
+            } else {
+                JOptionPane.showMessageDialog(null, "Código de estudiante no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Código UCV no encontrado");
+            JOptionPane.showMessageDialog(null, "Ingrese un código de estudiante válido", "Error", JOptionPane.WARNING_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "Ingrese un código UCV válido");
-    }
     }//GEN-LAST:event_jbtnbuscarActionPerformed
 
     private void jbtnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnnuevoActionPerformed
