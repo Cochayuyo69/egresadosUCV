@@ -7,15 +7,17 @@ public class Datos {
     private String correo;
     private String nacionalidad;
     private int tel;
+    private String labura;
     //Constructores 
     public Datos() {
     }
-    public Datos(String codigoUCV, String Apellidos, String correo, String nacionalidad, int tel) {
+    public Datos(String codigoUCV, String Apellidos, String correo, String nacionalidad, int tel, String labura) {
         this.codigoUCV = codigoUCV;
         this.Apellidos = Apellidos;
         this.correo = correo;
         this.nacionalidad = nacionalidad;
         this.tel = tel;
+        this.labura=labura;
     }
     //getter and setter
 
@@ -58,4 +60,13 @@ public class Datos {
     public void setTel(int tel) {
         this.tel = tel;
     }
+
+    public String getLabura() {
+        return labura;
+    }
+
+    public void setLabura(String labura) {
+        this.labura = labura;
+    }
+    
 }
