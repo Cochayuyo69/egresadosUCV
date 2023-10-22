@@ -20,6 +20,7 @@ public class Metodoss{
     //Guardar los datos en el Vector creado
     public void guardar(datos.Datos unEgresado){
         vPrincipal.addElement(unEgresado);
+        
     }
     
     //Guardar en un archivo txt
@@ -70,7 +71,7 @@ public class Metodoss{
         archivoTemporal.renameTo(archivoOriginal);
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al guardar/editar el archivo");
+        JOptionPane.showMessageDialog(null, "Error al guardar/editar el archivo", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
     }
@@ -98,11 +99,49 @@ public class Metodoss{
             }
             br.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo");
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo", "Error", JOptionPane.WARNING_MESSAGE);        
         }
         return null; // Si no se encuentra el código UCV
     }
+    //para el botón guardar
+    public void CompararCodigo(String codigo){
+        try {
+            FileReader fr = new FileReader("Datos Egresados.txt");
+            BufferedReader br = new BufferedReader(fr);
 
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split("\\|");
+                if (partes.length > 0 && partes[0].equals(codigo)) {
+                    br.close();
+                    JOptionPane.showMessageDialog(null, "El código de estudiante ingresado ya existe en el sistema.", "Error", JOptionPane.WARNING_MESSAGE);    
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+        }
+    }
     
+    //PARA EL LOGIN
+    public static boolean verificarCredenciales(String usuario, String contra) {
+        boolean autenticado = false;
+        try {
+            FileReader fr = new FileReader("Usuarios.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split("\\|");
+                if (partes.length == 2 && partes[0].equals(usuario) && partes[1].equals(contra)) {
+                    autenticado = true;
+                    break;
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejo de la excepción durante la lectura del archivo.
+        }
+        return autenticado;
+    }
 }
 

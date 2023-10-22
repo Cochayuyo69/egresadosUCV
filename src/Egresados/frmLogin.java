@@ -1,6 +1,9 @@
 
 package Egresados;
 
+import javax.swing.JOptionPane;
+import metodos.Metodoss;
+
 public class frmLogin extends javax.swing.JFrame {
 
     public frmLogin() {
@@ -121,11 +124,23 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         String usuario = txtUsuario.getText();
         String contra = txtContra.getText();
-        if (usuario.equals("admin")){
-            if (contra.equals("0")){
+        if (contra.equals("") && usuario.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(contra.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(usuario.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            // Llamar al método estático de la clase MetodosS para verificar las credenciales.
+            if (Metodoss.verificarCredenciales(usuario, contra)) {
                 frmSistema f = new frmSistema();
                 f.setVisible(true);
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
