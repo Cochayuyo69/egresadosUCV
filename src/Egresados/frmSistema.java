@@ -18,7 +18,8 @@ public class frmSistema extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabbedPaneCustom1 = new raven.tabbed.TabbedPaneCustom();
+        jPanel2 = new javax.swing.JPanel();
+        materialTabbed1 = new tabbed.MaterialTabbed();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jtxtcodigoE = new javax.swing.JTextField();
@@ -33,14 +34,15 @@ public class frmSistema extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        tabbedPaneCustom1.setBackground(new java.awt.Color(255, 255, 255));
-        tabbedPaneCustom1.setSelectedColor(new java.awt.Color(95, 119, 186));
-        tabbedPaneCustom1.setUnselectedColor(new java.awt.Color(73, 89, 130));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        materialTabbed1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
@@ -73,7 +75,7 @@ public class frmSistema extends javax.swing.JFrame {
                 jbtnbuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 760, 60));
+        jPanel1.add(jbtnbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 760, 70));
 
         jbtnguardar.setBackground(new java.awt.Color(204, 255, 255));
         jbtnguardar.setFont(new java.awt.Font("Segoe UI Light", 1, 24)); // NOI18N
@@ -150,22 +152,37 @@ public class frmSistema extends javax.swing.JFrame {
         jLabel3.setText("Trabaja:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 300, 80, 40));
 
-        tabbedPaneCustom1.addTab("Egresados", jPanel1);
+        materialTabbed1.addTab("Egresados", jPanel1);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1280, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+        );
+
+        materialTabbed1.addTab("tab2", jPanel3);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(materialTabbed1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(materialTabbed1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        tabbedPaneCustom1.addTab("tab2", jPanel2);
-
-        getContentPane().add(tabbedPaneCustom1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -231,22 +248,22 @@ public class frmSistema extends javax.swing.JFrame {
         int tel=Integer.parseInt(jtxttelefono1.getText());
         String labura = jcbxlabura.getSelectedItem().toString();
         
-           datos.setCodigoUCV(codigo);
-           datos.setApellidos(apellido);
-           datos.setCorreo(correo);
-           datos.setNacionalidad(nacionalidad);
-           datos.setTel(tel);
-           datos.setLabura(labura);
+        datos.setCodigoUCV(codigo);
+        datos.setApellidos(apellido);
+        datos.setCorreo(correo);
+        datos.setNacionalidad(nacionalidad);
+        datos.setTel(tel);
+        datos.setLabura(labura);
 
-           metodos.guardar(datos);
-           metodos.guardarArchivo(datos);
+        metodos.guardar(datos);
+        metodos.guardarArchivo(datos);
 
-           //VACIAR LOS TEXT FIELD 
-            jtxtcodigoE.setText("");
-            jtxtcorreo1.setText("");
-            jtxtnacionalidad.setText("");
-            jtxtnombre1.setText("");
-            jtxttelefono1.setText("");
+        //VACIAR LOS TEXT FIELD 
+        jtxtcodigoE.setText("");
+        jtxtcorreo1.setText("");
+        jtxtnacionalidad.setText("");
+        jtxtnombre1.setText("");
+        jtxttelefono1.setText("");
         
     }//GEN-LAST:event_jbtnguardarActionPerformed
 
@@ -317,6 +334,7 @@ public class frmSistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtnbuscar;
     private javax.swing.JButton jbtnguardar;
     private javax.swing.JButton jbtnnuevo;
@@ -326,6 +344,6 @@ public class frmSistema extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtnacionalidad;
     private javax.swing.JTextField jtxtnombre1;
     private javax.swing.JTextField jtxttelefono1;
-    private raven.tabbed.TabbedPaneCustom tabbedPaneCustom1;
+    private tabbed.MaterialTabbed materialTabbed1;
     // End of variables declaration//GEN-END:variables
 }
