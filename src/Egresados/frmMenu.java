@@ -121,7 +121,7 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEgresadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEgresadosActionPerformed
-        frmSistema f = new frmSistema();
+        frmEgresados f = new frmEgresados();
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnEgresadosActionPerformed

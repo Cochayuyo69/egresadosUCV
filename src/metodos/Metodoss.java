@@ -4,13 +4,10 @@ package metodos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import datos.Datos;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 
 
@@ -24,112 +21,97 @@ public class Metodoss{
     private static final String user="root";
     private static final String pass="20251221";
     private static final String url="jdbc:mysql://localhost:3306/bdegresados";
-    //Creamos un vector
-    Vector vPrincipal= new Vector();
+    
     
     //Guardar los datos en el Vector creado
-    public void guardar(datos.Datos unEgresado){
-        vPrincipal.addElement(unEgresado);
-        
+    public void guardar(Datos unEgresado) {
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+
+        String query = "INSERT INTO egresados (Codigo_de_estudiante, Nombre_de_IE, Filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, Area_trabajo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+
+        if (unEgresado.getCodigoUCV() != null && !unEgresado.getCodigoUCV().isEmpty()) {
+            preparedStmt.setString(1, unEgresado.getCodigoUCV());
+        } else {
+            preparedStmt.setNull(1, java.sql.Types.VARCHAR);
+        }
+        preparedStmt.setString(2, unEgresado.getNombreIE());
+        preparedStmt.setString(3, unEgresado.getFilial());
+        preparedStmt.setString(4, unEgresado.getCarrera());
+        preparedStmt.setString(5, unEgresado.getApellidoP());
+        preparedStmt.setString(6, unEgresado.getApellidoM());
+        preparedStmt.setString(7, unEgresado.getNombres());
+        preparedStmt.setString(8, unEgresado.getCorreo());
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getTele1() != null && !unEgresado.getTele1().isEmpty()) {
+            preparedStmt.setString(9, unEgresado.getTele1());
+        } else {
+            preparedStmt.setNull(9, java.sql.Types.VARCHAR);
+        }
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getTele2() != null && !unEgresado.getTele2().isEmpty()) {
+            preparedStmt.setString(10, unEgresado.getTele2());
+        } else {
+            preparedStmt.setNull(10, java.sql.Types.VARCHAR);
+        }
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getTele3() != null && !unEgresado.getTele3().isEmpty()) {
+            preparedStmt.setString(11, unEgresado.getTele3());
+        } else {
+            preparedStmt.setNull(11, java.sql.Types.VARCHAR);
+        }
+        preparedStmt.setString(12, unEgresado.getAñoEgreso());
+        preparedStmt.setString(13, unEgresado.getSemestreEgreso());
+        preparedStmt.setString(14, unEgresado.getTipoDocIdenti());
+        preparedStmt.setString(15, unEgresado.getNumDocIdenti());
+        preparedStmt.setString(16, unEgresado.getEstGrado());
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getReGrado() != null && !unEgresado.getReGrado().isEmpty()) {
+            preparedStmt.setString(17, unEgresado.getReGrado());
+        } else {
+            preparedStmt.setNull(17, java.sql.Types.VARCHAR);
+        }
+        preparedStmt.setString(18, unEgresado.getEstTitulo());
+        // Verifica si el campo de RETITULO está vacío o no
+        if (unEgresado.getReTitulo() != null && !unEgresado.getReTitulo().isEmpty()) {
+            preparedStmt.setString(19, unEgresado.getReTitulo());
+        } else {
+            preparedStmt.setNull(19, java.sql.Types.VARCHAR);
+        }
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getEstTrabajo() != null && !unEgresado.getEstTrabajo().isEmpty()) {
+            preparedStmt.setString(20, unEgresado.getEstTrabajo());
+        } else {
+            preparedStmt.setNull(20, java.sql.Types.VARCHAR);
+        }
+        // Verifica si el campo de área de trabajo está vacío o no
+        if (unEgresado.getAreaTrabajo() != null && !unEgresado.getAreaTrabajo().isEmpty()) {
+            preparedStmt.setString(21, unEgresado.getAreaTrabajo());
+        } else {
+            preparedStmt.setNull(21, java.sql.Types.VARCHAR);
+        }
+
+        preparedStmt.execute();
+        con.close();
+        JOptionPane.showMessageDialog(null, "Guardado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+    } catch (ClassNotFoundException | SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al guardar.", "ERROR" + e.getMessage(), JOptionPane.WARNING_MESSAGE);
     }
+}
     
     //Guardar en un archivo txt
     public void guardarArchivo(Datos datos){
-    try {
-        File archivoOriginal = new File("Datos Egresados.txt");
-        File archivoTemporal = new File("temp.txt");
-
-        BufferedReader br = new BufferedReader(new FileReader(archivoOriginal));
-        PrintWriter pw = new PrintWriter(new FileWriter(archivoTemporal));
-
-        String linea;
-        boolean codigoEncontrado = false;
-
-        while ((linea = br.readLine()) != null) {
-            String[] partes = linea.split("\\|");
-
-            if (partes.length > 0 && partes[0].equals(datos.getCodigoUCV())) {
-                // Reemplazar la línea con los nuevos datos
-                pw.println(datos.getCodigoUCV() + "|" +
-                           datos.getApellidos() + "|" +
-                           datos.getCorreo() + "|" +
-                           datos.getNacionalidad() + "|" +
-                           datos.getTel() + "|" +
-                           datos.getLabura());
-                codigoEncontrado = true;
-            } else {
-                // Mantener las líneas existentes
-                pw.println(linea);
-            }
-        }
-
-        // Si el código no se encontró, agregar una nueva línea
-        if (!codigoEncontrado) {
-            pw.println(datos.getCodigoUCV() + "|" +
-                       datos.getApellidos() + "|" +
-                       datos.getCorreo() + "|" +
-                       datos.getNacionalidad() + "|" +
-                       datos.getTel() + "|" +
-                       datos.getLabura());
-        }
-
-        br.close();
-        pw.close();
-
-        // Renombrar el archivo temporal al original
-        archivoOriginal.delete();
-        archivoTemporal.renameTo(archivoOriginal);
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al guardar/editar el archivo", "Error", JOptionPane.WARNING_MESSAGE);
-    }
-
+        
     }
     //METODO BUSCAR POR CODIGO
     public Datos buscarPorCodigo(String codigo) {
-        try {
-            FileReader fr = new FileReader("Datos Egresados.txt");
-            BufferedReader br = new BufferedReader(fr);
-
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split("\\|");
-
-                if (partes.length > 0 && partes[0].equals(codigo)) {
-                    br.close();
-                    Datos datosEncontrados = new Datos();
-                    datosEncontrados.setCodigoUCV(partes[0]);
-                    datosEncontrados.setApellidos(partes[1]);
-                    datosEncontrados.setCorreo(partes[2]);
-                    datosEncontrados.setNacionalidad(partes[3]);
-                    datosEncontrados.setTel(Integer.parseInt(partes[4]));
-                    datosEncontrados.setLabura(partes[5]);
-                    return datosEncontrados;
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo", "Error", JOptionPane.WARNING_MESSAGE);        
-        }
-        return null; // Si no se encuentra el código UCV
+        return null;
     }
     //para el botón guardar
     public void CompararCodigo(String codigo){
-        try {
-            FileReader fr = new FileReader("Datos Egresados.txt");
-            BufferedReader br = new BufferedReader(fr);
-
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split("\\|");
-                if (partes.length > 0 && partes[0].equals(codigo)) {
-                    br.close();
-                    JOptionPane.showMessageDialog(null, "El código de estudiante ingresado ya existe en el sistema.", "Error", JOptionPane.WARNING_MESSAGE);    
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-        }
+        
     }
     
     //PARA EL LOGIN
