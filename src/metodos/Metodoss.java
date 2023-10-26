@@ -1,6 +1,9 @@
 
 package metodos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import datos.Datos;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +17,15 @@ import javax.swing.JOptionPane;
 public class Metodoss{
 //Llamamos a la clase padre y las variables
     
+    // Declaramos la conexion a mysql
+    Connection con;
+    // Declaramos los datos de conexion a la bd
+    private static final String driver="com.mysql.cd.jdbc.Driver";
+    private static final String user="root";
+    private static final String pass="20251221";
+    private static final String url="jdbc:mysql://localhost:3306/bdegresados";
     //Creamos un vector
-        Vector vPrincipal= new Vector();
+    Vector vPrincipal= new Vector();
     
     //Guardar los datos en el Vector creado
     public void guardar(datos.Datos unEgresado){
@@ -142,6 +152,22 @@ public class Metodoss{
             e.printStackTrace(); // Manejo de la excepción durante la lectura del archivo.
         }
         return autenticado;
+    }
+    
+    public void conector() {
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Nos conectamos a la bd
+            con=DriverManager.getConnection(url, user, pass);
+            // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
+            if (con!=null){
+                System.out.println("Conexion establecida");
+            }
+        }
+        // Si la conexion NO fue exitosa mostramos un mensaje de error
+        catch (ClassNotFoundException | SQLException e){
+            System.out.println("Error de conexion" + e);
+        }
     }
 }
 
