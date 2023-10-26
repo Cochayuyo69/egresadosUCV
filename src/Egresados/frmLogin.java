@@ -31,9 +31,11 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(248, 248, 251));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -86,7 +88,7 @@ public class frmLogin extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 450, 410));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 540, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 550, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL1_1.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -131,12 +133,12 @@ public class frmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(usuario.equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingrese un usuario.", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else{
             // Llamar al método estático de la clase MetodosS para verificar las credenciales.
             if (Metodoss.verificarCredenciales(usuario, contra)) {
-                frmSistema f = new frmSistema();
+                frmMenu f = new frmMenu();
                 f.setVisible(true);
                 dispose();
             } else {
