@@ -23,11 +23,11 @@ public class Metodoss{
     private static final String url="jdbc:mysql://localhost:3306/bdegresados";
     
     
-    //Guardar los datos en el Vector creado
+    //Guardar los datos en MYSQL
     public void guardar(Datos unEgresado) {
     try {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
 
         String query = "INSERT INTO egresados (Codigo_de_estudiante, Nombre_de_IE, Filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, Area_trabajo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = con.prepareStatement(query);

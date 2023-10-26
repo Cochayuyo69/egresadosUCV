@@ -369,7 +369,7 @@ public class frmEgresados extends javax.swing.JFrame {
         //VERIFICAR SI EL CODIGO DE ESTUDIANTE YA EXISTE EN LA DB
         metodos.CompararCodigo(codigoUCV);
         String filial = cbxFilial.getSelectedItem().toString();
-        String estTrabajo = cbxEstadoTrabajo.getSelectedItem().toString();;
+        String estTrabajo = cbxEstadoTrabajo.getSelectedItem().toString();
         String areaTrabajo = null;
         String apellidoP = jtxtApellidoP.getText();
         String apellidoM = jtxtApellidoM.getText();
@@ -406,12 +406,6 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setReTitulo(reTitulo);
         
         metodos.guardar(datos);
-        //VACIAR LOS TEXT FIELD
-        jtxtcodigoE.setText("");
-        txtCorreo.setText("");
-        jtxtApellidoP.setText("");
-        jtxtNombres.setText("");
-        txtTelefono3.setText("");
     }//GEN-LAST:event_jbtnguardarActionPerformed
 
     private void txtTelefono3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefono3ActionPerformed
@@ -428,6 +422,26 @@ public class frmEgresados extends javax.swing.JFrame {
 
     private void jbtnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnnuevoActionPerformed
 
+        //VACIAR LOS TEXT FIELD 
+        jtxtcodigoE.setText("");
+        jtxtApellidoM.setText("");
+        jtxtApellidoP.setText("");
+        jtxtNombres.setText("");
+        txtCorreo.setText("");
+        txtNumeroDoc.setText("");
+        txtAñoEgreso.setText("");
+        txtSemestreEgreso.setText("");
+        txtResTitulo.setText("");
+        txtResGrado.setText("");
+        txtTelefono1.setText("");
+        txtTelefono2.setText("");
+        txtTelefono3.setText("");
+        //y reiniciar los combobox
+        cbxEstadoTrabajo.setSelectedIndex(0);
+        cbxTipoDoc.setSelectedIndex(0);
+        cbxFilial.setSelectedIndex(0);
+        cbxEstadoTitulo.setSelectedIndex(0);
+        cbxEstadoGrado.setSelectedIndex(0);
         metodos.conector();
     }//GEN-LAST:event_jbtnnuevoActionPerformed
 
