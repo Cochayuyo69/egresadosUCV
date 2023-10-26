@@ -367,7 +367,7 @@ public class frmEgresados extends javax.swing.JFrame {
     private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
         String codigoUCV = jtxtcodigoE.getText();
         //VERIFICAR SI EL CODIGO DE ESTUDIANTE YA EXISTE EN LA DB
-        metodos.CompararCodigo(codigoUCV);
+        //metodos.CompararCodigo(codigoUCV);
         String filial = cbxFilial.getSelectedItem().toString();
         String estTrabajo = cbxEstadoTrabajo.getSelectedItem().toString();
         String areaTrabajo = null;
@@ -406,6 +406,26 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setReTitulo(reTitulo);
         
         metodos.guardar(datos);
+        //Hacemos que no se pueda editar ningun txt 
+        jtxtcodigoE.setEnabled(false);
+        jtxtApellidoP.setEnabled(false);
+        jtxtApellidoM.setEnabled(false);
+        jtxtNombres.setEnabled(false);
+        txtAñoEgreso.setEnabled(false);
+        txtCorreo.setEnabled(false);
+        txtNumeroDoc.setEnabled(false);
+        txtResGrado.setEnabled(false);
+        txtResTitulo.setEnabled(false);
+        txtSemestreEgreso.setEnabled(false);
+        txtTelefono1.setEnabled(false);
+        txtTelefono2.setEnabled(false);
+        txtTelefono3.setEnabled(false);
+        //Hacemos que no se edite ningun cbx
+        cbxEstadoGrado.setEnabled(false);
+        cbxEstadoTitulo.setEnabled(false);
+        cbxEstadoTrabajo.setEnabled(false);
+        cbxFilial.setEnabled(false);
+        cbxTipoDoc.setEnabled(false);
     }//GEN-LAST:event_jbtnguardarActionPerformed
 
     private void txtTelefono3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefono3ActionPerformed
@@ -443,10 +463,50 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxEstadoTitulo.setSelectedIndex(0);
         cbxEstadoGrado.setSelectedIndex(0);
         metodos.conector();
+        //Hacemos que  se pueda editar los txt 
+        jtxtcodigoE.setEnabled(true);
+        jtxtApellidoP.setEnabled(true);
+        jtxtApellidoM.setEnabled(true);
+        jtxtNombres.setEnabled(true);
+        txtAñoEgreso.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        txtNumeroDoc.setEnabled(true);
+        txtResGrado.setEnabled(true);
+        txtResTitulo.setEnabled(true);
+        txtSemestreEgreso.setEnabled(true);
+        txtTelefono1.setEnabled(true);
+        txtTelefono2.setEnabled(true);
+        txtTelefono3.setEnabled(true);
+        //Hacemos que se edite los cbx
+        cbxEstadoGrado.setEnabled(true);
+        cbxEstadoTitulo.setEnabled(true);
+        cbxEstadoTrabajo.setEnabled(true);
+        cbxFilial.setEnabled(true);
+        cbxTipoDoc.setEnabled(true);
     }//GEN-LAST:event_jbtnnuevoActionPerformed
 
     private void jbtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditarActionPerformed
         txtResTitulo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "DNI", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
+        //Hacemos que  se pueda editar los txt 
+        jtxtcodigoE.setEnabled(true);
+        jtxtApellidoP.setEnabled(true);
+        jtxtApellidoM.setEnabled(true);
+        jtxtNombres.setEnabled(true);
+        txtAñoEgreso.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        txtNumeroDoc.setEnabled(true);
+        txtResGrado.setEnabled(true);
+        txtResTitulo.setEnabled(true);
+        txtSemestreEgreso.setEnabled(true);
+        txtTelefono1.setEnabled(true);
+        txtTelefono2.setEnabled(true);
+        txtTelefono3.setEnabled(true);
+        //Hacemos que se edite los cbx
+        cbxEstadoGrado.setEnabled(true);
+        cbxEstadoTitulo.setEnabled(true);
+        cbxEstadoTrabajo.setEnabled(true);
+        cbxFilial.setEnabled(true);
+        cbxTipoDoc.setEnabled(true);
     }//GEN-LAST:event_jbtnEditarActionPerformed
 
     private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed

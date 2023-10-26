@@ -106,12 +106,12 @@ public class Metodoss{
         
     }
     //METODO BUSCAR POR CODIGO
-    public Datos buscarPorCodigo(String codigo) {
-        return null;
-    }
+//    public Datos buscarPorCodigo(String codigo) {
+//        return null;
+//    }
     //para el botón guardar
     public void CompararCodigo(String codigo){
-        
+    
     }
     
     //PARA EL LOGIN
