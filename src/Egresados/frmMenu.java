@@ -123,6 +123,7 @@ public class frmMenu extends javax.swing.JFrame {
     private void btnEgresadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEgresadosActionPerformed
         frmSistema f = new frmSistema();
         f.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnEgresadosActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed

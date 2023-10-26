@@ -166,7 +166,7 @@ public class Metodoss{
         }
         // Si la conexion NO fue exitosa mostramos un mensaje de error
         catch (ClassNotFoundException | SQLException e){
-            System.out.println("Error de conexion" + e);
+            System.out.println("Error de conexion " + e);
         }
     }
 }
