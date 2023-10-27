@@ -539,6 +539,27 @@ public class frmEgresados extends javax.swing.JFrame {
         txtResGrado.setText(datosencontrados.getReGrado());
         cbxEstadoTitulo.setSelectedItem(datosencontrados.getEstTitulo());
         txtResTitulo.setText(datosencontrados.getReTitulo());
+        //Hacemos que no se pueda editar ningun txt 
+        jtxtcodigoE.setEnabled(false);
+        jtxtApellidoP.setEnabled(false);
+        jtxtApellidoM.setEnabled(false);
+        jtxtNombres.setEnabled(false);
+        txtAñoEgreso.setEnabled(false);
+        txtCorreo.setEnabled(false);
+        txtNumeroDoc.setEnabled(false);
+        txtResGrado.setEnabled(false);
+        txtResTitulo.setEnabled(false);
+        txtSemestreEgreso.setEnabled(false);
+        txtTelefono1.setEnabled(false);
+        txtTelefono2.setEnabled(false);
+        txtTelefono3.setEnabled(false);
+        
+        //Hacemos que no se edite ningun cbx
+        cbxEstadoGrado.setEnabled(false);
+        cbxEstadoTitulo.setEnabled(false);
+        cbxEstadoTrabajo.setEnabled(false);
+        cbxFilial.setEnabled(false);
+        cbxTipoDoc.setEnabled(false);
     }//GEN-LAST:event_jbtnbuscarActionPerformed
 
     private void txtAñoEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAñoEgresoActionPerformed
