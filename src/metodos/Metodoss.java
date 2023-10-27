@@ -165,26 +165,26 @@ public class Metodoss{
         ResultSet rs = st.executeQuery();
         
         if(rs.next()){
-        datos.setNombreIE(rs.getString(2));
-        datos.setFilial(rs.getString(3));
-        datos.setCarrera(rs.getString(4));
-        datos.setApellidoP(rs.getString(5));
-        datos.setApellidoM(rs.getString(6));
-        datos.setNombres(rs.getString(7));
-        datos.setCorreo(rs.getString(8));
-        datos.setTele1(rs.getString(9));
-        datos.setTele2(rs.getString(10));
-        datos.setTele3(rs.getString(11));
-        datos.setAñoEgreso(rs.getString(12));
-        datos.setSemestreEgreso(rs.getString(13));
-        datos.setTipoDocIdenti(rs.getString(14));
-        datos.setNumDocIdenti(rs.getString(15));
-        datos.setEstGrado(rs.getString(16));
-        datos.setReGrado(rs.getString(17));
-        datos.setEstTitulo(rs.getString(18));
-        datos.setReTitulo(rs.getString(19));
-        datos.setEstTrabajo(rs.getString(20));
-        datos.setAreaTrabajo(rs.getString(21));
+        datos.setNombreIE(rs.getString(3));
+        datos.setFilial(rs.getString(4));
+        datos.setCarrera(rs.getString(5));
+        datos.setApellidoP(rs.getString(6));
+        datos.setApellidoM(rs.getString(7));
+        datos.setNombres(rs.getString(8));
+        datos.setCorreo(rs.getString(9));
+        datos.setTele1(rs.getString(10));
+        datos.setTele2(rs.getString(11));
+        datos.setTele3(rs.getString(12));
+        datos.setAñoEgreso(rs.getString(13));
+        datos.setSemestreEgreso(rs.getString(14));
+        datos.setTipoDocIdenti(rs.getString(15));
+        datos.setNumDocIdenti(rs.getString(16));
+        datos.setEstGrado(rs.getString(17));
+        datos.setReGrado(rs.getString(18));
+        datos.setEstTitulo(rs.getString(19));
+        datos.setReTitulo(rs.getString(20));
+        datos.setEstTrabajo(rs.getString(21));
+        datos.setAreaTrabajo(rs.getString(22));
         }else{
             JOptionPane.showMessageDialog(null, "No se encontró al egresado");
         }
