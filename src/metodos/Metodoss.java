@@ -106,9 +106,17 @@ public class Metodoss{
         
     }
     //METODO BUSCAR POR CODIGO
-//    public Datos buscarPorCodigo(String codigo) {
-//        return null;
-//    }
+    public void buscarPorCodigo(String codigo) {
+        try {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+        String sql="";
+        
+        String[] datos= new String[21];
+        
+        } catch (Exception e) {
+        }
+    }
     //para el botón guardar
     public void CompararCodigo(String codigo){
     

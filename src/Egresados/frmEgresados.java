@@ -57,7 +57,6 @@ public class frmEgresados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1300, 778));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -388,6 +387,7 @@ public class frmEgresados extends javax.swing.JFrame {
         String reTitulo = txtResTitulo.getText();
 
         //GUARDAR DATOS
+        datos.setCodigoUCV(codigoUCV);
         datos.setFilial(filial);
         datos.setApellidoP(apellidoP);
         datos.setApellidoM(apellidoM);
@@ -404,6 +404,8 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setReGrado(reGrado);
         datos.setEstTitulo(estTitulo);
         datos.setReTitulo(reTitulo);
+        datos.setEstTrabajo(estTrabajo);
+        datos.setAreaTrabajo(areaTrabajo);
         
         metodos.guardar(datos);
         //Hacemos que no se pueda editar ningun txt 
@@ -513,6 +515,10 @@ public class frmEgresados extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtnbuscarActionPerformed
 
+    private void txtAñoEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAñoEgresoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAñoEgresoActionPerformed
+
     private void jtxtcodigoEKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtcodigoEKeyTyped
         char car = evt.getKeyChar();
         if(Character.isDigit(car)){
@@ -525,10 +531,6 @@ public class frmEgresados extends javax.swing.JFrame {
     private void jtxtcodigoEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtcodigoEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtcodigoEActionPerformed
-
-    private void txtAñoEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAñoEgresoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAñoEgresoActionPerformed
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
