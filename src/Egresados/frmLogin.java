@@ -20,8 +20,9 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtContra = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        btnIniciarSesion = new javax.swing.JButton();
+        btnCrearcuenta = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        btnIniciarSesion = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -57,6 +58,23 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel7.setText("Usuario");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 70, 40));
 
+        btnCrearcuenta.setBackground(new java.awt.Color(34, 47, 80));
+        btnCrearcuenta.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        btnCrearcuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearcuenta.setText("Registrarse");
+        btnCrearcuenta.setBorder(null);
+        btnCrearcuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearcuentaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCrearcuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 340, 40));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(73, 80, 87));
+        jLabel9.setText("Contraseña");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 40));
+
         btnIniciarSesion.setBackground(new java.awt.Color(227, 5, 22));
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -69,11 +87,6 @@ public class frmLogin extends javax.swing.JFrame {
         });
         jPanel2.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 340, 40));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(73, 80, 87));
-        jLabel9.setText("Contraseña");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 40));
-
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -83,9 +96,9 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Card_Content.png"))); // NOI18N
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 450, 300));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 450, 330));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 450, 410));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 450, 440));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 550, -1, -1));
@@ -102,7 +115,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(73, 80, 87));
         jLabel8.setText("© 2023 Creado y diseñado por Vallejianos.");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 350, 40));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 560, 350, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,6 +135,14 @@ public class frmLogin extends javax.swing.JFrame {
     private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraActionPerformed
+
+    private void btnCrearcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearcuentaActionPerformed
+       
+    }//GEN-LAST:event_btnCrearcuentaActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         String usuario = txtUsuario.getText();
@@ -144,12 +165,7 @@ public class frmLogin extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.WARNING_MESSAGE);
             }
-        }
-    }//GEN-LAST:event_btnIniciarSesionActionPerformed
-
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+        }    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -184,6 +200,7 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearcuenta;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

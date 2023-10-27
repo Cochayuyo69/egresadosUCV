@@ -408,6 +408,7 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setAreaTrabajo(areaTrabajo);
         
         metodos.guardar(datos);
+        
         //Hacemos que no se pueda editar ningun txt 
         jtxtcodigoE.setEnabled(false);
         jtxtApellidoP.setEnabled(false);
@@ -422,6 +423,7 @@ public class frmEgresados extends javax.swing.JFrame {
         txtTelefono1.setEnabled(false);
         txtTelefono2.setEnabled(false);
         txtTelefono3.setEnabled(false);
+        
         //Hacemos que no se edite ningun cbx
         cbxEstadoGrado.setEnabled(false);
         cbxEstadoTitulo.setEnabled(false);
