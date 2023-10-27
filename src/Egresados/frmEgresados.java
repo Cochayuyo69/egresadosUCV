@@ -514,7 +514,31 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnEditarActionPerformed
 
     private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed
-        
+        //traemos el codigo a buscar
+        String codigobusqueda=jtxtcodigoE.getText();
+        //instancia de la clase datos para guardar lo obtenido
+        DatosEgresados datosencontrados=new DatosEgresados();
+        //traer al metodo :D
+        Metodoss metodos=new Metodoss();
+        metodos.buscarPorCodigo(codigobusqueda, datosencontrados);
+        //colocar en el formulario lo encontrado
+        cbxFilial.setSelectedItem(datosencontrados.getFilial());
+        cbxEstadoTrabajo.setSelectedItem(datosencontrados.getEstTrabajo());
+        jtxtApellidoP.setText(datosencontrados.getApellidoP());
+        jtxtApellidoM.setText(datosencontrados.getApellidoM());
+        jtxtNombres.setText(datosencontrados.getNombres());
+        txtCorreo.setText(datosencontrados.getCorreo());
+        txtTelefono1.setText(datosencontrados.getTele1());
+        txtTelefono2.setText(datosencontrados.getTele2());
+        txtTelefono3.setText(datosencontrados.getTele3());
+        txtAñoEgreso.setText(datosencontrados.getAñoEgreso());
+        txtSemestreEgreso.setText(datosencontrados.getSemestreEgreso());
+        cbxTipoDoc.setSelectedItem(datosencontrados.getTipoDocIdenti());
+        txtNumeroDoc.setText(datosencontrados.getNumDocIdenti());
+        cbxEstadoGrado.setSelectedItem(datosencontrados.getEstGrado());
+        txtResGrado.setText(datosencontrados.getReGrado());
+        cbxEstadoTitulo.setSelectedItem(datosencontrados.getEstTitulo());
+        txtResTitulo.setText(datosencontrados.getReTitulo());
     }//GEN-LAST:event_jbtnbuscarActionPerformed
 
     private void txtAñoEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAñoEgresoActionPerformed

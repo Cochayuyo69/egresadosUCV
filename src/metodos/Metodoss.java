@@ -11,7 +11,7 @@ import datos.DatosUsuarios;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
-
+import datos.DatosEgresados;
 
 public class Metodoss{
 //Llamamos a la clase padre y las variables
@@ -153,15 +153,44 @@ public class Metodoss{
     }
     
     //METODO BUSCAR POR CODIGO
-    public void buscarPorCodigo(String codigo) {
+    public void buscarPorCodigo(String codigo, DatosEgresados datos) {
         try {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
-        String sql="";
         
-        String[] datos= new String[21];
+        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ?" ;
+        PreparedStatement st;
+        st = con.prepareStatement(query);
+        st.setString(1, codigo);
+        ResultSet rs = st.executeQuery();
         
+        if(rs.next()){
+        datos.setNombreIE(rs.getString(2));
+        datos.setFilial(rs.getString(3));
+        datos.setCarrera(rs.getString(4));
+        datos.setApellidoP(rs.getString(5));
+        datos.setApellidoM(rs.getString(6));
+        datos.setNombres(rs.getString(7));
+        datos.setCorreo(rs.getString(8));
+        datos.setTele1(rs.getString(9));
+        datos.setTele2(rs.getString(10));
+        datos.setTele3(rs.getString(11));
+        datos.setAñoEgreso(rs.getString(12));
+        datos.setSemestreEgreso(rs.getString(13));
+        datos.setTipoDocIdenti(rs.getString(14));
+        datos.setNumDocIdenti(rs.getString(15));
+        datos.setEstGrado(rs.getString(16));
+        datos.setReGrado(rs.getString(17));
+        datos.setEstTitulo(rs.getString(18));
+        datos.setReTitulo(rs.getString(19));
+        datos.setEstTrabajo(rs.getString(20));
+        datos.setAreaTrabajo(rs.getString(21));
+        }else{
+            JOptionPane.showMessageDialog(null, "No se encontró al egresado");
+        }
+        con.close();
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
     //para el botón guardar
