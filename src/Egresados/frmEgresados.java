@@ -1,16 +1,16 @@
 
 package Egresados;
 
-import datos.Datos;
+import datos.DatosEgresados;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
 public class frmEgresados extends javax.swing.JFrame {
-    Datos datos = new Datos();
+    DatosEgresados datos = new DatosEgresados();
     Metodoss metodos= new Metodoss();
 
     public frmEgresados() {
         initComponents();
-        setTitle("SEGUIMIENTO DE EGRESADOS");
+        setTitle("EGRESADOS");
 
     }
 
@@ -407,7 +407,7 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setEstTrabajo(estTrabajo);
         datos.setAreaTrabajo(areaTrabajo);
         
-        metodos.guardar(datos);
+        metodos.guardarEgresado(datos);
         
         //Hacemos que no se pueda editar ningun txt 
         jtxtcodigoE.setEnabled(false);

@@ -15,6 +15,8 @@ public class frmMenu extends javax.swing.JFrame {
      */
     public frmMenu() {
         initComponents();
+        setTitle("MENÚ");
+
     }
 
     /**

@@ -1,7 +1,7 @@
 
 package datos;
 
-public class Datos {
+public class DatosEgresados {
     //Tiene Grado	Resolución Grado	Tiene Título	Resolución Título
     private String codigoUCV;
     private String NombreIE = "UNIVERSIDAD CÉSAR VALLEJO";
@@ -23,11 +23,11 @@ public class Datos {
     private String estTitulo;
     private String reTitulo;
     //Constructores 
-    public Datos(){
+    public DatosEgresados(){
         
     }
     
-    public Datos(String codigoUCV, String filial, String estTrabajo, String areaTrabajo, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
+    public DatosEgresados(String codigoUCV, String filial, String estTrabajo, String areaTrabajo, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
         this.codigoUCV = codigoUCV;
         this.filial = filial;
         this.estTrabajo = estTrabajo;

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import metodos.Metodoss;
 
 public class frmLogin extends javax.swing.JFrame {
+    Metodoss metodos= new Metodoss();
 
     public frmLogin() {
         initComponents();
@@ -137,7 +138,8 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraActionPerformed
 
     private void btnCrearcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearcuentaActionPerformed
-       
+        frmRegistrarse f = new frmRegistrarse();
+        f.setVisible(true);
     }//GEN-LAST:event_btnCrearcuentaActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -147,23 +149,24 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         String usuario = txtUsuario.getText();
         String contra = txtContra.getText();
-        if (contra.equals("") && usuario.equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+        if(usuario.equals("") && contra.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
-        else if(contra.equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "Error", JOptionPane.WARNING_MESSAGE);
+        else if (usuario.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese un usuario.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
-        else if(usuario.equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese un usuario.", "Error", JOptionPane.WARNING_MESSAGE);
+        else if (contra.equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            // Llamar al método estático de la clase MetodosS para verificar las credenciales.
-            if (Metodoss.verificarCredenciales(usuario, contra)) {
+            String est = metodos.consultaUsuario(usuario, contra);
+            if (est.equals("CORRECTOS")){
                 frmMenu f = new frmMenu();
                 f.setVisible(true);
                 dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (est.equals("ERROR")){
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
             }
         }    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
