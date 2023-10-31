@@ -4,15 +4,16 @@ public class DatosEgresados {
     //Tiene Grado	Resolución Grado	Tiene Título	Resolución Título
     private String codigoUCV;
     private String NombreIE = "UNIVERSIDAD CÉSAR VALLEJO";
-    private String filial;
+    private int filial;
     private String Carrera = "INGENIERIA DE SISTEMAS";
     private String estTrabajo;
-    private String areaTrabajo;
+    private int areaTrabajo;
     private String apellidoP;
     private String apellidoM;
     private String nombres;
     private String correo;
     private String tele1, tele2, tele3;
+    private int Operador1, Operador2, Operador3;
     private String añoEgreso;
     private String semestreEgreso;
     private String tipoDocIdenti;
@@ -25,8 +26,8 @@ public class DatosEgresados {
     public DatosEgresados(){
         
     }
-    
-    public DatosEgresados(String codigoUCV, String filial, String estTrabajo, String areaTrabajo, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
+
+    public DatosEgresados(String codigoUCV, int filial, String estTrabajo, int areaTrabajo, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, int Operador1, int Operador2, int Operador3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
         this.codigoUCV = codigoUCV;
         this.filial = filial;
         this.estTrabajo = estTrabajo;
@@ -38,6 +39,9 @@ public class DatosEgresados {
         this.tele1 = tele1;
         this.tele2 = tele2;
         this.tele3 = tele3;
+        this.Operador1 = Operador1;
+        this.Operador2 = Operador2;
+        this.Operador3 = Operador3;
         this.añoEgreso = añoEgreso;
         this.semestreEgreso = semestreEgreso;
         this.tipoDocIdenti = tipoDocIdenti;
@@ -48,12 +52,32 @@ public class DatosEgresados {
         this.reTitulo = reTitulo;
     }
 
+    public String getCodigoUCV() {
+        return codigoUCV;
+    }
+
+    public void setCodigoUCV(String codigoUCV) {
+        this.codigoUCV = codigoUCV;
+    }
+
     public String getNombreIE() {
         return NombreIE;
     }
 
     public void setNombreIE(String NombreIE) {
         this.NombreIE = NombreIE;
+    }
+
+    public Integer getFilial() {
+        if (filial == 0) {
+            return null;
+        } else {
+            return filial;
+        }
+    }
+
+    public void setFilial(int filial) {
+        this.filial = filial;
     }
 
     public String getCarrera() {
@@ -64,22 +88,6 @@ public class DatosEgresados {
         this.Carrera = Carrera;
     }
 
-    public String getCodigoUCV() {
-        return codigoUCV;
-    }
-
-    public void setCodigoUCV(String codigoUCV) {
-        this.codigoUCV = codigoUCV;
-    }
-
-    public String getFilial() {
-        return filial;
-    }
-
-    public void setFilial(String filial) {
-        this.filial = filial;
-    }
-
     public String getEstTrabajo() {
         return estTrabajo;
     }
@@ -88,11 +96,11 @@ public class DatosEgresados {
         this.estTrabajo = estTrabajo;
     }
 
-    public String getAreaTrabajo() {
+    public int getAreaTrabajo() {
         return areaTrabajo;
     }
 
-    public void setAreaTrabajo(String areaTrabajo) {
+    public void setAreaTrabajo(int areaTrabajo) {
         this.areaTrabajo = areaTrabajo;
     }
 
@@ -150,6 +158,30 @@ public class DatosEgresados {
 
     public void setTele3(String tele3) {
         this.tele3 = tele3;
+    }
+
+    public int getOperador1() {
+        return Operador1;
+    }
+
+    public void setOperador1(int Operador1) {
+        this.Operador1 = Operador1;
+    }
+
+    public int getOperador2() {
+        return Operador2;
+    }
+
+    public void setOperador2(int Operador2) {
+        this.Operador2 = Operador2;
+    }
+
+    public int getOperador3() {
+        return Operador3;
+    }
+
+    public void setOperador3(int Operador3) {
+        this.Operador3 = Operador3;
     }
 
     public String getAñoEgreso() {

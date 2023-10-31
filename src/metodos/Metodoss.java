@@ -10,6 +10,7 @@ import java.util.List;
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class Metodoss{
@@ -21,7 +22,7 @@ public class Metodoss{
     private static final String driver="com.mysql.cd.jdbc.Driver";
     private static final String user="root";
     private static final String pass="20251221";
-    private static final String url="jdbc:mysql://localhost:3306/bdegresados";
+    private static final String url="jdbc:mysql://localhost:3306/prueba1";
     private static PreparedStatement stmt = null;
     
     
@@ -31,75 +32,42 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "INSERT INTO egresados (Codigo_de_estudiante, Nombre_de_IE, Filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, Area_trabajo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
+            String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            if (unEgresado.getCodigoUCV() != null && !unEgresado.getCodigoUCV().isEmpty()) {
-                preparedStmt.setString(1, unEgresado.getCodigoUCV());
-            } else {
-                preparedStmt.setNull(1, java.sql.Types.VARCHAR);
-            }
-            preparedStmt.setString(2, unEgresado.getNombreIE());
-            preparedStmt.setString(3, unEgresado.getFilial());
-            preparedStmt.setString(4, unEgresado.getCarrera());
-            preparedStmt.setString(5, unEgresado.getApellidoP());
-            preparedStmt.setString(6, unEgresado.getApellidoM());
-            preparedStmt.setString(7, unEgresado.getNombres());
-            preparedStmt.setString(8, unEgresado.getCorreo());
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getTele1() != null && !unEgresado.getTele1().isEmpty()) {
-                preparedStmt.setString(9, unEgresado.getTele1());
-            } else {
-                preparedStmt.setNull(9, java.sql.Types.VARCHAR);
-            }
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getTele2() != null && !unEgresado.getTele2().isEmpty()) {
-                preparedStmt.setString(10, unEgresado.getTele2());
-            } else {
-                preparedStmt.setNull(10, java.sql.Types.VARCHAR);
-            }
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getTele3() != null && !unEgresado.getTele3().isEmpty()) {
-                preparedStmt.setString(11, unEgresado.getTele3());
-            } else {
-                preparedStmt.setNull(11, java.sql.Types.VARCHAR);
-            }
-            preparedStmt.setString(12, unEgresado.getAñoEgreso());
-            preparedStmt.setString(13, unEgresado.getSemestreEgreso());
-            preparedStmt.setString(14, unEgresado.getTipoDocIdenti());
-            preparedStmt.setString(15, unEgresado.getNumDocIdenti());
-            preparedStmt.setString(16, unEgresado.getEstGrado());
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getReGrado() != null && !unEgresado.getReGrado().isEmpty()) {
-                preparedStmt.setString(17, unEgresado.getReGrado());
-            } else {
-                preparedStmt.setNull(17, java.sql.Types.VARCHAR);
-            }
-            preparedStmt.setString(18, unEgresado.getEstTitulo());
-            // Verifica si el campo de RETITULO está vacío o no
-            if (unEgresado.getReTitulo() != null && !unEgresado.getReTitulo().isEmpty()) {
-                preparedStmt.setString(19, unEgresado.getReTitulo());
-            } else {
-                preparedStmt.setNull(19, java.sql.Types.VARCHAR);
-            }
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getEstTrabajo() != null && !unEgresado.getEstTrabajo().isEmpty()) {
-                preparedStmt.setString(20, unEgresado.getEstTrabajo());
-            } else {
-                preparedStmt.setNull(20, java.sql.Types.VARCHAR);
-            }
-            // Verifica si el campo de área de trabajo está vacío o no
-            if (unEgresado.getAreaTrabajo() != null && !unEgresado.getAreaTrabajo().isEmpty()) {
-                preparedStmt.setString(21, unEgresado.getAreaTrabajo());
-            } else {
-                preparedStmt.setNull(21, java.sql.Types.VARCHAR);
-            }
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, unEgresado.getCodigoUCV());
+            pstmt.setString(2, unEgresado.getNombreIE());
+            pstmt.setInt(3, unEgresado.getFilial());
+            pstmt.setString(4, unEgresado.getCarrera());
+            pstmt.setString(5, unEgresado.getApellidoP());
+            pstmt.setString(6, unEgresado.getApellidoM());
+            pstmt.setString(7, unEgresado.getNombres());
+            pstmt.setString(8, unEgresado.getCorreo());
+            pstmt.setString(9, unEgresado.getTele1());
+            pstmt.setInt(10, unEgresado.getOperador1());
+            pstmt.setString(11, unEgresado.getTele2());
+            pstmt.setInt(12, unEgresado.getOperador2());
+            pstmt.setString(13, unEgresado.getTele3());
+            pstmt.setInt(14, unEgresado.getOperador3());
+            pstmt.setString(15, unEgresado.getAñoEgreso());
+            pstmt.setString(16, unEgresado.getSemestreEgreso());
+            pstmt.setString(17, unEgresado.getTipoDocIdenti());
+            pstmt.setString(18, unEgresado.getNumDocIdenti());
+            pstmt.setString(19, unEgresado.getEstGrado());
+            pstmt.setString(20, unEgresado.getReGrado());
+            pstmt.setString(21, unEgresado.getEstTitulo());
+            pstmt.setString(22, unEgresado.getReTitulo());
+            pstmt.setString(23, unEgresado.getEstTrabajo());
+            pstmt.setInt(24, unEgresado.getAreaTrabajo());
 
-            preparedStmt.execute();
+            pstmt.executeUpdate();
+            pstmt.close();
             con.close();
             JOptionPane.showMessageDialog(null, "Egresado guardado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null,  "Error al guardar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,  "Error al guardar: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
         }
     }
     
@@ -167,7 +135,7 @@ public class Metodoss{
         if(rs.next()){
             datos.setCodigoUCV(rs.getString(2));
             datos.setNombreIE(rs.getString(3));
-            datos.setFilial(rs.getString(4));
+            datos.setFilial(rs.getInt(4));
             datos.setCarrera(rs.getString(5));
             datos.setApellidoP(rs.getString(6));
             datos.setApellidoM(rs.getString(7));
@@ -185,7 +153,7 @@ public class Metodoss{
             datos.setEstTitulo(rs.getString(19));
             datos.setReTitulo(rs.getString(20));
             datos.setEstTrabajo(rs.getString(21));
-            datos.setAreaTrabajo(rs.getString(22));
+            datos.setAreaTrabajo(rs.getInt(22));
         }else{
             JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -229,7 +197,7 @@ public class Metodoss{
 
             preparedStmt.setString(1, unEgresado.getCodigoUCV());
             preparedStmt.setString(2, unEgresado.getNombreIE());
-            preparedStmt.setString(3, unEgresado.getFilial());
+            preparedStmt.setInt(3, unEgresado.getFilial());
             preparedStmt.setString(4, unEgresado.getCarrera());
             preparedStmt.setString(5, unEgresado.getApellidoP());
             preparedStmt.setString(6, unEgresado.getApellidoM());
@@ -247,7 +215,7 @@ public class Metodoss{
             preparedStmt.setString(18, unEgresado.getEstTitulo());
             preparedStmt.setString(19, unEgresado.getReTitulo());
             preparedStmt.setString(20, unEgresado.getEstTrabajo());
-            preparedStmt.setString(21, unEgresado.getAreaTrabajo());
+            preparedStmt.setInt(21, unEgresado.getAreaTrabajo());
             preparedStmt.setString(22, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
             preparedStmt.setString(23, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
 
@@ -275,7 +243,7 @@ public class Metodoss{
         if(rs.next()){
             datos.setCodigoUCV(rs.getString(2));
             datos.setNombreIE(rs.getString(3));
-            datos.setFilial(rs.getString(4));
+            datos.setFilial(rs.getInt(4));
             datos.setCarrera(rs.getString(5));
             datos.setApellidoP(rs.getString(6));
             datos.setApellidoM(rs.getString(7));
@@ -293,7 +261,7 @@ public class Metodoss{
             datos.setEstTitulo(rs.getString(19));
             datos.setReTitulo(rs.getString(20));
             datos.setEstTrabajo(rs.getString(21));
-            datos.setAreaTrabajo(rs.getString(22));
+            datos.setAreaTrabajo(rs.getInt(22));
         }else{
             JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -303,7 +271,7 @@ public class Metodoss{
         }
     }
     
-    //METODO PARA MOSTRAR DB
+    //METODO PARA MOSTRAR en 
     public String [][] mostrar(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -339,6 +307,99 @@ public class Metodoss{
             System.err.println(e.getMessage());
         }
     return null;
+    }
+    
+    //METODO PARA CARGAR COMBO OPERADOR
+    public DefaultComboBoxModel<String> obtenerNombresOperadores() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_operador FROM Operadores";
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nombreOperador = rs.getString("Nombre_operador");
+                model.addElement(nombreOperador);
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener nombres de operadores: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return model;
+    }
+    
+    //METODO PARA OBTENER EL ID DEL COMBO
+    public int obtenerIdOperador(String nombreOperador) {
+        int idOperador = 0; // Valor por defecto si no se encuentra el ID\
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT id_operador FROM operadores WHERE Nombre_operador = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombreOperador);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idOperador = rs.getInt("id_operador");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID del operador: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return idOperador;
+    }
+    
+    //METODO PARA CARGAR COMBO FILIAL
+    public DefaultComboBoxModel<String> obtenerNombresFiliales() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_filial FROM Filiales";
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nombreFilial = rs.getString("Nombre_filial");
+                model.addElement(nombreFilial);
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener nombres de filiales: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return model;
+    }
+    //METODO PARA OBTENER EL ID DEL COMBO
+    public int obtenerIdFilial(String nombreFilial) {
+        int idFilial = 0; // Valor por defecto si no se encuentra el ID
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT id_filial FROM Filiales WHERE Nombre_filial = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombreFilial);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idFilial = rs.getInt("id_filial");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de la filial: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return idFilial;
     }
 }
 

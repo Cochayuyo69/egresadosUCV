@@ -1,6 +1,7 @@
 package Egresados;
 
 import datos.DatosEgresados;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
 public class frmEgresados extends javax.swing.JFrame {
@@ -10,7 +11,7 @@ public class frmEgresados extends javax.swing.JFrame {
     public frmEgresados() {
         initComponents();
         setTitle("EGRESADOS");
-
+        llenarCombobox();
     }
     
     //BLOQUEAR TODO
@@ -36,9 +37,9 @@ public class frmEgresados extends javax.swing.JFrame {
             cbxEstadoTrabajo.setEnabled(false);
             cbxFilial.setEnabled(false);
             cbxTipoDoc.setEnabled(false);
-            cbxTipoOpe1.setEnabled(false);
-            cbxTipoOpe2.setEnabled(false);
-            cbxTipoOpe3.setEnabled(false);
+            cbxOpe1.setEnabled(false);
+            cbxOpe2.setEnabled(false);
+            cbxOpe3.setEnabled(false);
     }
     
     //DESBLOQUEAR TODO
@@ -63,9 +64,9 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxEstadoTrabajo.setEnabled(true);
         cbxFilial.setEnabled(true);
         cbxTipoDoc.setEnabled(true);
-        cbxTipoOpe1.setEnabled(true);
-        cbxTipoOpe2.setEnabled(true);
-        cbxTipoOpe3.setEnabled(true);
+        cbxOpe1.setEnabled(true);
+        cbxOpe2.setEnabled(true);
+        cbxOpe3.setEnabled(true);
     }
     
     @SuppressWarnings("unchecked")
@@ -97,11 +98,11 @@ public class frmEgresados extends javax.swing.JFrame {
         txtResTitulo = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         txtTelefono1 = new javax.swing.JTextField();
-        cbxTipoOpe1 = new javax.swing.JComboBox<>();
+        cbxOpe1 = new javax.swing.JComboBox<>();
         txtTelefono2 = new javax.swing.JTextField();
-        cbxTipoOpe2 = new javax.swing.JComboBox<>();
+        cbxOpe2 = new javax.swing.JComboBox<>();
         txtTelefono3 = new javax.swing.JTextField();
-        cbxTipoOpe3 = new javax.swing.JComboBox<>();
+        cbxOpe3 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         txtSemestreEgreso = new javax.swing.JTextField();
         txtAñoEgreso = new javax.swing.JTextField();
@@ -206,7 +207,6 @@ public class frmEgresados extends javax.swing.JFrame {
 
         cbxFilial.setBackground(new java.awt.Color(255, 255, 250));
         cbxFilial.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxFilial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CAMPUS LIMA NORTE", "CAMPUS LIMA ESTE", "CAMPUS CALLAO", "CAMPUS ATE" }));
         cbxFilial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(cbxFilial, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 240, 50));
 
@@ -294,13 +294,17 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono1ActionPerformed(evt);
             }
         });
+        txtTelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefono1KeyTyped(evt);
+            }
+        });
         jPanel6.add(txtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 70));
 
-        cbxTipoOpe1.setBackground(new java.awt.Color(255, 255, 250));
-        cbxTipoOpe1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxTipoOpe1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENTEL", "MOVISTAR", "CLARO", "BITEL" }));
-        cbxTipoOpe1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.add(cbxTipoOpe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 140, 60));
+        cbxOpe1.setBackground(new java.awt.Color(255, 255, 250));
+        cbxOpe1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        cbxOpe1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.add(cbxOpe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 140, 60));
 
         txtTelefono2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtTelefono2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "2.º Teléfono", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -309,13 +313,17 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono2ActionPerformed(evt);
             }
         });
+        txtTelefono2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefono2KeyTyped(evt);
+            }
+        });
         jPanel6.add(txtTelefono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 250, 70));
 
-        cbxTipoOpe2.setBackground(new java.awt.Color(255, 255, 250));
-        cbxTipoOpe2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxTipoOpe2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENTEL", "MOVISTAR", "CLARO", "BITEL" }));
-        cbxTipoOpe2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.add(cbxTipoOpe2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 140, 60));
+        cbxOpe2.setBackground(new java.awt.Color(255, 255, 250));
+        cbxOpe2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        cbxOpe2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.add(cbxOpe2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 140, 60));
 
         txtTelefono3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtTelefono3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "3.º Teléfono", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -324,13 +332,17 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono3ActionPerformed(evt);
             }
         });
+        txtTelefono3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefono3KeyTyped(evt);
+            }
+        });
         jPanel6.add(txtTelefono3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 70));
 
-        cbxTipoOpe3.setBackground(new java.awt.Color(255, 255, 250));
-        cbxTipoOpe3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxTipoOpe3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENTEL", "MOVISTAR", "CLARO", "BITEL" }));
-        cbxTipoOpe3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.add(cbxTipoOpe3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 140, 60));
+        cbxOpe3.setBackground(new java.awt.Color(255, 255, 250));
+        cbxOpe3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        cbxOpe3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.add(cbxOpe3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 140, 60));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 170, 510, 280));
 
@@ -456,16 +468,25 @@ public class frmEgresados extends javax.swing.JFrame {
 
     private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
         String codigoUCV = jtxtcodigoE.getText();
-        String filial = cbxFilial.getSelectedItem().toString();
+        int filial = metodos.obtenerIdFilial(cbxFilial.getSelectedItem().toString());
         String estTrabajo = cbxEstadoTrabajo.getSelectedItem().toString();
-        String areaTrabajo = null;
+        int areaTrabajo;
+        if (cbxEstadoTrabajo.getSelectedItem().toString().equals("No")){
+            areaTrabajo = 0;
+        }
+        else{
+            areaTrabajo = 1;
+        }
         String apellidoP = jtxtApellidoP.getText();
         String apellidoM = jtxtApellidoM.getText();
         String nombres = jtxtNombres.getText();
         String correo = txtCorreo.getText();
         String tele1 = txtTelefono1.getText();
+        int Operador1 = metodos.obtenerIdOperador(cbxOpe1.getSelectedItem().toString());
         String tele2 = txtTelefono2.getText();
+        int Operador2 = metodos.obtenerIdOperador(cbxOpe2.getSelectedItem().toString());
         String tele3 = txtTelefono3.getText();
+        int Operador3 = metodos.obtenerIdOperador(cbxOpe3.getSelectedItem().toString());
         String añoEgreso = txtAñoEgreso.getText();
         String semestreEgreso = txtSemestreEgreso.getText();
         String tipoDocIdenti = cbxTipoDoc.getSelectedItem().toString();
@@ -474,7 +495,6 @@ public class frmEgresados extends javax.swing.JFrame {
         String reGrado = txtResGrado.getText();
         String estTitulo = cbxEstadoTitulo.getSelectedItem().toString();
         String reTitulo = txtResTitulo.getText();
-
         //GUARDAR DATOS
         datos.setCodigoUCV(codigoUCV);
         datos.setFilial(filial);
@@ -483,8 +503,11 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setNombres(nombres);
         datos.setCorreo(correo);
         datos.setTele1(tele1);
+        datos.setOperador1(Operador1);
         datos.setTele2(tele2);
+        datos.setOperador2(Operador2);
         datos.setTele3(tele3);
+        datos.setOperador3(Operador3);
         datos.setAñoEgreso(añoEgreso);
         datos.setSemestreEgreso(semestreEgreso);
         datos.setTipoDocIdenti(tipoDocIdenti);
@@ -680,6 +703,7 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSemestreEgresoKeyTyped
 
     private void txtNumeroDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDocKeyTyped
+        //SOLO NÚMEROS
         char car = evt.getKeyChar();
         if(Character.isDigit(car)){
         }
@@ -694,6 +718,56 @@ public class frmEgresados extends javax.swing.JFrame {
             getToolkit().beep();
         }
     }//GEN-LAST:event_txtNumeroDocKeyTyped
+
+    private void txtTelefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono1KeyTyped
+        //SOLO NÚMEROS
+        char car = evt.getKeyChar();
+        if(Character.isDigit(car)){
+        }
+        else{
+            evt.consume();
+        }
+        if(txtTelefono1.getText().length() >= 9)
+        {
+            evt.consume();
+            //SONIDO ERROR
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txtTelefono1KeyTyped
+
+    private void txtTelefono2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono2KeyTyped
+        //SOLO NÚMEROS
+        char car = evt.getKeyChar();
+        if(Character.isDigit(car)){
+        }
+        else{
+            evt.consume();
+        }
+        
+        if(txtTelefono2.getText().length() >= 9)
+        {
+            evt.consume();
+            //SONIDO ERROR
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txtTelefono2KeyTyped
+
+    private void txtTelefono3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefono3KeyTyped
+        //SOLO NÚMEROS
+        char car = evt.getKeyChar();
+        if(Character.isDigit(car)){
+        }
+        else{
+            evt.consume();
+        }
+        
+        if(txtTelefono3.getText().length() >= 9)
+        {
+            evt.consume();
+            //SONIDO ERROR
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txtTelefono3KeyTyped
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -708,10 +782,10 @@ public class frmEgresados extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxEstadoTitulo;
     private javax.swing.JComboBox<String> cbxEstadoTrabajo;
     private javax.swing.JComboBox<String> cbxFilial;
+    private javax.swing.JComboBox<String> cbxOpe1;
+    private javax.swing.JComboBox<String> cbxOpe2;
+    private javax.swing.JComboBox<String> cbxOpe3;
     private javax.swing.JComboBox<String> cbxTipoDoc;
-    private javax.swing.JComboBox<String> cbxTipoOpe1;
-    private javax.swing.JComboBox<String> cbxTipoOpe2;
-    private javax.swing.JComboBox<String> cbxTipoOpe3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -745,4 +819,16 @@ public class frmEgresados extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono2;
     private javax.swing.JTextField txtTelefono3;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarCombobox() {
+        DefaultComboBoxModel<String> model = metodos.obtenerNombresOperadores();
+        cbxOpe1.setModel(model);
+        DefaultComboBoxModel<String> model2 = metodos.obtenerNombresOperadores();
+        cbxOpe2.setModel(model2);
+        DefaultComboBoxModel<String> model3 = metodos.obtenerNombresOperadores();
+        cbxOpe3.setModel(model3);
+        DefaultComboBoxModel<String> model4 = metodos.obtenerNombresFiliales();
+        cbxFilial.setModel(model4);
+        
+    }
 }
