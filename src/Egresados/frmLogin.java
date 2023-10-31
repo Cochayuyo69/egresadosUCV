@@ -1,6 +1,6 @@
-
 package Egresados;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
 
@@ -19,7 +19,7 @@ public class frmLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txtContra = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         btnCrearcuenta = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -47,9 +47,9 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Card_Header.png"))); // NOI18N
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
 
-        txtContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraActionPerformed(evt);
+        txtContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtContraKeyReleased(evt);
             }
         });
         jPanel2.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 340, 40));
@@ -133,10 +133,6 @@ public class frmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraActionPerformed
-
     private void btnCrearcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearcuentaActionPerformed
         frmRegistrarse f = new frmRegistrarse();
         f.setVisible(true);
@@ -150,12 +146,15 @@ public class frmLogin extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String contra = txtContra.getText();
         if(usuario.equals("") && contra.equals("")){
+            getToolkit().beep();
             JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
         else if (usuario.equals("")){
+            getToolkit().beep();
             JOptionPane.showMessageDialog(null, "Ingrese un usuario.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
         else if (contra.equals("")){
+            getToolkit().beep();
             JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
         else{
@@ -166,9 +165,41 @@ public class frmLogin extends javax.swing.JFrame {
                 dispose();
             }
             else if (est.equals("ERROR")){
+                getToolkit().beep();
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
             }
         }    }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void txtContraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String usuario = txtUsuario.getText();
+            String contra = txtContra.getText();
+            if(usuario.equals("") && contra.equals("")){
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Ingrese un usuario y contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (usuario.equals("")){
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Ingrese un usuario.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (contra.equals("")){
+                getToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Ingrese una contraseña.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                String est = metodos.consultaUsuario(usuario, contra);
+                if (est.equals("CORRECTOS")){
+                    frmMenu f = new frmMenu();
+                    f.setVisible(true);
+                    dispose();
+                }
+                else if (est.equals("ERROR")){
+                    getToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_txtContraKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -216,7 +247,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtContra;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 

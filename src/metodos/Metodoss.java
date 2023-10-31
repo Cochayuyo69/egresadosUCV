@@ -1,4 +1,3 @@
-
 package metodos;
 
 import java.sql.Connection;
@@ -6,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import datos.DatosEgresados;
+import java.util.ArrayList;
+import java.util.List;
 import datos.DatosUsuarios;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+
 
 public class Metodoss{
 //Llamamos a la clase padre y las variables
@@ -30,7 +29,7 @@ public class Metodoss{
     public void guardarEgresado(DatosEgresados unEgresado) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+            con = DriverManager.getConnection(url, user, pass);
 
             String query = "INSERT INTO egresados (Codigo_de_estudiante, Nombre_de_IE, Filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, Area_trabajo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -108,7 +107,7 @@ public class Metodoss{
     public void guardarUsuario(DatosUsuarios Usuario) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+            con = DriverManager.getConnection(url, user, pass);
 
             String query = "INSERT INTO login (USUARIO,CONTRASEÑA,APELLIDOS_Y_NOMBRES,CORREO_ELECTRONICO) VALUES (?, ?, ?, ?);";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -130,7 +129,7 @@ public class Metodoss{
     public String consultaUsuario(String usuario, String contra){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+            con = DriverManager.getConnection(url, user, pass);
 
             String sql = "SELECT * FROM login WHERE USUARIO = ? AND CONTRASEÑA = ?";
             stmt = con.prepareStatement(sql);
@@ -153,87 +152,193 @@ public class Metodoss{
     }
     
     //METODO BUSCAR POR CODIGO
-    public void buscarPorCodigo(String codigo, DatosEgresados datos) {
+    public void buscarPorCodigo(String codigo, String numeroDocIdenti,DatosEgresados datos) {
         try {
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdegresados", "root", "20251221");
+        con = DriverManager.getConnection(url, user, pass);
         
-        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ?" ;
+        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
         PreparedStatement st;
         st = con.prepareStatement(query);
         st.setString(1, codigo);
+        st.setString(2,numeroDocIdenti);
         ResultSet rs = st.executeQuery();
         
         if(rs.next()){
-        datos.setNombreIE(rs.getString(3));
-        datos.setFilial(rs.getString(4));
-        datos.setCarrera(rs.getString(5));
-        datos.setApellidoP(rs.getString(6));
-        datos.setApellidoM(rs.getString(7));
-        datos.setNombres(rs.getString(8));
-        datos.setCorreo(rs.getString(9));
-        datos.setTele1(rs.getString(10));
-        datos.setTele2(rs.getString(11));
-        datos.setTele3(rs.getString(12));
-        datos.setAñoEgreso(rs.getString(13));
-        datos.setSemestreEgreso(rs.getString(14));
-        datos.setTipoDocIdenti(rs.getString(15));
-        datos.setNumDocIdenti(rs.getString(16));
-        datos.setEstGrado(rs.getString(17));
-        datos.setReGrado(rs.getString(18));
-        datos.setEstTitulo(rs.getString(19));
-        datos.setReTitulo(rs.getString(20));
-        datos.setEstTrabajo(rs.getString(21));
-        datos.setAreaTrabajo(rs.getString(22));
+            datos.setCodigoUCV(rs.getString(2));
+            datos.setNombreIE(rs.getString(3));
+            datos.setFilial(rs.getString(4));
+            datos.setCarrera(rs.getString(5));
+            datos.setApellidoP(rs.getString(6));
+            datos.setApellidoM(rs.getString(7));
+            datos.setNombres(rs.getString(8));
+            datos.setCorreo(rs.getString(9));
+            datos.setTele1(rs.getString(10));
+            datos.setTele2(rs.getString(11));
+            datos.setTele3(rs.getString(12));
+            datos.setAñoEgreso(rs.getString(13));
+            datos.setSemestreEgreso(rs.getString(14));
+            datos.setTipoDocIdenti(rs.getString(15));
+            datos.setNumDocIdenti(rs.getString(16));
+            datos.setEstGrado(rs.getString(17));
+            datos.setReGrado(rs.getString(18));
+            datos.setEstTitulo(rs.getString(19));
+            datos.setReTitulo(rs.getString(20));
+            datos.setEstTrabajo(rs.getString(21));
+            datos.setAreaTrabajo(rs.getString(22));
         }else{
-            JOptionPane.showMessageDialog(null, "No se encontró al egresado");
+            JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
         con.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
-    //para el botón guardar
-    public void CompararCodigo(String codigo){
     
-    }
-    
-    //PARA EL LOGIN
-    public static boolean verificarCredenciales(String usuario, String contra) {
-        boolean autenticado = false;
-        try {
-            FileReader fr = new FileReader("Usuarios.txt");
-            BufferedReader br = new BufferedReader(fr);
+    //METODO SI EXISTE CODIGO
+    public boolean buscarsiExiste(String codigo, String numDocIdenti) {
+    boolean existe = false;
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(url, user, pass);
 
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split("\\|");
-                if (partes.length == 2 && partes[0].equals(usuario) && partes[1].equals(contra)) {
-                    autenticado = true;
-                    break;
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace(); // Manejo de la excepción durante la lectura del archivo.
+        String query = "SELECT * FROM EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
+        PreparedStatement st = con.prepareStatement(query);
+        st.setString(1, codigo);
+        st.setString(2, numDocIdenti);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            existe = true; // Si hay una fila en el resultado, significa que el código existe en la base de datos
         }
-        return autenticado;
+        con.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+    }
+    return existe;
+}
+    
+    //METODO EDITAR DB
+    public void editar(DatosEgresados unEgresado){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "UPDATE egresados SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, Filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Num_telefono2 = ?, Num_telefono3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, Area_trabajo = ? WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+
+            preparedStmt.setString(1, unEgresado.getCodigoUCV());
+            preparedStmt.setString(2, unEgresado.getNombreIE());
+            preparedStmt.setString(3, unEgresado.getFilial());
+            preparedStmt.setString(4, unEgresado.getCarrera());
+            preparedStmt.setString(5, unEgresado.getApellidoP());
+            preparedStmt.setString(6, unEgresado.getApellidoM());
+            preparedStmt.setString(7, unEgresado.getNombres());
+            preparedStmt.setString(8, unEgresado.getCorreo());
+            preparedStmt.setString(9, unEgresado.getTele1());
+            preparedStmt.setString(10, unEgresado.getTele2());
+            preparedStmt.setString(11, unEgresado.getTele3());
+            preparedStmt.setString(12, unEgresado.getAñoEgreso());
+            preparedStmt.setString(13, unEgresado.getSemestreEgreso());
+            preparedStmt.setString(14, unEgresado.getTipoDocIdenti());
+            preparedStmt.setString(15, unEgresado.getNumDocIdenti());
+            preparedStmt.setString(16, unEgresado.getEstGrado());
+            preparedStmt.setString(17, unEgresado.getReGrado());
+            preparedStmt.setString(18, unEgresado.getEstTitulo());
+            preparedStmt.setString(19, unEgresado.getReTitulo());
+            preparedStmt.setString(20, unEgresado.getEstTrabajo());
+            preparedStmt.setString(21, unEgresado.getAreaTrabajo());
+            preparedStmt.setString(22, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
+            preparedStmt.setString(23, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
+
+            preparedStmt.executeUpdate();
+            con.close();
+            JOptionPane.showMessageDialog(null, "Egresado editado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "Error al editar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
     }
     
-    public void conector() {
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Nos conectamos a la bd
-            con=DriverManager.getConnection(url, user, pass);
-            // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
-            if (con!=null){
-                System.out.println("Conexion establecida");
+    //METODO PARA MOSTRAR DB
+    public void mostrarPorCodigo(String codigo, String numeroDocIdenti,DatosEgresados datos){
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(url, user, pass);
+        
+        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
+        PreparedStatement st;
+        st = con.prepareStatement(query);
+        st.setString(1, codigo);
+        st.setString(2,numeroDocIdenti);
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next()){
+            datos.setCodigoUCV(rs.getString(2));
+            datos.setNombreIE(rs.getString(3));
+            datos.setFilial(rs.getString(4));
+            datos.setCarrera(rs.getString(5));
+            datos.setApellidoP(rs.getString(6));
+            datos.setApellidoM(rs.getString(7));
+            datos.setNombres(rs.getString(8));
+            datos.setCorreo(rs.getString(9));
+            datos.setTele1(rs.getString(10));
+            datos.setTele2(rs.getString(11));
+            datos.setTele3(rs.getString(12));
+            datos.setAñoEgreso(rs.getString(13));
+            datos.setSemestreEgreso(rs.getString(14));
+            datos.setTipoDocIdenti(rs.getString(15));
+            datos.setNumDocIdenti(rs.getString(16));
+            datos.setEstGrado(rs.getString(17));
+            datos.setReGrado(rs.getString(18));
+            datos.setEstTitulo(rs.getString(19));
+            datos.setReTitulo(rs.getString(20));
+            datos.setEstTrabajo(rs.getString(21));
+            datos.setAreaTrabajo(rs.getString(22));
+        }else{
+            JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    //METODO PARA MOSTRAR DB
+    public String [][] mostrar(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT ID, Codigo_de_estudiante, Filial, Apellido_paterno, Apellido_materno, Nombres, " +
+                    "Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, " +
+                    "Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, " +
+                    "Tiene_Titulo, Resolucion_Titulo, Estado_trabajo " +
+                    "FROM EGRESADOS";
+
+            PreparedStatement st = con.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            List<String[]> dataList = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[19]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 19; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    data[j] = rs.getString(j + 1);
+                }
+                dataList.add(data);
             }
+            con.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] dataArr = new String[dataList.size()][19];
+            for (int i = 0; i < dataList.size(); i++) {
+                dataArr[i] = dataList.get(i);
+            }
+            return dataArr;
+        } catch (Exception e) {
+            System.err.println("Error! ");
+            System.err.println(e.getMessage());
         }
-        // Si la conexion NO fue exitosa mostramos un mensaje de error
-        catch (ClassNotFoundException | SQLException e){
-            System.out.println("Error de conexion " + e);
-        }
+    return null;
     }
 }
 
