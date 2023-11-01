@@ -12,8 +12,6 @@ public class frmRegistrarse extends javax.swing.JFrame {
     public frmRegistrarse() {
         initComponents();
         setTitle("REGISTRARSE");
-        setSize(1920, 1980);
-        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")

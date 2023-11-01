@@ -11,8 +11,7 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         setTitle("SEGUIMIENTO DE EGRESADOS");
         //Tamaño de la ventana
-        setSize(1920, 1980);
-        setResizable(false);
+        
     }
 
     @SuppressWarnings("unchecked")
