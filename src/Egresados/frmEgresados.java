@@ -91,10 +91,6 @@ public class frmEgresados extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbxTipoDoc = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        cbxEstadoGrado = new javax.swing.JComboBox<>();
-        txtResGrado = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cbxEstadoTitulo = new javax.swing.JComboBox<>();
@@ -117,6 +113,10 @@ public class frmEgresados extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jbar = new javax.swing.JScrollBar();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        cbxEstadoGrado = new javax.swing.JComboBox<>();
+        txtResGrado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -216,7 +216,7 @@ public class frmEgresados extends javax.swing.JFrame {
 
         cbxEstadoTrabajo.setBackground(new java.awt.Color(255, 255, 250));
         cbxEstadoTrabajo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxEstadoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
+        cbxEstadoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
         cbxEstadoTrabajo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(cbxEstadoTrabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 70, 50));
 
@@ -236,31 +236,6 @@ public class frmEgresados extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 600, 420));
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
-        jLabel9.setText("Tiene Grado:");
-        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
-
-        cbxEstadoGrado.setBackground(new java.awt.Color(255, 255, 250));
-        cbxEstadoGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxEstadoGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
-        cbxEstadoGrado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel5.add(cbxEstadoGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, 50));
-
-        txtResGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        txtResGrado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Resolución Grado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
-        txtResGrado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtResGradoActionPerformed(evt);
-            }
-        });
-        jPanel5.add(txtResGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 320, 80));
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 510, 140));
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setMinimumSize(new java.awt.Dimension(520, 110));
@@ -272,7 +247,7 @@ public class frmEgresados extends javax.swing.JFrame {
 
         cbxEstadoTitulo.setBackground(new java.awt.Color(255, 255, 250));
         cbxEstadoTitulo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        cbxEstadoTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
+        cbxEstadoTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
         cbxEstadoTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.add(cbxEstadoTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, 50));
 
@@ -285,7 +260,7 @@ public class frmEgresados extends javax.swing.JFrame {
         });
         jPanel4.add(txtResTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 320, 80));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 460, 510, 130));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 510, 140));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -436,6 +411,31 @@ public class frmEgresados extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 680, 340, 200));
         jPanel1.add(jbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 110, 20, 570));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
+        jLabel9.setText("Tiene Grado:");
+        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
+
+        cbxEstadoGrado.setBackground(new java.awt.Color(255, 255, 250));
+        cbxEstadoGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        cbxEstadoGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
+        cbxEstadoGrado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel5.add(cbxEstadoGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, 50));
+
+        txtResGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        txtResGrado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Resolución Grado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
+        txtResGrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtResGradoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtResGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 320, 80));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 460, 510, 130));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -588,18 +588,22 @@ public class frmEgresados extends javax.swing.JFrame {
         //traemos el codigo a buscar
         String codigo= jtxtcodigoE.getText();
         String numeroDocIdenti =  txtNumeroDoc.getText();
+        
         //Verificamos que ingresaran datos correctos   
         String verificar=excepcion.exceptosBUSCAR(codigo,numeroDocIdenti);
+        
         //Si son correctos se ejecuta
         if(verificar.equals("")){        
         if (numeroDocIdenti.equals("")){
+            
             //instancia de la clase datos para guardar lo obtenido
             DatosEgresados datosencontrados = new DatosEgresados();
+            
             //traer al metodo :D
             metodos.buscarPorCodigo(codigo, numeroDocIdenti,datosencontrados);
             if (datosencontrados.getReGrado() != null){
                 //colocar en el formulario lo encontrado
-                cbxFilial.setSelectedItem(datosencontrados.getFilial());
+                cbxFilial.setSelectedItem(metodos.obtenerNombreFILIAL(datosencontrados.getFilial()));
                 cbxEstadoTrabajo.setSelectedItem(datosencontrados.getEstTrabajo());
                 jtxtcodigoE.setText(datosencontrados.getCodigoUCV());
                 jtxtApellidoP.setText(datosencontrados.getApellidoP());
@@ -607,8 +611,11 @@ public class frmEgresados extends javax.swing.JFrame {
                 jtxtNombres.setText(datosencontrados.getNombres());
                 txtCorreo.setText(datosencontrados.getCorreo());
                 txtTelefono1.setText(datosencontrados.getTele1());
+                cbxOpe1.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador1()));
                 txtTelefono2.setText(datosencontrados.getTele2());
+                cbxOpe2.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador2()));
                 txtTelefono3.setText(datosencontrados.getTele3());
+                cbxOpe3.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador3()));
                 txtAñoEgreso.setText(datosencontrados.getAñoEgreso());
                 txtSemestreEgreso.setText(datosencontrados.getSemestreEgreso());
                 cbxTipoDoc.setSelectedItem(datosencontrados.getTipoDocIdenti());
@@ -627,7 +634,7 @@ public class frmEgresados extends javax.swing.JFrame {
             metodos.buscarPorCodigo(codigo, numeroDocIdenti,datosencontrados);
             if (datosencontrados.getReGrado() != null){
                 //colocar en el formulario lo encontrado
-                cbxFilial.setSelectedItem(datosencontrados.getFilial());
+                cbxFilial.setSelectedItem(metodos.obtenerNombreFILIAL(datosencontrados.getFilial()));
                 cbxEstadoTrabajo.setSelectedItem(datosencontrados.getEstTrabajo());
                 jtxtcodigoE.setText(datosencontrados.getCodigoUCV());
                 jtxtApellidoP.setText(datosencontrados.getApellidoP());
@@ -635,8 +642,11 @@ public class frmEgresados extends javax.swing.JFrame {
                 jtxtNombres.setText(datosencontrados.getNombres());
                 txtCorreo.setText(datosencontrados.getCorreo());
                 txtTelefono1.setText(datosencontrados.getTele1());
+                cbxOpe1.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador1()));
                 txtTelefono2.setText(datosencontrados.getTele2());
+                cbxOpe2.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador2()));
                 txtTelefono3.setText(datosencontrados.getTele3());
+                cbxOpe3.setSelectedItem(metodos.obtenerNombreOPERADOR(datosencontrados.getOperador3()));
                 txtAñoEgreso.setText(datosencontrados.getAñoEgreso());
                 txtSemestreEgreso.setText(datosencontrados.getSemestreEgreso());
                 cbxTipoDoc.setSelectedItem(datosencontrados.getTipoDocIdenti());

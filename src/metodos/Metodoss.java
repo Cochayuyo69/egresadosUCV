@@ -10,6 +10,8 @@ import java.util.List;
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 
 
@@ -120,48 +122,50 @@ public class Metodoss{
     }
     
     //METODO BUSCAR POR CODIGO
-    public void buscarPorCodigo(String codigo, String numeroDocIdenti,DatosEgresados datos) {
-        try {
+    public void buscarPorCodigo(String codigo, String numeroDocIdenti, DatosEgresados datos) {
+    try {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(url, user, pass);
-        
-        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
-        PreparedStatement st;
-        st = con.prepareStatement(query);
+
+        String query = "SELECT * FROM EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
+        PreparedStatement st = con.prepareStatement(query);
         st.setString(1, codigo);
-        st.setString(2,numeroDocIdenti);
+        st.setString(2, numeroDocIdenti);
         ResultSet rs = st.executeQuery();
-        
-        if(rs.next()){
-            datos.setCodigoUCV(rs.getString(2));
-            datos.setNombreIE(rs.getString(3));
-            datos.setFilial(rs.getInt(4));
-            datos.setCarrera(rs.getString(5));
-            datos.setApellidoP(rs.getString(6));
-            datos.setApellidoM(rs.getString(7));
-            datos.setNombres(rs.getString(8));
-            datos.setCorreo(rs.getString(9));
-            datos.setTele1(rs.getString(10));
-            datos.setTele2(rs.getString(11));
-            datos.setTele3(rs.getString(12));
-            datos.setAñoEgreso(rs.getString(13));
-            datos.setSemestreEgreso(rs.getString(14));
-            datos.setTipoDocIdenti(rs.getString(15));
-            datos.setNumDocIdenti(rs.getString(16));
-            datos.setEstGrado(rs.getString(17));
-            datos.setReGrado(rs.getString(18));
-            datos.setEstTitulo(rs.getString(19));
-            datos.setReTitulo(rs.getString(20));
-            datos.setEstTrabajo(rs.getString(21));
-            datos.setAreaTrabajo(rs.getInt(22));
-        }else{
+
+        if (rs.next()) {
+            datos.setCodigoUCV(rs.getString("Codigo_de_estudiante"));
+            datos.setNombreIE(rs.getString("Nombre_de_IE"));
+            datos.setFilial(rs.getInt("id_filial"));
+            datos.setCarrera(rs.getString("Carrera"));
+            datos.setApellidoP(rs.getString("Apellido_paterno"));
+            datos.setApellidoM(rs.getString("Apellido_materno"));
+            datos.setNombres(rs.getString("Nombres"));
+            datos.setCorreo(rs.getString("Correo_electronico"));
+            datos.setTele1(rs.getString("Num_telefono"));
+            datos.setOperador1(rs.getInt("Operador_1"));
+            datos.setTele2(rs.getString("Num_telefono2"));
+            datos.setOperador2(rs.getInt("Operador_2"));
+            datos.setTele3(rs.getString("Num_telefono3"));
+            datos.setOperador3(rs.getInt("Operador_3"));
+            datos.setAñoEgreso(rs.getString("Año_egreso"));
+            datos.setSemestreEgreso(rs.getString("Semestre_egreso"));
+            datos.setTipoDocIdenti(rs.getString("Tipo_documento_identidad"));
+            datos.setNumDocIdenti(rs.getString("Numero_documento_identidad"));
+            datos.setEstGrado(rs.getString("Tiene_Grado"));
+            datos.setReGrado(rs.getString("Resolucion_Grado"));
+            datos.setEstTitulo(rs.getString("Tiene_Titulo"));
+            datos.setReTitulo(rs.getString("Resolucion_Titulo"));
+            datos.setEstTrabajo(rs.getString("Estado_trabajo"));
+            datos.setAreaTrabajo(rs.getInt("id_area_trabajo"));
+        } else {
             JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
         con.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
     }
+}
     
     //METODO SI EXISTE CODIGO
     public boolean buscarsiExiste(String codigo, String numDocIdenti) {
@@ -192,32 +196,35 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "UPDATE egresados SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, Filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Num_telefono2 = ?, Num_telefono3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, Area_trabajo = ? WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
+            String query = "UPDATE EGRESADOS SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, id_filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Operador_1 = ?, Num_telefono2 = ?,  Operador_2 = ?, Num_telefono3 = ?,  Operador_3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, id_area_trabajo = ? WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             preparedStmt.setString(1, unEgresado.getCodigoUCV());
             preparedStmt.setString(2, unEgresado.getNombreIE());
-            preparedStmt.setInt(3, unEgresado.getFilial());
+            preparedStmt.setInt(3, unEgresado.getFilial()); // Asegúrate de obtener el ID de la filial en lugar de su nombre
             preparedStmt.setString(4, unEgresado.getCarrera());
             preparedStmt.setString(5, unEgresado.getApellidoP());
             preparedStmt.setString(6, unEgresado.getApellidoM());
             preparedStmt.setString(7, unEgresado.getNombres());
             preparedStmt.setString(8, unEgresado.getCorreo());
             preparedStmt.setString(9, unEgresado.getTele1());
-            preparedStmt.setString(10, unEgresado.getTele2());
-            preparedStmt.setString(11, unEgresado.getTele3());
-            preparedStmt.setString(12, unEgresado.getAñoEgreso());
-            preparedStmt.setString(13, unEgresado.getSemestreEgreso());
-            preparedStmt.setString(14, unEgresado.getTipoDocIdenti());
-            preparedStmt.setString(15, unEgresado.getNumDocIdenti());
-            preparedStmt.setString(16, unEgresado.getEstGrado());
-            preparedStmt.setString(17, unEgresado.getReGrado());
-            preparedStmt.setString(18, unEgresado.getEstTitulo());
-            preparedStmt.setString(19, unEgresado.getReTitulo());
-            preparedStmt.setString(20, unEgresado.getEstTrabajo());
-            preparedStmt.setInt(21, unEgresado.getAreaTrabajo());
-            preparedStmt.setString(22, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
-            preparedStmt.setString(23, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
+            preparedStmt.setInt(10, unEgresado.getFilial());
+            preparedStmt.setString(11, unEgresado.getTele2());
+            preparedStmt.setInt(12, unEgresado.getFilial());
+            preparedStmt.setString(13, unEgresado.getTele3());
+            preparedStmt.setInt(14, unEgresado.getFilial());
+            preparedStmt.setString(15, unEgresado.getAñoEgreso());
+            preparedStmt.setString(16, unEgresado.getSemestreEgreso());
+            preparedStmt.setString(17, unEgresado.getTipoDocIdenti());
+            preparedStmt.setString(18, unEgresado.getNumDocIdenti());
+            preparedStmt.setString(19, unEgresado.getEstGrado());
+            preparedStmt.setString(20, unEgresado.getReGrado());
+            preparedStmt.setString(21, unEgresado.getEstTitulo());
+            preparedStmt.setString(22, unEgresado.getReTitulo());
+            preparedStmt.setString(23, unEgresado.getEstTrabajo());
+            preparedStmt.setInt(24, unEgresado.getAreaTrabajo()); // Asegúrate de obtener el ID del área de trabajo en lugar de su nombre
+            preparedStmt.setString(25, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
+            preparedStmt.setString(26, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
 
             preparedStmt.executeUpdate();
             con.close();
@@ -227,69 +234,21 @@ public class Metodoss{
         }
     }
     
-    //METODO PARA MOSTRAR DB
-    public void mostrarPorCodigo(String codigo, String numeroDocIdenti,DatosEgresados datos){
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection(url, user, pass);
-        
-        String query = "select*from EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
-        PreparedStatement st;
-        st = con.prepareStatement(query);
-        st.setString(1, codigo);
-        st.setString(2,numeroDocIdenti);
-        ResultSet rs = st.executeQuery();
-        
-        if(rs.next()){
-            datos.setCodigoUCV(rs.getString(2));
-            datos.setNombreIE(rs.getString(3));
-            datos.setFilial(rs.getInt(4));
-            datos.setCarrera(rs.getString(5));
-            datos.setApellidoP(rs.getString(6));
-            datos.setApellidoM(rs.getString(7));
-            datos.setNombres(rs.getString(8));
-            datos.setCorreo(rs.getString(9));
-            datos.setTele1(rs.getString(10));
-            datos.setTele2(rs.getString(11));
-            datos.setTele3(rs.getString(12));
-            datos.setAñoEgreso(rs.getString(13));
-            datos.setSemestreEgreso(rs.getString(14));
-            datos.setTipoDocIdenti(rs.getString(15));
-            datos.setNumDocIdenti(rs.getString(16));
-            datos.setEstGrado(rs.getString(17));
-            datos.setReGrado(rs.getString(18));
-            datos.setEstTitulo(rs.getString(19));
-            datos.setReTitulo(rs.getString(20));
-            datos.setEstTrabajo(rs.getString(21));
-            datos.setAreaTrabajo(rs.getInt(22));
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        }
-        con.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-    
     //METODO PARA MOSTRAR en 
-    public String [][] mostrar(){
+    public String[][] mostrar() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "SELECT ID, Codigo_de_estudiante, Filial, Apellido_paterno, Apellido_materno, Nombres, " +
-                    "Correo_electronico, Num_telefono, Num_telefono2, Num_telefono3, Año_egreso, Semestre_egreso, " +
-                    "Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, " +
-                    "Tiene_Titulo, Resolucion_Titulo, Estado_trabajo " +
-                    "FROM EGRESADOS";
+            String query = "SELECT id, Codigo_de_estudiante, id_filial, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo FROM EGRESADOS";
 
             PreparedStatement st = con.prepareStatement(query);
             ResultSet rs = st.executeQuery();
 
             List<String[]> dataList = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[19]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 19; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                String[] data = new String[16]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 16; j++) { // Ajusta el límite en función de las columnas que estás recuperando
                     data[j] = rs.getString(j + 1);
                 }
                 dataList.add(data);
@@ -297,7 +256,7 @@ public class Metodoss{
             con.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] dataArr = new String[dataList.size()][19];
+            String[][] dataArr = new String[dataList.size()][16];
             for (int i = 0; i < dataList.size(); i++) {
                 dataArr[i] = dataList.get(i);
             }
@@ -306,7 +265,7 @@ public class Metodoss{
             System.err.println("Error! ");
             System.err.println(e.getMessage());
         }
-    return null;
+        return null;
     }
     
     //METODO PARA CARGAR COMBO OPERADOR
@@ -356,6 +315,30 @@ public class Metodoss{
         return idOperador;
     }
     
+    //METODO PARA OBTENER EL NOMBRE DEL OPERADOR SEGUN  SU ID
+    public String obtenerNombreOPERADOR(int idOperador) {
+        String nombreOperador = "";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_operador FROM operadores WHERE id_operador = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idOperador);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nombreOperador = rs.getString("Nombre_operador");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el nombre del operador: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return nombreOperador;
+    }
+    
     //METODO PARA CARGAR COMBO FILIAL
     public DefaultComboBoxModel<String> obtenerNombresFiliales() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -400,6 +383,41 @@ public class Metodoss{
         }
 
         return idFilial;
+    }
+    //METODO PARA OBTENER EL NOMBRE DE LA FILIAL SEGUN  SU ID
+    public String obtenerNombreFILIAL(int idFilial) {
+        String nombreFilial = "";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_filial FROM Filiales WHERE id_filial  = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idFilial);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nombreFilial = rs.getString("Nombre_filial");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el nombre de la filial: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return nombreFilial;
+    }
+    
+    //VERIFICAR CORREO
+    public boolean verificarCorreo(String correo){
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ucvvirtual.edu.pe");
+        Matcher matcher = pattern.matcher(correo);
+        if (matcher.find()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese un correo eléctronico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
     }
 }
 

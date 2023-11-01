@@ -27,9 +27,6 @@ public class frmReportes extends javax.swing.JFrame {
         model.addColumn("Apellido Materno");
         model.addColumn("Nombres");
         model.addColumn("Correo Electrónico");
-        model.addColumn("1.º Teléfono");
-        model.addColumn("2.º Teléfono");
-        model.addColumn("3.º Teléfono");
         model.addColumn("Año de egreso");
         model.addColumn("Semestre de egreso");
         model.addColumn("Tipo de documento de identidad");
@@ -40,7 +37,7 @@ public class frmReportes extends javax.swing.JFrame {
         model.addColumn("Resolucion de Título");
         model.addColumn("Estado de trabajo");
         tblDatos.setModel(model);
-        
+
         String[][] datos = metodos.mostrar();
         if (datos != null) {
             for (String[] row : datos) {

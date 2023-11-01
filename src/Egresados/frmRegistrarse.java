@@ -2,6 +2,7 @@
 package Egresados;
 
 import datos.DatosUsuarios;
+import javax.swing.JOptionPane;
 import metodos.Metodoss;
 
 public class frmRegistrarse extends javax.swing.JFrame {
@@ -133,15 +134,22 @@ public class frmRegistrarse extends javax.swing.JFrame {
         String CONTRASEÑA = txtContra.getText();
         String APELLIDOS_Y_NOMBRES = txtApellidosNombres.getText();
         String CORREO_ELECTRONICO = txtCorreo.getText();
+        boolean verificacion = false;
         
-        //GUARDAR DATOS
-        datos.setAPELLIDOS_Y_NOMBRES(APELLIDOS_Y_NOMBRES);
-        datos.setCONTRASEÑA(CONTRASEÑA);
-        datos.setCORREO_ELECTRONICO(CORREO_ELECTRONICO);
-        datos.setUSUARIO(USUARIO);
-        
-        metodos.guardarUsuario(datos);
-        this.dispose();
+        if (USUARIO.equals("") || CONTRASEÑA.equals("") || APELLIDOS_Y_NOMBRES.equals("") || CORREO_ELECTRONICO.equals("")){
+            JOptionPane.showMessageDialog(null, "Llene todos los datos por favor.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            verificacion =  metodos.verificarCorreo(CORREO_ELECTRONICO);
+        }
+        else if(verificacion){
+            //GUARDAR DATOS
+            datos.setAPELLIDOS_Y_NOMBRES(APELLIDOS_Y_NOMBRES);
+            datos.setCONTRASEÑA(CONTRASEÑA);
+            datos.setCORREO_ELECTRONICO(CORREO_ELECTRONICO);
+            datos.setUSUARIO(USUARIO);
+
+            metodos.guardarUsuario(datos);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     
