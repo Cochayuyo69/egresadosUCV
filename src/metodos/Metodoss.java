@@ -415,7 +415,6 @@ public class Metodoss{
         if (matcher.find()) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Ingrese un correo eléctronico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
