@@ -130,12 +130,17 @@ public class frmRegistrarse extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        //RECOLECTAR LOS DATOS
         String USUARIO = txtUsuario.getText();
         String CONTRASEÑA = txtContra.getText();
         String APELLIDOS_Y_NOMBRES = txtApellidosNombres.getText();
         String CORREO_ELECTRONICO = txtCorreo.getText();
         boolean verificacion = false;
+        
+        //VERIFICAR EL CORREO
         verificacion =  metodos.verificarCorreo(CORREO_ELECTRONICO);
+        
+        //VALIDAR QUE LOS CAMPOS ESTEN LLENOS
         if (USUARIO.equals("") || CONTRASEÑA.equals("") || APELLIDOS_Y_NOMBRES.equals("") || CORREO_ELECTRONICO.equals("")){
             JOptionPane.showMessageDialog(null, "Llene todos los datos por favor.", "AVISO", JOptionPane.WARNING_MESSAGE);
         }
@@ -149,7 +154,7 @@ public class frmRegistrarse extends javax.swing.JFrame {
             metodos.guardarUsuario(datos);
             this.dispose();
         }
-        else 
+        else
             JOptionPane.showMessageDialog(null, "Ingrese un correo eléctronico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
