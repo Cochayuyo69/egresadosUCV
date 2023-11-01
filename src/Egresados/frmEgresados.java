@@ -1,17 +1,20 @@
 package Egresados;
 
 import datos.DatosEgresados;
+import java.awt.Dimension;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
+import metodos.Excepciones;
 public class frmEgresados extends javax.swing.JFrame {
     DatosEgresados datos = new DatosEgresados();
     Metodoss metodos= new Metodoss();
-
+    Excepciones excepcion = new Excepciones();
     public frmEgresados() {
         initComponents();
         setTitle("EGRESADOS");
         llenarCombobox();
+        setPreferredSize(new Dimension(1270,720));
     }
     
     //BLOQUEAR TODO
@@ -106,13 +109,14 @@ public class frmEgresados extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txtSemestreEgreso = new javax.swing.JTextField();
         txtAñoEgreso = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNumeroDoc = new javax.swing.JTextField();
         jbtnbuscar = new javax.swing.JButton();
         jtxtcodigoE = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jbar = new javax.swing.JScrollBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -380,9 +384,6 @@ public class frmEgresados extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 600, 600, 140));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 690, 340, 200));
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvs.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -30, -1, 150));
 
@@ -431,6 +432,10 @@ public class frmEgresados extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/titulo_EGRESADOS.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 680, 340, 200));
+        jPanel1.add(jbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 110, 20, 570));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -579,15 +584,15 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnEditarActionPerformed
 
     private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed
+
         //traemos el codigo a buscar
         String codigo= jtxtcodigoE.getText();
         String numeroDocIdenti =  txtNumeroDoc.getText();
-        
-        if (codigo.equals("") && numeroDocIdenti.equals("")){
-            JOptionPane.showMessageDialog(null, "Ingrese el código del estudiante o su Nº Documento de identidad.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("lol");
-        }
-        else if (numeroDocIdenti.equals("")){
+        //Verificamos que ingresaran datos correctos   
+        String verificar=excepcion.exceptosBUSCAR(codigo,numeroDocIdenti);
+        //Si son correctos se ejecuta
+        if(verificar.equals("")){        
+        if (numeroDocIdenti.equals("")){
             //instancia de la clase datos para guardar lo obtenido
             DatosEgresados datosencontrados = new DatosEgresados();
             //traer al metodo :D
@@ -644,7 +649,11 @@ public class frmEgresados extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbtnbuscarActionPerformed
-
+        //Sino se ejecuta se muestra el error
+        else{
+            JOptionPane.showMessageDialog(null, verificar, "Aviso", HEIGHT);
+        }
+    }
     private void txtAñoEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAñoEgresoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAñoEgresoActionPerformed
@@ -801,6 +810,7 @@ public class frmEgresados extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollBar jbar;
     private javax.swing.JButton jbtnEditar;
     private javax.swing.JButton jbtnbuscar;
     private javax.swing.JButton jbtnguardar;
