@@ -123,7 +123,8 @@ public class frmEgresados extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        setPreferredSize(new Dimension(1250,720));
+        setPreferredSize(new Dimension(1250,680));
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -167,6 +168,11 @@ public class frmEgresados extends javax.swing.JFrame {
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
             }
         });
         jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 280, 80));
@@ -385,6 +391,11 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxOpe2.setBackground(new java.awt.Color(255, 255, 250));
         cbxOpe2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbxOpe2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbxOpe2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxOpe2ActionPerformed(evt);
+            }
+        });
         jPanel6.add(cbxOpe2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 140, 60));
 
         txtTelefono3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -561,7 +572,7 @@ public class frmEgresados extends javax.swing.JFrame {
         }
         //Sino se ejecuta se muestra el error
         else{
-            JOptionPane.showMessageDialog(null, verificar, "Aviso", HEIGHT);
+            JOptionPane.showMessageDialog(null, verificar, "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtnbuscarActionPerformed
 
@@ -791,6 +802,14 @@ public class frmEgresados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese al menos el DNI.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jbtnguardarActionPerformed
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void cbxOpe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxOpe2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxOpe2ActionPerformed
             
         
     public static void main(String args[]) {
