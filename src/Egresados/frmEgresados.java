@@ -731,7 +731,9 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxFilial.setSelectedIndex(0);
         cbxEstadoTitulo.setSelectedIndex(0);
         cbxEstadoGrado.setSelectedIndex(0);
-
+        cbxOpe1.setSelectedIndex(0);
+        cbxOpe2.setSelectedIndex(0);
+        cbxOpe3.setSelectedIndex(0);
         editar();
     }//GEN-LAST:event_jbtnnuevoActionPerformed
 

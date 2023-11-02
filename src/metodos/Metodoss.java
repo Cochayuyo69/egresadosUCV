@@ -208,11 +208,11 @@ public class Metodoss{
             preparedStmt.setString(7, unEgresado.getNombres());
             preparedStmt.setString(8, unEgresado.getCorreo());
             preparedStmt.setString(9, unEgresado.getTele1());
-            preparedStmt.setInt(10, unEgresado.getFilial());
+            preparedStmt.setInt(10, unEgresado.getOperador1());
             preparedStmt.setString(11, unEgresado.getTele2());
-            preparedStmt.setInt(12, unEgresado.getFilial());
+            preparedStmt.setInt(12, unEgresado.getOperador2());
             preparedStmt.setString(13, unEgresado.getTele3());
-            preparedStmt.setInt(14, unEgresado.getFilial());
+            preparedStmt.setInt(14, unEgresado.getOperador3());
             preparedStmt.setString(15, unEgresado.getAñoEgreso());
             preparedStmt.setString(16, unEgresado.getSemestreEgreso());
             preparedStmt.setString(17, unEgresado.getTipoDocIdenti());
