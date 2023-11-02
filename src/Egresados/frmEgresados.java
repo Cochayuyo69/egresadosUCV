@@ -77,7 +77,7 @@ public class frmEgresados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jscpegresados = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jtxtNombres = new javax.swing.JTextField();
@@ -124,7 +124,7 @@ public class frmEgresados extends javax.swing.JFrame {
         setResizable(false);
 
         setPreferredSize(new Dimension(1250,680));
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jscpegresados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -449,9 +449,9 @@ public class frmEgresados extends javax.swing.JFrame {
         });
         jPanel1.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 790, 250, 75));
 
-        jScrollPane1.setViewportView(jPanel1);
+        jscpegresados.setViewportView(jPanel1);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jscpegresados, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -766,6 +766,7 @@ public class frmEgresados extends javax.swing.JFrame {
         String reGrado = txtResGrado.getText();
         String estTitulo = cbxEstadoTitulo.getSelectedItem().toString();
         String reTitulo = txtResTitulo.getText();
+        
         //GUARDAR DATOS
         datos.setCodigoUCV(codigoUCV);
         datos.setFilial(filial);
@@ -789,7 +790,11 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setReTitulo(reTitulo);
         datos.setEstTrabajo(estTrabajo);
         datos.setAreaTrabajo(areaTrabajo);
-        if(!(numDocIdenti.equals(null))){
+        //Traemos excepciones para guardar
+        Excepciones guardar= new Excepciones();
+        String necesario=guardar.ExcepcionesGuardar(codigoUCV, apellidoP, apellidoM, nombres, correo, tele1, Operador1, tele2, Operador2, tele3, Operador3, añoEgreso, semestreEgreso, tipoDocIdenti, numDocIdenti, estGrado, reGrado, estTitulo, reTitulo);
+        if(necesario.equals("")){
+            
             //VERIFICAR SI EL CODIGO DE ESTUDIANTE YA EXISTE EN LA DB
             boolean existe = metodos.buscarsiExiste(codigoUCV, numDocIdenti);
             if (existe){
@@ -799,9 +804,8 @@ public class frmEgresados extends javax.swing.JFrame {
                 metodos.guardarEgresado(datos);
             }
             noeditar();
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Ingrese al menos el DNI.", "Error", JOptionPane.WARNING_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, necesario, "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jbtnguardarActionPerformed
 
@@ -846,11 +850,11 @@ public class frmEgresados extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnEditar;
     private javax.swing.JButton jbtnbuscar;
     private javax.swing.JButton jbtnguardar;
     private javax.swing.JButton jbtnnuevo;
+    private javax.swing.JScrollPane jscpegresados;
     private javax.swing.JTextField jtxtApellidoM;
     private javax.swing.JTextField jtxtApellidoP;
     private javax.swing.JTextField jtxtNombres;
