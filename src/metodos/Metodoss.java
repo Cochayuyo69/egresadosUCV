@@ -27,6 +27,21 @@ public class Metodoss{
     private static final String url="jdbc:mysql://localhost:3306/prueba1";
     private static PreparedStatement stmt = null;
     
+    //Crear coneccion 
+    
+    public Connection abrirconeccion(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            if(con!=null){
+                System.out.println("Coneccion exitosa");
+            }
+            return con;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error"+e);
+        }
+    return con;
+    }
     
     //GUARDAR EGRESADIS EN DB
     public void guardarEgresado(DatosEgresados unEgresado) {
