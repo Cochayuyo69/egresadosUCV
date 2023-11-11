@@ -23,19 +23,19 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BD_Excel {
-    /*public static void crearArchivoExcel(){
-    Workbook libro = new XSSFWorkbook();
-    Sheet hoja = libro.createSheet("Java");
-    
-        try {
-            FileOutputStream archivo = new FileOutputStream(new File("Reporte.xlsx"));
-            libro.write(archivo);
-            archivo.close();
-            System.out.println("se creo");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: "+e);
-        }
-    }*/
+//    public static void crearArchivoExcel(){
+//    Workbook libro = new XSSFWorkbook();
+//    Sheet hoja = libro.createSheet("Java");
+//    
+//        try {
+//            FileOutputStream archivo = new FileOutputStream(new File("Reporte.xlsx"));
+//            libro.write(archivo);
+//            archivo.close();
+//            System.out.println("se creo");
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Error: "+e);
+//        }
+//    }
     
     /*public static void leerArchivoExcel() throws FileNotFoundException, IOException{
         FileInputStream archivo = new FileInputStream("C:\\Users\\Acer\\Desktop\\Deni\\proyecto ucv\\EGRESADOS.xlsx");
@@ -71,11 +71,20 @@ public class BD_Excel {
         FileInputStream archivo = new FileInputStream(file);
         XSSFWorkbook libro= new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
+                
+        //Obtenemos el inicio de la tabla
+        int numero_Filas= hoja.getLastRowNum();
+        int fila_no_nula=0;
+        for(int f=0; f<=numero_Filas;f++){
+            Row inicio = hoja.getRow(f);
+            if(inicio != null){
+                //Agregamos una unidad para no contar el titulo de las celdas
+                fila_no_nula=f+1;break;
+            }
+        }
         
         //guardamos los datos
-        int numero_Filas= hoja.getLastRowNum();
-
-        for(int i=1; i<=numero_Filas; i ++){
+        for(int i=fila_no_nula; i<=numero_Filas; i ++){
             Metodoss conexion= new Metodoss();
             Connection conectar = conexion.abrirconeccion();
             String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo) " +
@@ -84,8 +93,18 @@ public class BD_Excel {
             PreparedStatement insertar = conectar.prepareStatement(sql);
             
             Row fila = hoja.getRow(i);
+            //numero de inicio columna no nula
             int numero_columna= fila.getLastCellNum();
-            for (int j=0; j<numero_columna;j++){
+
+            int columna_no_nula=0;
+            for(int c=0; c<=numero_columna;c++){
+            Cell celda=fila.getCell(c);
+            if(celda != null){
+                columna_no_nula=c;break;
+                }
+            }
+                        JOptionPane.showMessageDialog(null, columna_no_nula);
+            for (int j=columna_no_nula; j<numero_columna;j++){
                 Cell celda=fila.getCell(j);
                 String dato_celda="";
                 switch (celda.getCellTypeEnum()){
@@ -95,7 +114,9 @@ public class BD_Excel {
                     case STRING: dato_celda=String.valueOf(celda.getStringCellValue());break;
                     case FORMULA: dato_celda=celda.getCellFormula();break;
                 }
-                insertar.setString((j+1),dato_celda);
+                
+                insertar.setString(((j-columna_no_nula)+1),dato_celda);
+                
             }
             insertar.executeUpdate();
         }
