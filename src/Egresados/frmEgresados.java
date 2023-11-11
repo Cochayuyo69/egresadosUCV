@@ -881,7 +881,8 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnnuevabusquedaActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        // TODO add your handling code here:
+        BD_Excel exportar = new BD_Excel();
+        exportar.exportar();
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed

@@ -11,7 +11,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import metodos.Metodoss;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -23,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BD_Excel {
+    Metodoss conexion= new Metodoss();
 //    public static void crearArchivoExcel(){
 //    Workbook libro = new XSSFWorkbook();
 //    Sheet hoja = libro.createSheet("Java");
@@ -85,7 +88,7 @@ public class BD_Excel {
         
         //guardamos los datos
         for(int i=fila_no_nula; i<=numero_Filas; i ++){
-            Metodoss conexion= new Metodoss();
+            
             Connection conectar = conexion.abrirconeccion();
             String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -103,7 +106,6 @@ public class BD_Excel {
                 columna_no_nula=c;break;
                 }
             }
-                        JOptionPane.showMessageDialog(null, columna_no_nula);
             for (int j=columna_no_nula; j<numero_columna;j++){
                 Cell celda=fila.getCell(j);
                 String dato_celda="";
@@ -122,7 +124,71 @@ public class BD_Excel {
         }
         JOptionPane.showMessageDialog(null, "Importación exitosa");
     }
-    //BOTON IMPORTAR
+    //BOTON EXPORTAR
+    public void exportar(){
+        try {
+            // Crear la conexión
+            Connection con =conexion.abrirconeccion();
+
+            // Crear una consulta SQL para obtener todos los datos de la tabla
+            String sql = "SELECT * FROM egresados";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            // Ejecutar la consulta
+            ResultSet resultSet = stmt.executeQuery();
+
+            // Crear un nuevo libro de Excel
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Egresados");
+
+            // Crear la primera fila para los encabezados
+            Row headerRow = sheet.createRow(0);
+            for (int i = 2; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(i - 2);
+                cell.setCellValue(resultSet.getMetaData().getColumnName(i));
+            }
+
+            // Llenar el resto de las filas con datos
+            int filaNum = 1;
+            while (resultSet.next()) {
+   
+            Row fila = sheet.createRow(filaNum++);
+   
+            for (int i = 2; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                Cell cell = fila.createCell(i - 2);
+
+                cell.setCellValue(resultSet.getString(i));
+             }
+            }
+
+            // Utilizar un JFileChooser para que el usuario elija la ubicación y el nombre del archivo
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xlsx)", "xlsx"));
+            
+            // Establecer el idioma español
+            
+            int userSelection = fileChooser.showSaveDialog(null);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                String rutaDelArchivo = fileChooser.getSelectedFile().getAbsolutePath() + ".xlsx";
+
+                // Guardar el libro en el archivo especificado
+                try (FileOutputStream fileOut = new FileOutputStream(rutaDelArchivo)) {
+                    workbook.write(fileOut);
+                }
+
+                JOptionPane.showMessageDialog(null,"Exportación a Excel exitosa");
+            } else {
+                JOptionPane.showMessageDialog(null,"Exportación cancelada por el usuario.");
+            }
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+    }
     
     public static void main(String[] args) throws IOException, FileNotFoundException, SQLException{
     //crearArchivoExcel();
