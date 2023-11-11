@@ -111,7 +111,7 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEgresadosActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        frmReportes f = new frmReportes();
+        frmMenuReportes f = new frmMenuReportes();
         f.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed
 
