@@ -893,7 +893,7 @@ public class frmEgresados extends javax.swing.JFrame {
             String direccion=file;
             BD_Excel importar = new BD_Excel();
             try {
-                importar.cargarDatos(direccion);
+                importar.importar(direccion);
             } catch (IOException ex) {
                 Logger.getLogger(frmEgresados.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

@@ -70,7 +70,8 @@ public class BD_Excel {
             System.out.println("");
         }
     }*/
-    public void cargarDatos(String file) throws FileNotFoundException, IOException, SQLException{
+    //Importar
+    public void importar(String file) throws FileNotFoundException, IOException, SQLException{
         FileInputStream archivo = new FileInputStream(file);
         XSSFWorkbook libro= new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
@@ -109,14 +110,39 @@ public class BD_Excel {
             for (int j=columna_no_nula; j<numero_columna;j++){
                 Cell celda=fila.getCell(j);
                 String dato_celda="";
+                //Consulta de nombre de operadores
+                String consulta_Operadores = "SELECT Nombre_operador FROM Operadores";
+                PreparedStatement operadores = conectar.prepareStatement(consulta_Operadores);
+                ResultSet rs_operadores = operadores.executeQuery();
+                //Consulta areas de trabajo
+                String consulta_Areas_trabajo="SELECT Nombre_area FROM Areas_Trabajo";
+                PreparedStatement areas_trabajo=conectar.prepareStatement(consulta_Areas_trabajo);
+                ResultSet rs_areas = areas_trabajo.executeQuery();
+                //segun el dato de la celda
                 switch (celda.getCellTypeEnum()){
                     case NUMERIC: double valorNumerico = celda.getNumericCellValue();
                                   long valorEntero = (long) valorNumerico;
                                   dato_celda = String.valueOf(valorEntero);break;
-                    case STRING: dato_celda=String.valueOf(celda.getStringCellValue());break;
+                    case STRING: {
+                        
+                        while (rs_operadores.next()){
+                        String nombreOperador = rs_operadores.getString("Nombre_operador");
+                        if(celda.getStringCellValue().equalsIgnoreCase(nombreOperador)){
+                            dato_celda=String.valueOf(conexion.obtenerIdOperador(nombreOperador));break;}
+                        }
+                        
+                        while (rs_areas.next()){
+                        String nombrearea = rs_areas.getString("Nombre_area");
+                        if(celda.getStringCellValue().equalsIgnoreCase(nombrearea)){
+                            dato_celda=String.valueOf(conexion.obtener_id_Area_trabajo(nombrearea));break;}
+                        }
+                    
+                        if(dato_celda.equals("")){
+                        dato_celda=String.valueOf(celda.getStringCellValue());}
+                    }break;
                     case FORMULA: dato_celda=celda.getCellFormula();break;
                 }
-                
+            
                 insertar.setString(((j-columna_no_nula)+1),dato_celda);
                 
             }
@@ -143,9 +169,21 @@ public class BD_Excel {
 
             // Crear la primera fila para los encabezados
             Row headerRow = sheet.createRow(0);
+            //contador para sacar el titulo de operador
+            int Operador_1=-999;
+            int Operador_2=-999;
+            int Operador_3=-999;
+            int id_Operador;
+            String nombreOPE;
             for (int i = 2; i <= resultSet.getMetaData().getColumnCount(); i++) {
                 Cell cell = headerRow.createCell(i - 2);
-                cell.setCellValue(resultSet.getMetaData().getColumnName(i));
+                String nombre_columna=resultSet.getMetaData().getColumnName(i);
+                cell.setCellValue(nombre_columna);
+                switch (nombre_columna){
+                    case "Operador_1" -> Operador_1=i;
+                    case "Operador_2" -> Operador_2=i;
+                    case "Operador_3" -> Operador_3=i;
+                }
             }
 
             // Llenar el resto de las filas con datos
@@ -154,10 +192,23 @@ public class BD_Excel {
    
             Row fila = sheet.createRow(filaNum++);
    
-            for (int i = 2; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                Cell cell = fila.createCell(i - 2);
-
-                cell.setCellValue(resultSet.getString(i));
+            for (int a = 2; a <= resultSet.getMetaData().getColumnCount(); a++) {
+                Cell cell = fila.createCell(a - 2);
+                if(a==Operador_1){
+                    id_Operador=resultSet.getInt(a);
+                    nombreOPE=conexion.obtenerNombreOPERADOR(id_Operador);
+                    cell.setCellValue(nombreOPE);
+                }else if(a==Operador_2){
+                    id_Operador=resultSet.getInt(a);
+                    nombreOPE=conexion.obtenerNombreOPERADOR(id_Operador);
+                    cell.setCellValue(nombreOPE);
+                }else if(a==Operador_3){
+                    id_Operador=resultSet.getInt(a);
+                    nombreOPE=conexion.obtenerNombreOPERADOR(id_Operador);
+                    cell.setCellValue(nombreOPE);
+                }else{
+                cell.setCellValue(resultSet.getString(a));
+                }
              }
             }
 
@@ -165,8 +216,6 @@ public class BD_Excel {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Guardar como");
             fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xlsx)", "xlsx"));
-            
-            // Establecer el idioma español
             
             int userSelection = fileChooser.showSaveDialog(null);
 
