@@ -118,12 +118,21 @@ public class BD_Excel {
                 String consulta_Areas_trabajo="SELECT Nombre_area FROM Areas_Trabajo";
                 PreparedStatement areas_trabajo=conectar.prepareStatement(consulta_Areas_trabajo);
                 ResultSet rs_areas = areas_trabajo.executeQuery();
+                //Consulta filial
+                String consulta_filial="SELECT Nombre_filial FROM Filiales";
+                PreparedStatement filial = conectar.prepareStatement(consulta_filial);
+                ResultSet rs_filial = filial.executeQuery();
                 //segun el dato de la celda
                 switch (celda.getCellTypeEnum()){
                     case NUMERIC: double valorNumerico = celda.getNumericCellValue();
                                   long valorEntero = (long) valorNumerico;
                                   dato_celda = String.valueOf(valorEntero);break;
                     case STRING: {
+                        while (rs_filial.next()){
+                        String nombreFilial = rs_filial.getString("Nombre_filial");
+                        if(celda.getStringCellValue().equalsIgnoreCase(nombreFilial)){
+                            dato_celda=String.valueOf(conexion.obtenerIdFilial(nombreFilial));break;}
+                        }
                         
                         while (rs_operadores.next()){
                         String nombreOperador = rs_operadores.getString("Nombre_operador");

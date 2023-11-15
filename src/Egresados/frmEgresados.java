@@ -28,8 +28,7 @@ public class frmEgresados extends javax.swing.JFrame {
         llenarCombobox();
         jscpegresados.getVerticalScrollBar().setUnitIncrement(16);
         setSize(1230, 750);  // Establece el tamaño inicial del formulario
-        setLocationRelativeTo(null);
-        
+        setLocationRelativeTo(null);   
     }
     
     //BLOQUEAR TODO
