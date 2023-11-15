@@ -133,7 +133,7 @@ public class BD_Excel {
                         if(celda.getStringCellValue().equalsIgnoreCase(nombreFilial)){
                             dato_celda=String.valueOf(conexion.obtenerIdFilial(nombreFilial));break;}
                         }
-                        
+                        //
                         while (rs_operadores.next()){
                         String nombreOperador = rs_operadores.getString("Nombre_operador");
                         if(celda.getStringCellValue().equalsIgnoreCase(nombreOperador)){
