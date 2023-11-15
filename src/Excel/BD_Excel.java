@@ -26,6 +26,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BD_Excel {
     Metodoss conexion= new Metodoss();
+    metodos_excel metodo = new metodos_excel();
 //    public static void crearArchivoExcel(){
 //    Workbook libro = new XSSFWorkbook();
 //    Sheet hoja = libro.createSheet("Java");
@@ -83,23 +84,14 @@ public class BD_Excel {
             Row inicio = hoja.getRow(f);
             if(inicio != null){
                 //Agregamos una unidad para no contar el titulo de las celdas
-                fila_no_nula=f+1;break;
+                fila_no_nula=f+1 ;break;
             }
         }
-        
         //guardamos los datos
         for(int i=fila_no_nula; i<=numero_Filas; i ++){
-            
-            Connection conectar = conexion.abrirconeccion();
-            String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            PreparedStatement insertar = conectar.prepareStatement(sql);
-            
             Row fila = hoja.getRow(i);
             //numero de inicio columna no nula
             int numero_columna= fila.getLastCellNum();
-
             int columna_no_nula=0;
             for(int c=0; c<=numero_columna;c++){
             Cell celda=fila.getCell(c);
@@ -107,55 +99,16 @@ public class BD_Excel {
                 columna_no_nula=c;break;
                 }
             }
-            for (int j=columna_no_nula; j<numero_columna;j++){
-                Cell celda=fila.getCell(j);
-                String dato_celda="";
-                //Consulta de nombre de operadores
-                String consulta_Operadores = "SELECT Nombre_operador FROM Operadores";
-                PreparedStatement operadores = conectar.prepareStatement(consulta_Operadores);
-                ResultSet rs_operadores = operadores.executeQuery();
-                //Consulta areas de trabajo
-                String consulta_Areas_trabajo="SELECT Nombre_area FROM Areas_Trabajo";
-                PreparedStatement areas_trabajo=conectar.prepareStatement(consulta_Areas_trabajo);
-                ResultSet rs_areas = areas_trabajo.executeQuery();
-                //Consulta filial
-                String consulta_filial="SELECT Nombre_filial FROM Filiales";
-                PreparedStatement filial = conectar.prepareStatement(consulta_filial);
-                ResultSet rs_filial = filial.executeQuery();
-                //segun el dato de la celda
-                switch (celda.getCellTypeEnum()){
-                    case NUMERIC: double valorNumerico = celda.getNumericCellValue();
-                                  long valorEntero = (long) valorNumerico;
-                                  dato_celda = String.valueOf(valorEntero);break;
-                    case STRING: {
-                        while (rs_filial.next()){
-                        String nombreFilial = rs_filial.getString("Nombre_filial");
-                        if(celda.getStringCellValue().equalsIgnoreCase(nombreFilial)){
-                            dato_celda=String.valueOf(conexion.obtenerIdFilial(nombreFilial));break;}
-                        }
-                        //
-                        while (rs_operadores.next()){
-                        String nombreOperador = rs_operadores.getString("Nombre_operador");
-                        if(celda.getStringCellValue().equalsIgnoreCase(nombreOperador)){
-                            dato_celda=String.valueOf(conexion.obtenerIdOperador(nombreOperador));break;}
-                        }
-                        
-                        while (rs_areas.next()){
-                        String nombrearea = rs_areas.getString("Nombre_area");
-                        if(celda.getStringCellValue().equalsIgnoreCase(nombrearea)){
-                            dato_celda=String.valueOf(conexion.obtener_id_Area_trabajo(nombrearea));break;}
-                        }
-                    
-                        if(dato_celda.equals("")){
-                        dato_celda=String.valueOf(celda.getStringCellValue());}
-                    }break;
-                    case FORMULA: dato_celda=celda.getCellFormula();break;
-                }
-            
-                insertar.setString(((j-columna_no_nula)+1),dato_celda);
-                
+            Cell celda=fila.getCell(columna_no_nula);
+            String codigo_egresado=String.valueOf(celda);
+            //verificamos si existe
+            boolean existe=conexion.buscarsiExiste(codigo_egresado, "");
+            //guardamos si existe
+            if(existe){
+                metodo.editar(file, i);
+            }else{
+                metodo.Guardar(file, i);
             }
-            insertar.executeUpdate();
         }
         JOptionPane.showMessageDialog(null, "Importación exitosa");
     }
