@@ -305,6 +305,28 @@ public class Metodoss{
         }
         return model;
     }
+    //METODO PARA CARGAR COMBO AREA DE TRABAJO
+    public DefaultComboBoxModel<String> obtener_areas_trabajo() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_area FROM Areas_Trabajo";
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nombre_area = rs.getString("Nombre_area");
+                model.addElement(nombre_area);
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener nombres de areas de trabajo: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return model;
+    }
     //Metodo para obtener el id de area de trabajo
     public int obtener_id_Area_trabajo(String nombre_area) {
         int id_area = 0; // Valor por defecto si no se encuentra el ID\
