@@ -45,6 +45,7 @@ public class Metodoss{
     
     //GUARDAR EGRESADIS EN DB
     public void guardarEgresado(DatosEgresados unEgresado) {
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);

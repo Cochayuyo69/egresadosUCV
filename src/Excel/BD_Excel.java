@@ -24,9 +24,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class BD_Excel {
+public class BD_Excel extends DatosEgresados{
+    DatosEgresados datos= new DatosEgresados();
     Metodoss conexion= new Metodoss();
-    metodos_excel metodo = new metodos_excel();
+    metodos_excel metodo = new metodos_excel() {};
 //    public static void crearArchivoExcel(){
 //    Workbook libro = new XSSFWorkbook();
 //    Sheet hoja = libro.createSheet("Java");
@@ -76,6 +77,14 @@ public class BD_Excel {
         FileInputStream archivo = new FileInputStream(file);
         XSSFWorkbook libro= new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
+        //contador de ediciones
+        int editados=0;
+        int guardados=0;
+        Connection conectar=conexion.abrirconeccion();
+        //Consulta filial
+                String consulta_filial="SELECT Nombre_filial FROM Filiales";
+                PreparedStatement filial = conectar.prepareStatement(consulta_filial);
+                ResultSet rs_filial = filial.executeQuery();
                 
         //Obtenemos el inicio de la tabla
         int numero_Filas= hoja.getLastRowNum();
@@ -92,25 +101,85 @@ public class BD_Excel {
             Row fila = hoja.getRow(i);
             //numero de inicio columna no nula
             int numero_columna= fila.getLastCellNum();
+
             int columna_no_nula=0;
-            for(int c=0; c<=numero_columna;c++){
+            for(int c=0; c<numero_columna;c++){
             Cell celda=fila.getCell(c);
             if(celda != null){
                 columna_no_nula=c;break;
                 }
             }
-            Cell celda=fila.getCell(columna_no_nula);
-            String codigo_egresado=String.valueOf(celda);
-            //verificamos si existe
-            boolean existe=conexion.buscarsiExiste(codigo_egresado, "");
-            //guardamos si existe
-            if(existe){
-                metodo.editar(file, i);
-            }else{
-                metodo.Guardar(file, i);
+            //CELDA DEL CODIGO
+            String CodigoUCV=String.valueOf(fila.getCell(columna_no_nula));
+            setCodigoUCV(CodigoUCV);
+            //CELDA DEL NOMBRE DE LA INTITUCION
+            setNombreIE(String.valueOf(fila.getCell(columna_no_nula+1)));
+            //Celda nombre filial
+            Cell celda_filial=fila.getCell((columna_no_nula+2));
+            String nombreFilial=celda_filial.getStringCellValue();
+            int dato_filial=conexion.obtenerIdFilial(nombreFilial);
+            
+            datos.setFilial(dato_filial);
+            //Celda carrera
+            setCarrera(String.valueOf(fila.getCell(columna_no_nula+3)));
+            //Celda apellido paterno
+            setApellidoP(String.valueOf(fila.getCell(columna_no_nula+4)));
+            //Celda apellido materno
+            setApellidoM(String.valueOf(fila.getCell(columna_no_nula+5)));
+            //Celda nombres
+            setNombres(String.valueOf(fila.getCell(columna_no_nula+6)));
+            //celda correo
+            setCorreo(String.valueOf(fila.getCell(columna_no_nula+7)));
+            //celda n°1 telefono
+            setTele1(String.valueOf(fila.getCell(columna_no_nula+8)));
+            //celda operador 1
+            setOperador1(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+9))));
+            //celda N° telefono 2
+            setTele2(String.valueOf(fila.getCell(columna_no_nula+10)));
+            //celda operador 2
+            setOperador2(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+11))));
+            //celda telefono 3
+            setTele3(String.valueOf(fila.getCell(columna_no_nula+12)));
+            //celda operador 3
+            setOperador3(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+13))));
+            //celda año egreso 
+            setAñoEgreso(String.valueOf(fila.getCell(columna_no_nula+14)));
+            //celda semestre egreso
+            setSemestreEgreso(String.valueOf(fila.getCell(columna_no_nula+15)));
+            //celda tipo de documento
+            setTipoDocIdenti(String.valueOf(fila.getCell(columna_no_nula+16)));
+            //Celda numero documento
+            String numeroDoc=String.valueOf(fila.getCell(columna_no_nula+17));
+            setNumDocIdenti(numeroDoc);
+            //celda tiene grado
+            Cell celda_estado_grado=fila.getCell(columna_no_nula+18);
+            String estado_grado=String.valueOf(celda_estado_grado);
+            setEstGrado(estado_grado);
+            JOptionPane.showMessageDialog(null, getEstGrado());
+            //celda resolucion de grado
+            setReGrado(String.valueOf(fila.getCell(columna_no_nula+19)));
+            //celda estado de titulo
+            setEstTitulo(String.valueOf(fila.getCell(columna_no_nula+20)));
+            //celda resolucion de titulo
+            setReTitulo(String.valueOf(fila.getCell(columna_no_nula+21)));
+            //celda estadod e trabajo
+            setEstTrabajo(String.valueOf(fila.getCell(columna_no_nula+22)));
+            //celda area de trabajo
+            setAreaTrabajo(conexion.obtener_id_Area_trabajo(String.valueOf(fila.getCell(columna_no_nula+23))));
+            
+            //Buscamos si el egresado existe
+            boolean existe = conexion.buscarsiExiste(CodigoUCV, numeroDoc);
+            if (existe){
+                metodo.editar(datos);
+                editados++;
             }
-        }
-        JOptionPane.showMessageDialog(null, "Importación exitosa");
+            else{
+                metodo.guardarEgresado(datos);
+                guardados++;
+            }
+        
+    }
+        JOptionPane.showMessageDialog(null, "Importación exitosa\nEgresados editados:\t"+editados+"\nEgresados guardados:\t"+guardados);
     }
     //BOTON EXPORTAR
     public void exportar(){
@@ -201,9 +270,4 @@ public class BD_Excel {
     
     }
     
-    public static void main(String[] args) throws IOException, FileNotFoundException, SQLException{
-    //crearArchivoExcel();
-    //leerArchivoExcel();
-    
-    }
 }
