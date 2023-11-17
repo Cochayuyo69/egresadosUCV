@@ -24,10 +24,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class BD_Excel extends DatosEgresados{
+public class BD_Excel{
     DatosEgresados datos= new DatosEgresados();
     Metodoss conexion= new Metodoss();
     metodos_excel metodo = new metodos_excel() {};
+    DataFormatter dataFormatter = new DataFormatter();
 //    public static void crearArchivoExcel(){
 //    Workbook libro = new XSSFWorkbook();
 //    Sheet hoja = libro.createSheet("Java");
@@ -111,9 +112,9 @@ public class BD_Excel extends DatosEgresados{
             }
             //CELDA DEL CODIGO
             String CodigoUCV=String.valueOf(fila.getCell(columna_no_nula));
-            setCodigoUCV(CodigoUCV);
+            datos.setCodigoUCV(CodigoUCV);
             //CELDA DEL NOMBRE DE LA INTITUCION
-            setNombreIE(String.valueOf(fila.getCell(columna_no_nula+1)));
+            datos.setNombreIE(String.valueOf(fila.getCell(columna_no_nula+1)));
             //Celda nombre filial
             Cell celda_filial=fila.getCell((columna_no_nula+2));
             String nombreFilial=celda_filial.getStringCellValue();
@@ -121,54 +122,59 @@ public class BD_Excel extends DatosEgresados{
             
             datos.setFilial(dato_filial);
             //Celda carrera
-            setCarrera(String.valueOf(fila.getCell(columna_no_nula+3)));
+            datos.setCarrera(String.valueOf(fila.getCell(columna_no_nula+3)));
             //Celda apellido paterno
-            setApellidoP(String.valueOf(fila.getCell(columna_no_nula+4)));
+            datos.setApellidoP(String.valueOf(fila.getCell(columna_no_nula+4)));
             //Celda apellido materno
-            setApellidoM(String.valueOf(fila.getCell(columna_no_nula+5)));
+            datos.setApellidoM(String.valueOf(fila.getCell(columna_no_nula+5)));
             //Celda nombres
-            setNombres(String.valueOf(fila.getCell(columna_no_nula+6)));
+            datos.setNombres(String.valueOf(fila.getCell(columna_no_nula+6)));
             //celda correo
-            setCorreo(String.valueOf(fila.getCell(columna_no_nula+7)));
+            datos.setCorreo(String.valueOf(fila.getCell(columna_no_nula+7)));
             //celda n°1 telefono
-            setTele1(String.valueOf(fila.getCell(columna_no_nula+8)));
+            String celda_telefono1 = dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 8));
+            datos.setTele1(celda_telefono1);
             //celda operador 1
-            setOperador1(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+9))));
+            datos.setOperador1(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+9))));
             //celda N° telefono 2
-            setTele2(String.valueOf(fila.getCell(columna_no_nula+10)));
+            String celda_telefono2 = dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 10));
+            datos.setTele2(celda_telefono2);
             //celda operador 2
-            setOperador2(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+11))));
+            datos.setOperador2(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+11))));
             //celda telefono 3
-            setTele3(String.valueOf(fila.getCell(columna_no_nula+12)));
+            String celda_telefono3 = dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 12));
+            datos.setTele3(celda_telefono3);
             //celda operador 3
-            setOperador3(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+13))));
+            datos.setOperador3(conexion.obtenerIdOperador(String.valueOf(fila.getCell(columna_no_nula+13))));
             //celda año egreso 
-            setAñoEgreso(String.valueOf(fila.getCell(columna_no_nula+14)));
+            String celda_añoEgreso = dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 14));
+            datos.setAñoEgreso(celda_añoEgreso);
             //celda semestre egreso
-            setSemestreEgreso(String.valueOf(fila.getCell(columna_no_nula+15)));
+            String celda_semestreEgreso= dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 15));
+            datos.setSemestreEgreso(celda_semestreEgreso);
             //celda tipo de documento
-            setTipoDocIdenti(String.valueOf(fila.getCell(columna_no_nula+16)));
+            datos.setTipoDocIdenti(String.valueOf(fila.getCell(columna_no_nula+16)));
             //Celda numero documento
-            String numeroDoc=String.valueOf(fila.getCell(columna_no_nula+17));
-            setNumDocIdenti(numeroDoc);
+            String celda_numeroDoc= dataFormatter.formatCellValue(fila.getCell(columna_no_nula + 17));
+            datos.setNumDocIdenti(celda_numeroDoc);
             //celda tiene grado
             Cell celda_estado_grado=fila.getCell(columna_no_nula+18);
             String estado_grado=String.valueOf(celda_estado_grado);
-            setEstGrado(estado_grado);
-            JOptionPane.showMessageDialog(null, getEstGrado());
+            datos.setEstGrado(estado_grado);
+            
             //celda resolucion de grado
-            setReGrado(String.valueOf(fila.getCell(columna_no_nula+19)));
+            datos.setReGrado(String.valueOf(fila.getCell(columna_no_nula+19)));
             //celda estado de titulo
-            setEstTitulo(String.valueOf(fila.getCell(columna_no_nula+20)));
+            datos.setEstTitulo(String.valueOf(fila.getCell(columna_no_nula+20)));
             //celda resolucion de titulo
-            setReTitulo(String.valueOf(fila.getCell(columna_no_nula+21)));
+            datos.setReTitulo(String.valueOf(fila.getCell(columna_no_nula+21)));
             //celda estadod e trabajo
-            setEstTrabajo(String.valueOf(fila.getCell(columna_no_nula+22)));
+            datos.setEstTrabajo(String.valueOf(fila.getCell(columna_no_nula+22)));
             //celda area de trabajo
-            setAreaTrabajo(conexion.obtener_id_Area_trabajo(String.valueOf(fila.getCell(columna_no_nula+23))));
+            datos.setAreaTrabajo(conexion.obtener_id_Area_trabajo(String.valueOf(fila.getCell(columna_no_nula+23))));
             
             //Buscamos si el egresado existe
-            boolean existe = conexion.buscarsiExiste(CodigoUCV, numeroDoc);
+            boolean existe = conexion.buscarsiExiste(CodigoUCV, celda_numeroDoc);
             if (existe){
                 metodo.editar(datos);
                 editados++;

@@ -7,10 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
+import org.apache.poi.ss.usermodel.Cell;
 
 public class metodos_excel{
     Metodoss metodo= new Metodoss(){};
-
     //por si el egresado ya existe
     public void editar(DatosEgresados unEgresado){
         try {
@@ -54,7 +54,6 @@ public class metodos_excel{
     }
     //Si no existe
     public void guardarEgresado(DatosEgresados unEgresado) {
-        JOptionPane.showMessageDialog(null, unEgresado.getEstGrado());
         try {
             Connection conectar=metodo.abrirconeccion();
 
