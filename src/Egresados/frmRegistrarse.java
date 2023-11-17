@@ -1,13 +1,14 @@
-
 package Egresados;
 
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
 
-public class frmRegistrarse extends javax.swing.JFrame {
+public class frmRegistrarse extends javax.swing.JFrame implements FormularioListener{
     DatosUsuarios datos = new DatosUsuarios();
     Metodoss metodos= new Metodoss();
+    String CORREO_ELECTRONICO;
+    String codigo;
 
     public frmRegistrarse() {
         initComponents();
@@ -26,10 +27,9 @@ public class frmRegistrarse extends javax.swing.JFrame {
         txtContra = new javax.swing.JTextField();
         txtApellidosNombres = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        btnRegistrar = new javax.swing.JButton();
+        btnVerificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(628, 340));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -84,17 +84,17 @@ public class frmRegistrarse extends javax.swing.JFrame {
         });
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 290, 70));
 
-        btnRegistrar.setBackground(new java.awt.Color(227, 5, 22));
-        btnRegistrar.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Registrarse");
-        btnRegistrar.setBorder(null);
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnVerificar.setBackground(new java.awt.Color(227, 5, 22));
+        btnVerificar.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        btnVerificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerificar.setText("Registrar");
+        btnVerificar.setBorder(null);
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
+                btnVerificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 340, 40));
+        jPanel1.add(btnVerificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 340, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,6 +110,12 @@ public class frmRegistrarse extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    
+    @Override
+    public void formularioCerrado() {
+    }
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
@@ -127,34 +133,33 @@ public class frmRegistrarse extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        //RECOLECTAR LOS DATOS
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        CORREO_ELECTRONICO = txtCorreo.getText();
+        codigo = metodos.generarNumerosAlAzar();
         String USUARIO = txtUsuario.getText();
         String CONTRASEÑA = txtContra.getText();
         String APELLIDOS_Y_NOMBRES = txtApellidosNombres.getText();
-        String CORREO_ELECTRONICO = txtCorreo.getText();
-        boolean verificacion = false;
-        
-        //VERIFICAR EL CORREO
-        verificacion =  metodos.verificarCorreo(CORREO_ELECTRONICO);
-        
-        //VALIDAR QUE LOS CAMPOS ESTEN LLENOS
-        if (USUARIO.equals("") || CONTRASEÑA.equals("") || APELLIDOS_Y_NOMBRES.equals("") || CORREO_ELECTRONICO.equals("")){
-            JOptionPane.showMessageDialog(null, "Llene todos los datos por favor.", "AVISO", JOptionPane.WARNING_MESSAGE);
+        boolean verificacion = metodos.verificarCorreo(CORREO_ELECTRONICO);
+        if(metodos.consultaCorreo(CORREO_ELECTRONICO)){
+            JOptionPane.showMessageDialog(null, "El correo ingresado ya está registrado.", "AVISO", JOptionPane.WARNING_MESSAGE);
         }
-        else if(verificacion){
-            //GUARDAR DATOS
-            datos.setAPELLIDOS_Y_NOMBRES(APELLIDOS_Y_NOMBRES);
-            datos.setCONTRASEÑA(CONTRASEÑA);
-            datos.setCORREO_ELECTRONICO(CORREO_ELECTRONICO);
-            datos.setUSUARIO(USUARIO);
-
-            metodos.guardarUsuario(datos);
-            this.dispose();
+        else {
+            if (USUARIO.equals("") || CONTRASEÑA.equals("") || APELLIDOS_Y_NOMBRES.equals("") || CORREO_ELECTRONICO.equals("")) {
+                JOptionPane.showMessageDialog(null, "Llene todos los datos por favor.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            } else if (verificacion) {
+                metodos.enviarCorreoVerifacion(CORREO_ELECTRONICO, codigo);
+                frmVerificacion fv = new frmVerificacion(this, CORREO_ELECTRONICO, codigo, USUARIO, CONTRASEÑA, APELLIDOS_Y_NOMBRES);
+                txtApellidosNombres.setEnabled(false);
+                txtContra.setEnabled(false);
+                txtCorreo.setEnabled(false);
+                txtUsuario.setEnabled(false);
+                btnVerificar.setEnabled(false);
+                fv.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese un correo electrónico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            }
         }
-        else
-            JOptionPane.showMessageDialog(null, "Ingrese un correo eléctronico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    }//GEN-LAST:event_btnVerificarActionPerformed
 
     
     public static void main(String args[]) {
@@ -191,7 +196,7 @@ public class frmRegistrarse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

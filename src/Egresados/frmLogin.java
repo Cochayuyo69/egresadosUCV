@@ -20,11 +20,12 @@ public class frmLogin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtContra = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         btnCrearcuenta = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -35,7 +36,6 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
@@ -45,6 +45,20 @@ public class frmLogin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Historic", 0, 12)); // NOI18N
+        jLabel10.setText("¿Has olvidado la contraseña?");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 160, 20));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(73, 80, 87));
+        jLabel9.setText("Contraseña");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Card_Header.png"))); // NOI18N
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
@@ -73,11 +87,6 @@ public class frmLogin extends javax.swing.JFrame {
         });
         jPanel2.add(btnCrearcuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 340, 40));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(73, 80, 87));
-        jLabel9.setText("Contraseña");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 40));
-
         btnIniciarSesion.setBackground(new java.awt.Color(227, 5, 22));
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,7 +97,7 @@ public class frmLogin extends javax.swing.JFrame {
                 btnIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 340, 40));
+        jPanel2.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 340, 40));
 
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,6 +212,11 @@ public class frmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtContraKeyReleased
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        frmRecuperarContra f = new frmRecuperarContra();
+        f.setVisible(true);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -239,6 +253,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnCrearcuenta;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

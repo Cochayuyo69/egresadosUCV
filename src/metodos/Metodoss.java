@@ -10,13 +10,30 @@ import java.util.List;
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+import java.util.Properties;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.swing.DefaultComboBoxModel;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 
 public class Metodoss{
-//Llamamos a la clase padre y las variables
+
+    //Llamamos a la clase padre y las variables
+    public Metodoss() {
+        mProperties = new Properties();
+    }
     
     // Declaramos la conexion a mysql
     Connection con;
@@ -27,7 +44,13 @@ public class Metodoss{
     private static final String url="jdbc:mysql://localhost:3306/prueba1";
     private static PreparedStatement stmt = null;
     
-    //Crear coneccion 
+    //Declaramos el correo a utilizar
+    private static final String correoEgresados="stmegresadosucv@gmail.com";
+    private static final String contraCorreo = "pyjc xcci pbyd migx";
+    private Properties mProperties;
+    private Session mSession;
+    private MimeMessage mCorreo;
+    
     
     public Connection abrirconeccion(){
         try {
@@ -478,5 +501,131 @@ public class Metodoss{
             return false;
         }
     }
+    //BUSCAR POR CORREO
+    public boolean consultaCorreo(String correo){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String sql = "SELECT * FROM login WHERE CORREO_ELECTRONICO = ?";
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, correo);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            return false;
+        }
+        return false;
+    }
+    
+    //GENERAR NUMEROS RANDOM
+    public static String generarNumerosAlAzar() {
+        // Crear un objeto Random para generar números aleatorios
+        Random random = new Random();
+
+        // Crear un array para almacenar los números al azar
+        int[] numeros = new int[5];
+
+        // Generar 5 números al azar y almacenarlos en el array
+        for (int i = 0; i < 5; i++) {
+            numeros[i] = random.nextInt(10); // Números aleatorios del 0 al 9
+        }
+
+        // Convertir el array de números a una cadena
+        StringBuilder resultado = new StringBuilder();
+        for (int numero : numeros) {
+            resultado.append(numero);
+        }
+
+        return resultado.toString();
+    }
+    
+    //ENVIAR CORREO NUEVA CONTRASENA
+    public void enviarCorreoNuevaContra(String correo, String codigo){
+        String emailTo = correo;
+        String subject = "CAMBIO DE CONTRASEÑA";
+        String content = "<h1>SI NO HAS INTENTADO CAMBIAR TU CONTRASEÑA IGNORA ESTE CORREO</h1><br>Tu código de verificación es: <b>" + codigo + "</b>";
+        createEmail(emailTo, subject, content);
+        sendEmail("Se ha enviado el código de verificación.");
+    }
+    
+    //ENVIAR CORREO NUEVA CONTRASENA
+    public void enviarCorreoVerifacion(String correo, String codigo){
+        String emailTo = correo;
+        String subject = "Correo de verificación";
+        String content = "<h1>¡Bienvenido!</h1><br>Tu código de verificación es: <b>" + codigo + "</b>";
+        createEmail(emailTo, subject, content);
+        sendEmail("Se ha enviado el código de verificación.");
+    }
+    
+    //METODO CREAR CORREO
+    private void createEmail(String emailTo, String subject, String content){
+        mProperties = new Properties();
+        //Simple mail transfer protocol
+        mProperties.put("mail.smtp.host", "smtp.gmail.com");
+        mProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        mProperties.setProperty("mail.smtp.starttls.enable", "true");
+        mProperties.setProperty("mail.smtp.port", "587");    
+        mProperties.setProperty("mail.smtp.user", correoEgresados);
+        mProperties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+        mProperties.setProperty("mail.smtp.auth", "true");
+        
+        mSession = Session.getDefaultInstance(mProperties);
+        
+        mCorreo = new MimeMessage(mSession);
+        try {
+            mCorreo.setFrom(new InternetAddress(correoEgresados));
+            mCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
+            mCorreo.setSubject(subject);
+            mCorreo.setText(content, "ISO-8859-1", "html");
+        } catch (AddressException ex) {
+            Logger.getLogger(Metodoss.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Metodoss.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //METODO ENVIAR CORREO
+    private void sendEmail(String message){
+        try {
+            Transport mTransport = mSession.getTransport("smtp");
+            mTransport.connect(correoEgresados, contraCorreo);
+            mTransport.sendMessage(mCorreo, mCorreo.getRecipients(Message.RecipientType.TO));
+            mTransport.close();
+            JOptionPane.showMessageDialog(null, message, "INFORMACIÓN",JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NoSuchProviderException ex) {
+            Logger.getLogger(Metodoss.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(Metodoss.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CambiarContra(String contra, String correo){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "UPDATE LOGIN SET CONTRASEÑA = ? WHERE CORREO_ELECTRONICO = ?"; 
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+
+            preparedStmt.setString(1, contra);
+            preparedStmt.setString(2, correo);
+            preparedStmt.executeUpdate();
+            con.close();
+            JOptionPane.showMessageDialog(null, "Contraseña actualizad con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "Error al guardar la nueva contraseña." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
+
 
