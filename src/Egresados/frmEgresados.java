@@ -637,6 +637,7 @@ public class frmEgresados extends javax.swing.JFrame {
                     txtResGrado.setText(datosencontrados.getReGrado());
                     cbxEstadoTitulo.setSelectedItem(datosencontrados.getEstTitulo());
                     txtResTitulo.setText(datosencontrados.getReTitulo());
+                    cbxarea_trabajo.setSelectedItem(metodos.obtener_nombre_area(datosencontrados.getAreaTrabajo()));
                     noeditar();
                 }
             }

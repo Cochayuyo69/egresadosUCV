@@ -206,12 +206,18 @@ public class BD_Excel{
 
             // Crear la primera fila para los encabezados
             Row headerRow = sheet.createRow(0);
-            //contador para sacar el titulo de operador
+            //contador para sacar el titulo de operador, idTrabajo, idFilial
+            int id_Operador;
+            int filial;
+            int area_trabajo;
             int Operador_1=-999;
             int Operador_2=-999;
             int Operador_3=-999;
-            int id_Operador;
+            int id_filial=-999;
+            int id_trabajo=-999;
             String nombreOPE;
+            String nombre_filial;
+            String nombre_area;
             for (int i = 2; i <= resultSet.getMetaData().getColumnCount(); i++) {
                 Cell cell = headerRow.createCell(i - 2);
                 String nombre_columna=resultSet.getMetaData().getColumnName(i);
@@ -220,6 +226,8 @@ public class BD_Excel{
                     case "Operador_1" -> Operador_1=i;
                     case "Operador_2" -> Operador_2=i;
                     case "Operador_3" -> Operador_3=i;
+                    case "id_filial" -> id_filial=i;
+                    case "id_area_trabajo" -> id_trabajo=i;
                 }
             }
 
@@ -233,6 +241,7 @@ public class BD_Excel{
                 Cell cell = fila.createCell(a - 2);
                 if(a==Operador_1){
                     id_Operador=resultSet.getInt(a);
+                    
                     nombreOPE=conexion.obtenerNombreOPERADOR(id_Operador);
                     cell.setCellValue(nombreOPE);
                 }else if(a==Operador_2){
@@ -243,9 +252,15 @@ public class BD_Excel{
                     id_Operador=resultSet.getInt(a);
                     nombreOPE=conexion.obtenerNombreOPERADOR(id_Operador);
                     cell.setCellValue(nombreOPE);
-                }else{
-                cell.setCellValue(resultSet.getString(a));
-                }
+                }else if(a==id_filial){
+                    filial=resultSet.getInt(a);
+                    nombre_filial=conexion.obtenerNombreFILIAL(filial);
+                    cell.setCellValue(nombre_filial);
+                }else if(a==id_trabajo){
+                    area_trabajo=resultSet.getInt(a);
+                    nombre_area=conexion.obtener_nombre_area(area_trabajo);
+                    cell.setCellValue(nombre_area);
+                }else{cell.setCellValue(resultSet.getString(a));}
              }
             }
 

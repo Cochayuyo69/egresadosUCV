@@ -374,6 +374,28 @@ public class Metodoss{
 
         return id_area;
     }
+    //metodo para obtener nombre del area
+    public String obtener_nombre_area(int id_area){
+        String nombre_area="";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_area FROM Areas_Trabajo WHERE id_area_trabajo = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id_area);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nombre_area = rs.getString("Nombre_area");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el nombre del operador: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return nombre_area;
+    }
     //METODO PARA OBTENER EL ID DEL COMBO
     public int obtenerIdOperador(String nombreOperador) {
         int idOperador = 0; // Valor por defecto si no se encuentra el ID\
