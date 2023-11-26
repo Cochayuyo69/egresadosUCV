@@ -155,6 +155,7 @@ public class frmRegistrarse extends javax.swing.JFrame implements FormularioList
                 txtUsuario.setEnabled(false);
                 btnVerificar.setEnabled(false);
                 fv.setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Ingrese un correo electrónico válido.", "AVISO", JOptionPane.WARNING_MESSAGE);
             }
