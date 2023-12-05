@@ -515,9 +515,7 @@ public class Metodoss{
     
     //VERIFICAR CORREO
     public boolean verificarCorreo(String correo){
-        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@ucvvirtual.edu.pe");
-        Matcher matcher = pattern.matcher(correo);
-        if (matcher.find()) {
+        if (correo.endsWith("@ucvvirtual.edu.pe")) {
             return true;
         } else {
             return false;

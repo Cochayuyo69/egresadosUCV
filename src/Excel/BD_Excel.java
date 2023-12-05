@@ -1,5 +1,6 @@
 
 package Excel;
+import Mensajes.Importacion_Exitosa;
 import datos.DatosEgresados;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,12 +24,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 public class BD_Excel{
     DatosEgresados datos= new DatosEgresados();
     Metodoss conexion= new Metodoss();
     metodos_excel metodo = new metodos_excel() {};
     DataFormatter dataFormatter = new DataFormatter();
+    
 //    public static void crearArchivoExcel(){
 //    Workbook libro = new XSSFWorkbook();
 //    Sheet hoja = libro.createSheet("Java");
@@ -185,7 +186,8 @@ public class BD_Excel{
             }
         
     }
-        JOptionPane.showMessageDialog(null, "Importación exitosa\nEgresados editados:\t"+editados+"\nEgresados guardados:\t"+guardados);
+        Importacion_Exitosa importado = new Importacion_Exitosa();
+        importado.setVisible(true);
     }
     //BOTON EXPORTAR
     public void exportar(){

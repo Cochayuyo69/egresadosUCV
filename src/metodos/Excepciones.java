@@ -20,7 +20,9 @@ public class Excepciones{
       return "";            
 }
     //Treaemos los metodos de datos
-    public String ExcepcionesGuardar(String codigo, String apellidoPa, String apellidoMa, String nom, String Correo, String tel1, int operador1, String tel2, int operador2, String tel3, int operador3, String añoEgreso, String semestreE,String tipodoc, String numDoc, String estadoG, String resolG, String estadoT, String resolT) {
+    public String ExcepcionesGuardar(String codigo, String apellidoPa, String apellidoMa, String nom, String Correo, String tel1, 
+                                    int operador1, String tel2, int operador2, String tel3, int operador3, String añoEgreso, String semestreE,String tipodoc, 
+                                    String numDoc, String estadoG, String resolG, String estadoT, String resolT) {
         if(codigo.equals("") && numDoc.equals("")){
         return "Porfavor ingrese un Codigo UCV o un N° de documento";}
         if(codigo.length()<10){

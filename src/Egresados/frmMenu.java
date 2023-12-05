@@ -56,6 +56,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnCapacitaciones.setBackground(new java.awt.Color(255, 255, 250));
         btnCapacitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/capacitaciones.png"))); // NOI18N
         btnCapacitaciones.setBorder(null);
+        btnCapacitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapacitacionesActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCapacitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, -1, -1));
 
         btnCentro.setBackground(new java.awt.Color(255, 255, 250));
@@ -114,6 +119,10 @@ public class frmMenu extends javax.swing.JFrame {
         frmMenuReportes f = new frmMenuReportes();
         f.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnCapacitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapacitacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapacitacionesActionPerformed
 
     public static void main(String args[]) {
         

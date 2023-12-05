@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +25,7 @@ public class frmEgresados extends javax.swing.JFrame {
     Excepciones excepcion = new Excepciones();
     public frmEgresados() {
         initComponents();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("EGRESADOS");
         llenarCombobox();
         jscpegresados.getVerticalScrollBar().setUnitIncrement(16);
@@ -170,11 +172,9 @@ public class frmEgresados extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        setPreferredSize(new Dimension(1250,680));
         jscpegresados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
         jPanel1.setName(""); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -356,7 +356,7 @@ public class frmEgresados extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 340, 200));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 840, 340, 200));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -501,7 +501,7 @@ public class frmEgresados extends javax.swing.JFrame {
         jPanel1.add(jbtnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 790, 249, 75));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rojo1_2.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 860, -1, 160));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 870, -1, 160));
 
         jbtnguardar.setBackground(new java.awt.Color(204, 255, 255));
         jbtnguardar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -549,7 +549,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 btnImportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 890, 250, 75));
+        jPanel1.add(btnImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 890, 250, 75));
 
         jscpegresados.setViewportView(jPanel1);
 
@@ -597,21 +597,16 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroDocKeyTyped
 
     private void jbtnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarActionPerformed
-
         //traemos el codigo a buscar
         String codigo= jtxtcodigoE.getText();
         String numeroDocIdenti =  txtNumeroDoc.getText();
-
         //Verificamos que ingresaran datos correctos
         String verificar=excepcion.exceptosBUSCAR(codigo,numeroDocIdenti);
-
         //Si son correctos se ejecuta
         if(verificar.equals("")){
             if (numeroDocIdenti.equals("")){
-
                 //instancia de la clase datos para guardar lo obtenido
                 DatosEgresados datosencontrados = new DatosEgresados();
-
                 //traer al metodo :D
                 metodos.buscarPorCodigo(codigo, numeroDocIdenti,datosencontrados);
                 if (datosencontrados.getReGrado() != null){
@@ -872,7 +867,9 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setAreaTrabajo(area_trabajo);
         //Traemos excepciones para guardar
         Excepciones guardar= new Excepciones();
-        String necesario=guardar.ExcepcionesGuardar(codigoUCV, apellidoP, apellidoM, nombres, correo, tele1, Operador1, tele2, Operador2, tele3, Operador3, añoEgreso, semestreEgreso, tipoDocIdenti, numDocIdenti, estGrado, reGrado, estTitulo, reTitulo);
+        String necesario=guardar.ExcepcionesGuardar(codigoUCV, apellidoP, apellidoM, nombres, 
+                correo, tele1, Operador1, tele2, Operador2, tele3, Operador3, añoEgreso, 
+                semestreEgreso, tipoDocIdenti, numDocIdenti, estGrado, reGrado, estTitulo, reTitulo);
         if(necesario.equals("")){
             
             //VERIFICAR SI EL CODIGO DE ESTUDIANTE YA EXISTE EN LA DB

@@ -69,7 +69,7 @@ public class frmVerificacion extends javax.swing.JFrame implements FormularioLis
                 jtxtCodigoKeyTyped(evt);
             }
         });
-        jPanel1.add(jtxtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 310, 80));
+        jPanel1.add(jtxtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 310, 80));
 
         btnVerificar.setBackground(new java.awt.Color(227, 5, 22));
         btnVerificar.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
