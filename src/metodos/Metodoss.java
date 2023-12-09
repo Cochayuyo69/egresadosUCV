@@ -646,6 +646,26 @@ public class Metodoss{
             JOptionPane.showMessageDialog(null,  "Error al guardar la nueva contraseña." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
         }
     }
+    
+    
+    //GUARDAR USUARIOS EN DB
+    public void guardarPerfil(String perfil) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "INSERTO INTO areas_trabajo (Nombre_area) VALUES (?);";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+
+            preparedStmt.setString(1, perfil);
+
+            preparedStmt.execute();
+            con.close();
+            JOptionPane.showMessageDialog(null, "Perfil guardado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null,  "Error al guardar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
 
 

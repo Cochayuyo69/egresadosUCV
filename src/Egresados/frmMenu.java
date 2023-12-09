@@ -51,6 +51,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnPerfiles.setBackground(new java.awt.Color(255, 255, 250));
         btnPerfiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/perfiles.png"))); // NOI18N
         btnPerfiles.setBorder(null);
+        btnPerfiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilesActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnPerfiles, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
 
         btnCapacitaciones.setBackground(new java.awt.Color(255, 255, 250));
@@ -123,6 +128,11 @@ public class frmMenu extends javax.swing.JFrame {
     private void btnCapacitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapacitacionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCapacitacionesActionPerformed
+
+    private void btnPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilesActionPerformed
+        frmPerfiles f = new frmPerfiles();
+        f.setVisible(true);
+    }//GEN-LAST:event_btnPerfilesActionPerformed
 
     public static void main(String args[]) {
         
