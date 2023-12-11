@@ -1,26 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Egresados;
 
 import java.awt.Dimension;
-
-/**
- *
- * @author Acer
- */
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import metodos.Metodoss;
+import metodos.Render;
 public class frmCapacitaciones extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmCapacitaciones
-     */
+    Metodoss metodo= new Metodoss();
     public frmCapacitaciones() {
         initComponents();
         setPreferredSize(new Dimension(1230, 750));
         setLocationRelativeTo(null);
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,10 +45,10 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btn_enviar_correo = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        scroll_panetabla = new javax.swing.JScrollPane();
+        tbl_egresados = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -152,7 +154,13 @@ public class frmCapacitaciones extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 82, 1130, 158));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/CAPACITACIONES titulo.png"))); // NOI18N
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL1_1.png"))); // NOI18N
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        tbl_egresados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -163,15 +171,9 @@ public class frmCapacitaciones extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        scroll_panetabla.setViewportView(tbl_egresados);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 1130, 360));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/CAPACITACIONES titulo.png"))); // NOI18N
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL1_1.png"))); // NOI18N
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel3.add(scroll_panetabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 1130, 350));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rojo_menu.png"))); // NOI18N
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, -1, -1));
@@ -197,7 +199,8 @@ public class frmCapacitaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
+        String nombre=txt_Nombres.getText();
+        String codigo=txt_Codigo.getText();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_enviar_correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviar_correoActionPerformed
@@ -205,8 +208,68 @@ public class frmCapacitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_enviar_correoActionPerformed
 
     private void btn_busqueda_masivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_busqueda_masivaActionPerformed
-
+     cargartabla();
     }//GEN-LAST:event_btn_busqueda_masivaActionPerformed
+    public void cargartabla(){
+        tbl_egresados.setDefaultRenderer(Object.class, new Render());
+        
+        String [] columnas = new String []{"N°","Nombres","Correo","Area de trabajo","Seleccionar"};
+        boolean [] editable = {false,false,false,false,true};
+        Class [] types= new Class[]{java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,java.lang.Object.class,java.lang.Boolean.class};
+        
+        DefaultTableModel nModel= new DefaultTableModel(columnas,0){
+            public Class getColumnClass(int i){
+                return types[i];
+            }
+            public boolean isCellEditable(int row, int column){
+                return editable[column];
+            }
+        };
+        
+        LimpiarTabla(tbl_egresados, nModel);
+        
+        List <Object []> Egresado= new ArrayList<>();
+        try {
+            Connection conectar=metodo.abrirconeccion();
+            String sql="SELECT Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo FROM EGRESADOS";
+            PreparedStatement st = conectar.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            int n=1;
+            while(rs.next()){ 
+                Object [] datos = new Object[columnas.length];
+                datos[0]=n;
+                datos[1]=rs.getString(5);
+                datos[2]=rs.getString(8);
+                int id_area=rs.getInt(24);
+                String nombre_area=metodo.obtener_nombre_area(id_area);
+                datos[3]=rs.getString(nombre_area);
+                datos[4]=false;
+                Egresado.add(datos);
+            }
+            conectar.close();
+            // Convertir la lista en una matriz de dos dimensiones
+            Object[][] dataArr = new Object[Egresado.size()][columnas.length];
+            for (int i = 0; i < Egresado.size(); i++) {
+                dataArr[i] = Egresado.get(i);
+            }
+            //PONER EN FILAS
+            for (Object[] row : dataArr) {
+                nModel.addRow(row);
+            }
+            tbl_egresados.setModel(nModel);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void LimpiarTabla(JTable tabla, DefaultTableModel modeloTabla){
+            if(modeloTabla.getRowCount()>0){
+                for(int i=0; i<tabla.getRowCount();i++){
+                    modeloTabla.removeRow(i);
+                    i-=1;
+                }
+            }
+        }
 
     private void txt_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CodigoActionPerformed
         // TODO add your handling code here:
@@ -272,8 +335,8 @@ public class frmCapacitaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane scroll_panetabla;
+    private javax.swing.JTable tbl_egresados;
     private javax.swing.JTextField txt_Codigo;
     private javax.swing.JTextField txt_Nombres;
     // End of variables declaration//GEN-END:variables
