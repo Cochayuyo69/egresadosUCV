@@ -166,7 +166,7 @@ public class Metodoss{
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(url, user, pass);
 
-        String query = "SELECT * FROM EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?";
+        String query = "SELECT * FROM EGRESADOS WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?;";
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, codigo);
         st.setString(2, numeroDocIdenti);
@@ -329,6 +329,7 @@ public class Metodoss{
         }
         return model;
     }
+    
     //METODO PARA CARGAR COMBO AREA DE TRABAJO
     public DefaultComboBoxModel<String> obtener_areas_trabajo() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -648,13 +649,13 @@ public class Metodoss{
     }
     
     
-    //GUARDAR USUARIOS EN DB
+    //GUARDAR PERFILES EN DB
     public void guardarPerfil(String perfil) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "INSERTO INTO areas_trabajo (Nombre_area) VALUES (?);";
+            String query = "INSERT INTO areas_trabajo (Nombre_area) VALUES (?);";
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             preparedStmt.setString(1, perfil);
@@ -666,6 +667,152 @@ public class Metodoss{
             JOptionPane.showMessageDialog(null,  "Error al guardar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
         }
     }
+    
+    //METODO PARA CARGAR COMBO OPERADOR
+    public DefaultComboBoxModel<String> obtenerNombresPerfiles() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_area FROM areas_trabajo;";
+            stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nombrePerfil = rs.getString("Nombre_area");
+                model.addElement(nombrePerfil);
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los perfiles: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return model;
+    }
+    
+    //METODO PARA OBTENER EL ID DEL COMBO
+    public int obtenerIdPerfil(String nombrePerfil) {
+        int idPerfil = 0; // Valor por defecto si no se encuentra el ID\
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT id_area_trabajo FROM areas_trabajo WHERE Nombre_area = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombrePerfil);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idPerfil = rs.getInt("id_area_trabajo");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID del Perfil: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return idPerfil;
+    }
+    
+    
+    //GUARDAR ESPECIALIZACION EN DB
+    public void guardarEspecializacion(String espe, int idperfil) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "INSERT INTO areas_especializacion (Nombre_especializacion,id_perfil) VALUES (?,?);";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+
+            preparedStmt.setString(1, espe);
+            preparedStmt.setInt(2, idperfil);
+
+            preparedStmt.execute();
+            con.close();
+            JOptionPane.showMessageDialog(null, "Especialización guardado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null,  "Error al guardar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    //buscar especializacion
+    public Integer buscarPorEspecial(String nombreEspecial) {
+        int resultado = 0; // Vector para almacenar los resultados
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT * FROM areas_especializacion WHERE Nombre_especializacion = ?;";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, nombreEspecial);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getInt("id_perfil");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la especialización.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar la especialización: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return resultado;
+    }
+    
+    //buscar por id Perfil
+    public String obtenerNombrePERFIL(int idPerfil) {
+        String res = null; // Vector para almacenar los resultados
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT * FROM areas_trabajo WHERE id_area_trabajo = ?;";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, idPerfil);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                res = rs.getString("Nombre_area");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el perfil.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el perfil: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return res;
+    }
+    
+    //Borrar Especial
+    public void borrarEspecializacion(String especial) {
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(url, user, pass);
+
+        String query = "DELETE FROM areas_especializacion WHERE Nombre_especializacion=?;";
+        PreparedStatement st = con.prepareStatement(query);
+        st.setString(1, especial);
+
+        // Cambiar executeQuery por executeUpdate para operaciones de actualización (DELETE, UPDATE, INSERT)
+        int rowsAffected = st.executeUpdate();
+
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Se borró la especialización con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la especialización para borrar.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        con.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar la especialización: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+    }
+}
 }
 
 
