@@ -1,6 +1,7 @@
 
 package Capacitaciones;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,6 +41,31 @@ public class Metodos_capacitacion {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,  "Error al guardar: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
             System.out.println(e.getMessage());
+        }
+    }
+    
+    //Buscar capacitación
+    
+    public void buscar_capacitacion(String area_trabajo, String buscar_capacitacion, Datos_Capacitaciones datos){
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String query = "SELECT * FROM CAP_"+area_trabajo+" WHERE TITULO = ?;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, buscar_capacitacion);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                datos.setTitulo(rs.getString("TITULO"));
+                datos.setFecha(rs.getString("FECHA"));
+                datos.setTurno(rs.getString("TURNO"));
+                datos.setHora(rs.getString("HORA"));
+                datos.setModalidad(rs.getString("MODALIDAD"));
+                datos.setMonto(rs.getDouble("MONTO"));
+                datos.setMensaje(rs.getString("MENSAJE"));
+            } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
     

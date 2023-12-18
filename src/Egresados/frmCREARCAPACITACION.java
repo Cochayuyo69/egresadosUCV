@@ -7,7 +7,11 @@ import Capacitaciones.Metodos_capacitacion;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import metodos.Metodoss;
@@ -446,6 +450,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         btn_editar.setForeground(new java.awt.Color(0, 0, 0));
         btn_editar.setText("EDITAR");
         btn_editar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 560, 144, 46));
 
         btn_eliminar.setBackground(new java.awt.Color(255, 153, 153));
@@ -474,7 +483,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
         if (btnBuscarActivo) { 
         DefaultComboBoxModel<String> modelo;
-        String areaSeleccionada = cbx_area.getSelectedItem().toString();
+        String Texto_Seleccionado = cbx_area.getSelectedItem().toString();
+        String areaSeleccionada=Texto_Seleccionado.replace(" ", "_");
         int area=cbx_area.getSelectedIndex();
         if(area==0){
             modelo= new DefaultComboBoxModel<>(new String[]{""});
@@ -489,7 +499,30 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        
+        String Area_seleccionada=cbx_area.getSelectedItem().toString();
+        String area=Area_seleccionada.replace(" ", "_");
+        String capacitacion=cbx_capacitacion.getSelectedItem().toString();
+        Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
+        Date dia = null;
+        ejecutar.buscar_capacitacion(area, capacitacion, capacitaciones);
+        if(capacitaciones.getTitulo()!=null){
+            txt_titulo.setText(capacitaciones.getTitulo());
+            try {
+                dia=formato_fecha.parse(capacitaciones.getFecha());
+            } catch (ParseException ex) {
+                Logger.getLogger(frmCREARCAPACITACION.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dch_fecha.setDate(dia);
+            cbx_turno.setSelectedItem(capacitaciones.getTurno());
+            cbx_modalidad.setSelectedItem(capacitaciones.getModalidad());
+            if(capacitaciones.getMonto()!=0){
+                rb_pagar.setSelected(true);
+                txt_monto.setText(String.valueOf(capacitaciones.getMonto()));
+            }
+            txt_mensaje.setText(capacitaciones.getMensaje());
+            cbx_hora.setSelectedItem(capacitaciones.getHora());
+            Desactivar();
+        }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
@@ -510,7 +543,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         //hellow
-        String area= cbx_area.getSelectedItem().toString();
+        String area_Seleccionada=cbx_area.getSelectedItem().toString();
+        String area=area_Seleccionada.replace(" ", "_");
         String titulo=txt_titulo.getText();
         String fecha=formato_fecha.format(dch_fecha.getDate() );
         System.out.println(fecha);
@@ -536,6 +570,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         datos.setMonto(monto);
         
         ejecutar.guardar_Capacitacion(datos);
+        Desactivar();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_nuevabusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevabusquedaActionPerformed
@@ -572,6 +607,12 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private void cbx_capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_capacitacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbx_capacitacionActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        activar();
+        txt_monto.setEnabled(true);
+        btn_guardar.setEnabled(true);
+    }//GEN-LAST:event_btn_editarActionPerformed
 
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
