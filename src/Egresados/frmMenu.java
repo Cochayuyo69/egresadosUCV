@@ -126,7 +126,8 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCapacitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapacitacionesActionPerformed
-        // TODO add your handling code here:
+        frmCREARCAPACITACION c=new frmCREARCAPACITACION();
+        c.setVisible(true);
     }//GEN-LAST:event_btnCapacitacionesActionPerformed
 
     private void btnPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilesActionPerformed
