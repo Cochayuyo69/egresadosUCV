@@ -25,79 +25,30 @@ public class frmPerfiles extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jtxtPerfil = new javax.swing.JTextField();
-        jtxtIDPerfil = new javax.swing.JTextField();
-        jbtnBuscarPerfil = new javax.swing.JButton();
-        jbtnguardar = new javax.swing.JButton();
-        jbtnEliminar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jtxtIDEspecial = new javax.swing.JTextField();
+        jbtnBuscarEspecial = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jcbxPerfil = new javax.swing.JComboBox<>();
         jtxtEspecial = new javax.swing.JTextField();
-        jbtnBuscarEspecial = new javax.swing.JButton();
         jbtnGuardarEspecial = new javax.swing.JButton();
         jbtnEliminar1 = new javax.swing.JButton();
-        jtxtIDEspecial = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jtxtIDPerfil = new javax.swing.JTextField();
+        jbtnBuscarPerfil = new javax.swing.JButton();
+        jtxtPerfil = new javax.swing.JTextField();
+        jbtnguardar = new javax.swing.JButton();
+        jbtnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtxtPerfil.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jtxtPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese un nuevo perfil:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
-        jtxtPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtPerfilActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jtxtPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 320, 80));
-
-        jtxtIDPerfil.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jtxtIDPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
-        jtxtIDPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtIDPerfilActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jtxtIDPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 100, 80));
-
-        jbtnBuscarPerfil.setBackground(new java.awt.Color(204, 255, 255));
-        jbtnBuscarPerfil.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jbtnBuscarPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
-        jbtnBuscarPerfil.setBorder(null);
-        jbtnBuscarPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnBuscarPerfilActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtnBuscarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 60, 50));
-
-        jbtnguardar.setBackground(new java.awt.Color(76, 128, 76));
-        jbtnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jbtnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar.png"))); // NOI18N
-        jbtnguardar.setText("GUARDAR");
-        jbtnguardar.setBorder(null);
-        jbtnguardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnguardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 150, 60));
-
-        jbtnEliminar.setBackground(new java.awt.Color(255, 102, 102));
-        jbtnEliminar.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jbtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EDITAR.png"))); // NOI18N
-        jbtnEliminar.setText("ELIMINAR");
-        jbtnEliminar.setBorder(null);
-        jbtnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnEliminarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 150, 60));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvxs.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -108,27 +59,23 @@ public class frmPerfiles extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/barra_xl.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jLabel7.setText("Elija un Perfil:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Especializaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jcbxPerfil.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jcbxPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jcbxPerfil.addActionListener(new java.awt.event.ActionListener() {
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 600, 420));
+
+        jtxtIDEspecial.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jtxtIDEspecial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jtxtIDEspecial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbxPerfilActionPerformed(evt);
+                jtxtIDEspecialActionPerformed(evt);
             }
         });
-        jPanel1.add(jcbxPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 210, 50));
-
-        jtxtEspecial.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jtxtEspecial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese una especialización:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
-        jtxtEspecial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtEspecialActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jtxtEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 180, 280, 80));
+        jPanel3.add(jtxtIDEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 100, 80));
 
         jbtnBuscarEspecial.setBackground(new java.awt.Color(204, 255, 255));
         jbtnBuscarEspecial.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -139,7 +86,29 @@ public class frmPerfiles extends javax.swing.JFrame {
                 jbtnBuscarEspecialActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnBuscarEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 40, 50));
+        jPanel3.add(jbtnBuscarEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 60, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel7.setText("Elija un Perfil:");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
+
+        jcbxPerfil.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jcbxPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jcbxPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbxPerfilActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jcbxPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 210, 50));
+
+        jtxtEspecial.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jtxtEspecial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese una especialización:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jtxtEspecial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtEspecialActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jtxtEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 350, 80));
 
         jbtnGuardarEspecial.setBackground(new java.awt.Color(76, 128, 76));
         jbtnGuardarEspecial.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
@@ -151,7 +120,7 @@ public class frmPerfiles extends javax.swing.JFrame {
                 jbtnGuardarEspecialActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnGuardarEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 340, 150, 60));
+        jPanel3.add(jbtnGuardarEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 150, 60));
 
         jbtnEliminar1.setBackground(new java.awt.Color(255, 102, 102));
         jbtnEliminar1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
@@ -163,16 +132,73 @@ public class frmPerfiles extends javax.swing.JFrame {
                 jbtnEliminar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 340, 150, 60));
+        jPanel3.add(jbtnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 150, 60));
 
-        jtxtIDEspecial.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
-        jtxtIDEspecial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
-        jtxtIDEspecial.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 600, 320));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Perfiles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 600, 420));
+
+        jtxtIDPerfil.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jtxtIDPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jtxtIDPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtIDEspecialActionPerformed(evt);
+                jtxtIDPerfilActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtIDEspecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 100, 80));
+        jPanel5.add(jtxtIDPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 100, 80));
+
+        jbtnBuscarPerfil.setBackground(new java.awt.Color(204, 255, 255));
+        jbtnBuscarPerfil.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jbtnBuscarPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        jbtnBuscarPerfil.setBorder(null);
+        jbtnBuscarPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnBuscarPerfilActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbtnBuscarPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 60, 50));
+
+        jtxtPerfil.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jtxtPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese un nuevo perfil:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 18))); // NOI18N
+        jtxtPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtPerfilActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jtxtPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 320, 80));
+
+        jbtnguardar.setBackground(new java.awt.Color(76, 128, 76));
+        jbtnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jbtnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar.png"))); // NOI18N
+        jbtnguardar.setText("GUARDAR");
+        jbtnguardar.setBorder(null);
+        jbtnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnguardarActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 150, 60));
+
+        jbtnEliminar.setBackground(new java.awt.Color(255, 102, 102));
+        jbtnEliminar.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jbtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EDITAR.png"))); // NOI18N
+        jbtnEliminar.setText("ELIMINAR");
+        jbtnEliminar.setBorder(null);
+        jbtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 150, 60));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 400, 320));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -303,6 +329,10 @@ public class frmPerfiles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JButton jbtnBuscarEspecial;
     private javax.swing.JButton jbtnBuscarPerfil;
     private javax.swing.JButton jbtnEliminar;
