@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metodos.Metodoss;
 
@@ -23,6 +24,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     Metodos_capacitacion ejecutar= new Metodos_capacitacion();
     Metodoss metodos= new Metodoss();
     private boolean btnBuscarActivo = false;
+    private boolean btnCrearActivo=false;
     public frmCREARCAPACITACION() {
         initComponents();
         setPreferredSize(new Dimension(1250,750));
@@ -462,6 +464,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         btn_eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_eliminar.setText("ELIMINAR");
         btn_eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 560, 144, 46));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -518,6 +525,9 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
             if(capacitaciones.getMonto()!=0){
                 rb_pagar.setSelected(true);
                 txt_monto.setText(String.valueOf(capacitaciones.getMonto()));
+            }else{
+                rb_pagar.setSelected(false);
+                txt_monto.setText(null);
             }
             txt_mensaje.setText(capacitaciones.getMensaje());
             cbx_hora.setSelectedItem(capacitaciones.getHora());
@@ -526,6 +536,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
+        btnCrearActivo=true;
         btnBuscarActivo = false;
         cbx_capacitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         cbx_capacitacion.setEnabled(false);
@@ -560,6 +571,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         }else{
             monto=0;
         }
+        
         datos.setArea(area);
         datos.setTitulo(titulo);
         datos.setFecha(fecha);
@@ -568,8 +580,15 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         datos.setModalidad(modalidad);
         datos.setMensaje(mensaje);
         datos.setMonto(monto);
+        String excepciones=ejecutar.excepciones(fecha, mensaje, titulo);
         
-        ejecutar.guardar_Capacitacion(datos);
+        if(btnCrearActivo){
+            ejecutar.guardar_Capacitacion(datos);
+        }else {
+            ejecutar.editar_capacitacion(datos, area);
+        }
+            
+        
         Desactivar();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -610,9 +629,21 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         activar();
-        txt_monto.setEnabled(true);
+        btnCrearActivo=false;
+        rb_pagar.setEnabled(true);
+        if(rb_pagar.isSelected()){
+            txt_monto.setEnabled(true);
+        }
         btn_guardar.setEnabled(true);
+        txt_titulo.setEnabled(false);
+        cbx_capacitacion.setEnabled(false);
     }//GEN-LAST:event_btn_editarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        String area_Selecionada= cbx_area.getSelectedItem().toString();
+        String capacitacion=cbx_capacitacion.getSelectedItem().toString();
+        ejecutar.eliminar_capacitacion(area_Selecionada, capacitacion);
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();

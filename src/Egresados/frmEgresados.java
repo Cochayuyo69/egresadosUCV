@@ -817,8 +817,6 @@ public class frmEgresados extends javax.swing.JFrame {
         String codigoUCV = jtxtcodigoE.getText();
         int filial = metodos.obtenerIdFilial(cbxFilial.getSelectedItem().toString());
         String estTrabajo = cbxEstadoTrabajo.getSelectedItem().toString();
-        
-
         String apellidoP = jtxtApellidoP.getText();
         String apellidoM = jtxtApellidoM.getText();
         String nombres = jtxtNombres.getText();

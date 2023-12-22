@@ -61,6 +61,7 @@ public class Metodos_capacitacion {
                 datos.setModalidad(rs.getString("MODALIDAD"));
                 datos.setMonto(rs.getDouble("MONTO"));
                 datos.setMensaje(rs.getString("MENSAJE"));
+                conectar.close();
             } else {
             JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -68,6 +69,60 @@ public class Metodos_capacitacion {
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
+    //ELIMINAR CAPACITACION
+    
+    public void eliminar_capacitacion(String area, String borrar_capacitacion){
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String sql = "DELETE FROM CAP_"+area+" WHERE TITULO = ?";
+            PreparedStatement statement = conectar.prepareStatement(sql);
+            statement.setString(1, borrar_capacitacion);
+            statement.executeUpdate();
+            statement.close();
+            conectar.close();
+            JOptionPane.showMessageDialog(null, "Capacitación eliminada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    //Editar capacitacion 
+    public void editar_capacitacion(Datos_Capacitaciones Objeto_datos, String area){
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String sql = "UPDATE CAP_"+area+" SET Fecha=?, Turno=?, Hora=?, Modalidad=?, Monto=?, Mensaje=? WHERE Titulo=?";
+            PreparedStatement statement = conectar.prepareStatement(sql);
+            // Establecer los valores de los parámetros
+            statement.setString(1, Objeto_datos.getFecha());
+            statement.setString(2, Objeto_datos.getTurno());
+            statement.setString(3, Objeto_datos.getHora());
+            statement.setString(4, Objeto_datos.getModalidad());
+            statement.setDouble(5, Objeto_datos.getMonto());
+            statement.setString(6, Objeto_datos.getMensaje());
+            statement.setString(7, Objeto_datos.getTitulo()); // Utilizamos el título como condición
+            statement.executeUpdate();
+            statement.close();
+            conectar.close();
+            JOptionPane.showMessageDialog(null, "Capacitación editada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Capacitación no editada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println(e);
+        }
+    }
+    
+    //Excepciones
+    
+    public String excepciones(String fecha, String mensaje, String titulo){
+        if(fecha == null){
+            return "Ingrese una fecha para la capacitación";
+        } else if (mensaje == null){
+            return "Ingrese una mensaje para la capacitación";
+        } else if (titulo == null){
+            return "Ingrese una titulo para la capacitación";
+        } 
+        return "";
+    }
+    
     
     //Metodo para llenar combobox de horas segun sea el turno
     public DefaultComboBoxModel<String> obtenerhoras(String turno) {
