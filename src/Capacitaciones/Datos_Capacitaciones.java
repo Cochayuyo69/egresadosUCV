@@ -3,6 +3,7 @@ package Capacitaciones;
 
 public class Datos_Capacitaciones {
     String Area;
+    String Especializacion;
     String Titulo;
     String Fecha;
     String Turno;
@@ -33,6 +34,15 @@ public class Datos_Capacitaciones {
     public void setArea(String Area) {
         this.Area = Area;
     }
+
+    public String getEspecializacion() {
+        return Especializacion;
+    }
+
+    public void setEspecializacion(String Especializacion) {
+        this.Especializacion = Especializacion;
+    }
+    
 
     public String getTitulo() {
         return Titulo;

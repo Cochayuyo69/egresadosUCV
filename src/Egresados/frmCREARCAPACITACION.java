@@ -28,7 +28,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     public frmCREARCAPACITACION() {
         initComponents();
         setPreferredSize(new Dimension(1250,750));
-        cbx_capacitacion.setEnabled(false);
         llenarCombobox();
         txt_monto.setEnabled(false);
         rb_pagar.addItemListener(new ItemListener() {
@@ -107,13 +106,15 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        cbx_capacitacion = new javax.swing.JComboBox<>();
+        cbx_especializacion = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         cbx_area = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
         btn_nuevabusqueda = new javax.swing.JButton();
         btn_crear = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        cbx_titulo = new javax.swing.JComboBox<>();
         btn_guardar = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
@@ -325,19 +326,19 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        cbx_capacitacion.setBackground(new java.awt.Color(255, 255, 255));
-        cbx_capacitacion.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_capacitacion.setForeground(new java.awt.Color(0, 0, 0));
-        cbx_capacitacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
-        cbx_capacitacion.addActionListener(new java.awt.event.ActionListener() {
+        cbx_especializacion.setBackground(new java.awt.Color(255, 255, 255));
+        cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_especializacion.setForeground(new java.awt.Color(0, 0, 0));
+        cbx_especializacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_especializacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbx_capacitacionActionPerformed(evt);
+                cbx_especializacionActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("CAPACITACIÓN");
+        jLabel1.setText("ESPECIALIZACION");
 
         cbx_area.setBackground(new java.awt.Color(255, 255, 255));
         cbx_area.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
@@ -354,7 +355,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("ESPECIALIZACIÓN");
+        jLabel2.setText("PERFIL");
 
         btn_buscar.setBackground(new java.awt.Color(153, 153, 255));
         btn_buscar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -389,27 +390,47 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("TITULO");
+
+        cbx_titulo.setBackground(new java.awt.Color(255, 255, 255));
+        cbx_titulo.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_titulo.setForeground(new java.awt.Color(0, 0, 0));
+        cbx_titulo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_titulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_tituloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbx_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cbx_titulo, 0, 291, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_nuevabusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(btn_nuevabusqueda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,11 +438,13 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -488,30 +511,29 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
-        if (btnBuscarActivo) { 
+
         DefaultComboBoxModel<String> modelo;
         String Texto_Seleccionado = cbx_area.getSelectedItem().toString();
-        String areaSeleccionada=Texto_Seleccionado.replace(" ", "_");
         int area=cbx_area.getSelectedIndex();
         if(area==0){
             modelo= new DefaultComboBoxModel<>(new String[]{""});
-            cbx_capacitacion.setEnabled(false);
+            cbx_especializacion.setEnabled(false);
         }else{
-            modelo = ejecutar.obtenercapacitaciones(areaSeleccionada); 
-            cbx_capacitacion.setModel(modelo);
-            cbx_capacitacion.setEnabled(true); 
-        }
+            int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
+            modelo = ejecutar.obtener_especializaciones(id); 
+            cbx_especializacion.setModel(modelo);
+            cbx_especializacion.setEnabled(true); 
         }
     }//GEN-LAST:event_cbx_areaActionPerformed
 
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
-        String area=Area_seleccionada.replace(" ", "_");
-        String capacitacion=cbx_capacitacion.getSelectedItem().toString();
+        String Especializacion=cbx_especializacion.getSelectedItem().toString();
+        String Titulo=cbx_titulo.getSelectedItem().toString();
         Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
         Date dia = null;
-        ejecutar.buscar_capacitacion(area, capacitacion, capacitaciones);
+        ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,Titulo, capacitaciones);
         if(capacitaciones.getTitulo()!=null){
             txt_titulo.setText(capacitaciones.getTitulo());
             try {
@@ -538,8 +560,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
         btnCrearActivo=true;
         btnBuscarActivo = false;
-        cbx_capacitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
-        cbx_capacitacion.setEnabled(false);
+        cbx_titulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        cbx_titulo.setEnabled(false);
         activar();
         limpiar();
         btn_buscar.setEnabled(false);
@@ -555,7 +577,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         //hellow
         String area_Seleccionada=cbx_area.getSelectedItem().toString();
-        String area=area_Seleccionada.replace(" ", "_");
+        String especilizacion_seleccionada=cbx_especializacion.getSelectedItem().toString();
         String titulo=txt_titulo.getText();
         String fecha=formato_fecha.format(dch_fecha.getDate() );
         System.out.println(fecha);
@@ -572,7 +594,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
             monto=0;
         }
         
-        datos.setArea(area);
+        datos.setArea(area_Seleccionada);
+        datos.setEspecializacion(especilizacion_seleccionada);
         datos.setTitulo(titulo);
         datos.setFecha(fecha);
         datos.setTurno(turno);
@@ -580,12 +603,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         datos.setModalidad(modalidad);
         datos.setMensaje(mensaje);
         datos.setMonto(monto);
-        String excepciones=ejecutar.excepciones(fecha, mensaje, titulo);
         
         if(btnCrearActivo){
             ejecutar.guardar_Capacitacion(datos);
         }else {
-            ejecutar.editar_capacitacion(datos, area);
+            ejecutar.editar_capacitacion(datos);
         }
             
         
@@ -596,10 +618,12 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         limpiar();
         Desactivar();
         btnBuscarActivo = true;
+        btnCrearActivo=false;
         btn_editar.setEnabled(true);
         btn_guardar.setEnabled(false);
         btn_eliminar.setEnabled(true);
         btn_buscar.setEnabled(true);
+        cbx_titulo.setEnabled(false);
     }//GEN-LAST:event_btn_nuevabusquedaActionPerformed
 
     private void txt_montoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_montoKeyTyped
@@ -623,27 +647,44 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         cbx_hora.setModel(modelo_horas);
     }//GEN-LAST:event_cbx_turnoActionPerformed
 
-    private void cbx_capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_capacitacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbx_capacitacionActionPerformed
+    private void cbx_especializacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacionActionPerformed
+        DefaultComboBoxModel<String> modelo;
+        if(btnCrearActivo){
+            modelo=new DefaultComboBoxModel<>(new String[]{""});
+            cbx_titulo.setEnabled(false);
+        }else {
+        String especializacion_Seleccionada = cbx_especializacion.getSelectedItem().toString();
+        String area_seleccionada=cbx_area.getSelectedItem().toString();
+        modelo = ejecutar.obtener_Titulos(area_seleccionada, especializacion_Seleccionada);
+        cbx_titulo.setModel(modelo);
+        cbx_titulo.setEnabled(true); 
+        }
+    }//GEN-LAST:event_cbx_especializacionActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         activar();
         btnCrearActivo=false;
+        
         rb_pagar.setEnabled(true);
         if(rb_pagar.isSelected()){
             txt_monto.setEnabled(true);
         }
         btn_guardar.setEnabled(true);
-        txt_titulo.setEnabled(false);
-        cbx_capacitacion.setEnabled(false);
+        cbx_especializacion.setEnabled(false);
+        cbx_area.setEnabled(false);
+        cbx_titulo.setEnabled(false);
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        String area_Selecionada= cbx_area.getSelectedItem().toString();
-        String capacitacion=cbx_capacitacion.getSelectedItem().toString();
-        ejecutar.eliminar_capacitacion(area_Selecionada, capacitacion);
+        String Area_Selecionada= cbx_area.getSelectedItem().toString();
+        String Especializacion_seleccionada=cbx_especializacion.getSelectedItem().toString();
+        String Titulo_Seleccionado=cbx_titulo.getSelectedItem().toString();
+        ejecutar.eliminar_capacitacion(Area_Selecionada,Especializacion_seleccionada, Titulo_Seleccionado);
     }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void cbx_tituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_tituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_tituloActionPerformed
 
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
@@ -694,9 +735,10 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_nuevabusqueda;
     private javax.swing.JComboBox<String> cbx_area;
-    private javax.swing.JComboBox<String> cbx_capacitacion;
+    private javax.swing.JComboBox<String> cbx_especializacion;
     private javax.swing.JComboBox<String> cbx_hora;
     private javax.swing.JComboBox<String> cbx_modalidad;
+    private javax.swing.JComboBox<String> cbx_titulo;
     private javax.swing.JComboBox<String> cbx_turno;
     private com.toedter.calendar.JDateChooser dch_fecha;
     private javax.swing.JLabel jLabel1;
@@ -705,6 +747,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
