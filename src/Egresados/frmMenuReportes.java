@@ -47,7 +47,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
         
         tblDatos.setModel(model);
         
-        String[][] datos = metodos.mostrar();
+        String[][] datos = metodos.mostrarEgresados();
         if (datos != null) {
             for (String[] row : datos) {
                 model.addRow(row);

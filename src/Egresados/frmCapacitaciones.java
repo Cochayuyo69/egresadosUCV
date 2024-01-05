@@ -53,7 +53,7 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -65,12 +65,10 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_Nombres.setBackground(new java.awt.Color(255, 255, 255));
         txt_Nombres.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        txt_Nombres.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Nombres y Apellidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Light", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txt_Nombres.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Nombres y Apellidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Light", 1, 18))); // NOI18N
         jPanel2.add(txt_Nombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 15, 372, 61));
 
-        cbx_area.setBackground(new java.awt.Color(255, 255, 255));
         cbx_area.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbx_area.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbx_area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -81,7 +79,6 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         });
         jPanel2.add(cbx_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 316, 40));
 
-        cbx_Capacitaciones.setBackground(new java.awt.Color(255, 255, 255));
         cbx_Capacitaciones.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbx_Capacitaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbx_Capacitaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -93,9 +90,8 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         });
         jPanel2.add(cbx_Capacitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 316, 40));
 
-        txt_Codigo.setBackground(new java.awt.Color(255, 255, 255));
         txt_Codigo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        txt_Codigo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código UCV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Light", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txt_Codigo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código UCV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI Light", 1, 18))); // NOI18N
         txt_Codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_CodigoActionPerformed(evt);
@@ -116,18 +112,15 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         jPanel2.add(btn_busqueda_masiva, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 210, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Área");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Capacitaciones");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, -1, 30));
 
         btn_enviar_correo.setBackground(new java.awt.Color(204, 255, 153));
         btn_enviar_correo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_enviar_correo.setForeground(new java.awt.Color(0, 0, 0));
         btn_enviar_correo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
         btn_enviar_correo.setText("ENVIAR");
         btn_enviar_correo.setToolTipText("");
@@ -196,6 +189,7 @@ public class frmCapacitaciones extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed

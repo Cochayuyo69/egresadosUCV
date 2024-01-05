@@ -212,9 +212,18 @@ public class frmPerfiles extends javax.swing.JFrame {
 
     private void jbtnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnguardarActionPerformed
         String Perfil = jtxtPerfil.getText();
-        m.guardarPerfil(Perfil);
-        llenarCombobox();
-        jtxtPerfil.setText("");
+        
+        if (m.buscarPerfil(Perfil)){
+            
+            JOptionPane.showMessageDialog(null, "El perfil que trata de ingresar ya existe en el sistema.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        else{
+            m.guardarPerfil(Perfil);
+            llenarCombobox();
+            jtxtPerfil.setText("");
+        }
+        
     }//GEN-LAST:event_jbtnguardarActionPerformed
 
     private void jtxtEspecialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtEspecialActionPerformed
@@ -261,9 +270,19 @@ public class frmPerfiles extends javax.swing.JFrame {
     private void jbtnGuardarEspecialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarEspecialActionPerformed
         String Especial = jtxtEspecial.getText();
         int Operador1 = m.obtenerIdPerfil(jcbxPerfil.getSelectedItem().toString());
-        m.guardarEspecializacion(Especial, Operador1);
-        jtxtEspecial.setText("");
-        jcbxPerfil.setSelectedIndex(0);
+        if(Operador1==1){
+            JOptionPane.showMessageDialog(null, "Elija un perfil válido.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            if(m.buscarEspecial(Especial)){
+                JOptionPane.showMessageDialog(null, "La especializacion que trata de ingresar ya existe en el sistema.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                m.guardarEspecializacion(Especial, Operador1);
+                jtxtEspecial.setText("");
+                jcbxPerfil.setSelectedIndex(0);
+            }
+        }
     }//GEN-LAST:event_jbtnGuardarEspecialActionPerformed
 
     private void jbtnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminar1ActionPerformed

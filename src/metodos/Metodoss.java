@@ -274,12 +274,12 @@ public class Metodoss{
     }
     
     //METODO PARA MOSTRAR en 
-    public String[][] mostrar() {
+    public String[][] mostrarEgresados() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "SELECT id, Codigo_de_estudiante, id_filial, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo FROM EGRESADOS";
+            String query = "SELECT id, Codigo_de_estudiante, id_filial, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo FROM EGRESADOS;";
 
             PreparedStatement st = con.prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -301,8 +301,43 @@ public class Metodoss{
             }
             return dataArr;
         } catch (Exception e) {
-            System.err.println("Error! ");
-            System.err.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,  "Error" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
+    
+    //METODO PARA MOSTRAR en 
+    public String[][] mostrarEgresadosInvi(int perfil, int espe) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT Apellido_paterno, Apellido_materno, Nombres, Correo_electronico FROM EGRESADOS WHERE id_area_trabajo = ? and id_areas_especializacion = ?;";
+
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, perfil);
+            st.setInt(2, espe);
+            
+            ResultSet rs = st.executeQuery();
+
+            List<String[]> dataList = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[4]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 4; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    data[j] = rs.getString(j + 1);
+                }
+                dataList.add(data);
+            }
+            con.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] dataArr = new String[dataList.size()][4];
+            for (int i = 0; i < dataList.size(); i++) {
+                dataArr[i] = dataList.get(i);
+            }
+            return dataArr;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "No se encontraron egresados con ese perfil o especialización." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
         }
         return null;
     }
@@ -352,6 +387,7 @@ public class Metodoss{
         }
         return model;
     }
+    
     //Metodo para obtener el id de area de trabajo
     public int obtener_id_Area_trabajo(String nombre_area) {
         int id_area = 0; // Valor por defecto si no se encuentra el ID\
@@ -375,6 +411,7 @@ public class Metodoss{
 
         return id_area;
     }
+    
     //metodo para obtener nombre del area
     public String obtener_nombre_area(int id_area){
         String nombre_area="";
@@ -648,6 +685,15 @@ public class Metodoss{
         }
     }
     
+    //ENVIAR CORREO NUEVA CONTRASENA
+    public void enviarCorreoEgre(String correo, String mensaje, String Titulo){
+        String emailTo = correo;
+        String subject = Titulo;
+        String content = mensaje;
+        createEmail(emailTo, subject, content);
+        sendEmail("Se ha enviado correo el o los correos.");
+    }
+    
     
     //GUARDAR PERFILES EN DB
     public void guardarPerfil(String perfil) {
@@ -710,6 +756,30 @@ public class Metodoss{
             con.close();
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener ID del Perfil: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return idPerfil;
+    }
+    
+    //METODO PARA OBTENER EL ID DEL COMBO
+    public int obtenerIdEspe(String nombrePerfil) {
+        int idPerfil = 0; // Valor por defecto si no se encuentra el ID\
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT id_area_trabajo FROM areas_especializacion WHERE Nombre_especializacion = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombrePerfil);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idPerfil = rs.getInt("id_area_trabajo");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de la especialización: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
         }
 
         return idPerfil;
@@ -873,6 +943,50 @@ public class Metodoss{
         JOptionPane.showMessageDialog(null, "Error al eliminar el perfil: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
     }
 }
+    
+    //METODO SI EXISTE CODIGO
+    public boolean buscarPerfil(String perfil) {
+        boolean existe = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT * FROM areas_trabajo WHERE Nombre_area = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, perfil);;
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                existe = true; // Si hay una fila en el resultado, significa que el código existe en la base de datos
+            }
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        return existe;
+    }
+    
+    //METODO SI EXISTE CODIGO
+    public boolean buscarEspecial(String especial) {
+        boolean existe = false;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+            String query = "SELECT * FROM areas_especializacion WHERE Nombre_especializacion = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, especial);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                existe = true; // Si hay una fila en el resultado, significa que el código existe en la base de datos
+            }
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        return existe;
+    }
 }
 
 

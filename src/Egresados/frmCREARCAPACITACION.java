@@ -29,6 +29,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     Metodoss metodos= new Metodoss();
     private boolean btnBuscarActivo = false;
     private boolean btnCrearActivo=false;
+    
     public frmCREARCAPACITACION() {
         initComponents();
         setPreferredSize(new Dimension(1250,750));
@@ -127,7 +128,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         btn_editar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -137,14 +138,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         panel_datos.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("TÍTULO");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("FECHA");
 
-        txt_titulo.setBackground(new java.awt.Color(255, 255, 255));
         txt_titulo.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         txt_titulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -154,14 +152,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         textField.setEditable(false);
         dch_fecha.setBackground(new java.awt.Color(255, 255, 255));
         dch_fecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        dch_fecha.setForeground(new java.awt.Color(0, 0, 0));
         dch_fecha.setDateFormatString("dd/MM/yyyy");
         dch_fecha.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         dch_fecha.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
 
-        cbx_turno.setBackground(new java.awt.Color(255, 255, 255));
         cbx_turno.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_turno.setForeground(new java.awt.Color(0, 0, 0));
         cbx_turno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MAÑANA", "TARDE", "NOCHE" }));
         cbx_turno.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         cbx_turno.addActionListener(new java.awt.event.ActionListener() {
@@ -171,34 +166,25 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("TURNO");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("HORA");
 
-        cbx_hora.setBackground(new java.awt.Color(255, 255, 255));
         cbx_hora.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_hora.setForeground(new java.awt.Color(0, 0, 0));
         cbx_hora.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("MODALIDAD");
 
-        cbx_modalidad.setBackground(new java.awt.Color(255, 255, 255));
         cbx_modalidad.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_modalidad.setForeground(new java.awt.Color(0, 0, 0));
         cbx_modalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VIRTUAL", "PRESENCIAL" }));
         cbx_modalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("PAGO");
 
         rb_pagar.setBackground(new java.awt.Color(255, 255, 255));
-        rb_pagar.setForeground(new java.awt.Color(0, 0, 0));
         rb_pagar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         rb_pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +192,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
             }
         });
 
-        txt_monto.setBackground(new java.awt.Color(255, 255, 255));
         txt_monto.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         txt_monto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_monto.addActionListener(new java.awt.event.ActionListener() {
@@ -221,24 +206,19 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("MONTO S/.");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("MENSAJE");
 
-        txt_mensaje.setBackground(new java.awt.Color(255, 255, 255));
         txt_mensaje.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         txt_mensaje.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txt_mensaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("ID");
 
         lbl_id.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
         lbl_id.setText("ID");
 
         javax.swing.GroupLayout panel_datosLayout = new javax.swing.GroupLayout(panel_datos);
@@ -349,9 +329,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        cbx_especializacion.setBackground(new java.awt.Color(255, 255, 255));
         cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_especializacion.setForeground(new java.awt.Color(0, 0, 0));
         cbx_especializacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         cbx_especializacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,12 +338,9 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ESPECIALIZACION");
 
-        cbx_area.setBackground(new java.awt.Color(255, 255, 255));
         cbx_area.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_area.setForeground(new java.awt.Color(0, 0, 0));
         cbx_area.setToolTipText("");
         cbx_area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbx_area.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -377,12 +352,10 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("PERFIL");
 
         btn_buscar.setBackground(new java.awt.Color(153, 153, 255));
         btn_buscar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_buscar.setForeground(new java.awt.Color(0, 0, 0));
         btn_buscar.setText("BUSCAR");
         btn_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -393,7 +366,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         btn_nuevabusqueda.setBackground(new java.awt.Color(178, 255, 255));
         btn_nuevabusqueda.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_nuevabusqueda.setForeground(new java.awt.Color(0, 0, 0));
         btn_nuevabusqueda.setText("NUEVA BUSQUEDA");
         btn_nuevabusqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_nuevabusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -404,7 +376,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         btn_crear.setBackground(new java.awt.Color(204, 255, 204));
         btn_crear.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_crear.setForeground(new java.awt.Color(0, 0, 0));
         btn_crear.setText("CREAR");
         btn_crear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_crear.addActionListener(new java.awt.event.ActionListener() {
@@ -414,12 +385,9 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("TITULO");
 
-        cbx_titulo.setBackground(new java.awt.Color(255, 255, 255));
         cbx_titulo.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        cbx_titulo.setForeground(new java.awt.Color(0, 0, 0));
         cbx_titulo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         cbx_titulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,7 +451,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         btn_guardar.setBackground(new java.awt.Color(0, 153, 51));
         btn_guardar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_guardar.setForeground(new java.awt.Color(0, 0, 0));
         btn_guardar.setText("GUARDAR");
         btn_guardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +462,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         btn_editar.setBackground(new java.awt.Color(255, 255, 204));
         btn_editar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_editar.setForeground(new java.awt.Color(0, 0, 0));
         btn_editar.setText("EDITAR");
         btn_editar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
@@ -507,7 +473,6 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
         btn_eliminar.setBackground(new java.awt.Color(255, 153, 153));
         btn_eliminar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_eliminar.setText("ELIMINAR");
         btn_eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -531,6 +496,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
