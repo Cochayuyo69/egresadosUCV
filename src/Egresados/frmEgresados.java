@@ -95,7 +95,6 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxOpe2.setEnabled(true);
         cbxOpe3.setEnabled(true);
         cbxarea_trabajo.setEnabled(true);
-        cbx_especializacion.setEnabled(true);
     }
     //LIMPIAR TODO
     public void limpiar(){
@@ -861,11 +860,8 @@ public class frmEgresados extends javax.swing.JFrame {
         String estTitulo = cbxEstadoTitulo.getSelectedItem().toString();
         String reTitulo = txtResTitulo.getText();
         int area_trabajo= metodos.obtener_id_Area_trabajo(cbxarea_trabajo.getSelectedItem().toString());
-        int especializacion;
-        if (cbxEstadoTrabajo.getSelectedItem().toString().equals("No")){
-            area_trabajo = 0;
-            especializacion=0;
-        }else { especializacion=metodos.obtener_id_especializacion(cbx_especializacion.getSelectedItem().toString());}
+        int especializacion=metodos.obtener_id_especializacion(cbx_especializacion.getSelectedItem().toString());;
+        
         
         //GUARDAR DATOS
         datos.setCodigoUCV(codigoUCV);
@@ -952,17 +948,15 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImportarActionPerformed
 
     private void cbxarea_trabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxarea_trabajoActionPerformed
-        DefaultComboBoxModel<String> modelo;
+        
         String Texto_Seleccionado = cbxarea_trabajo.getSelectedItem().toString();
         int area=cbxarea_trabajo.getSelectedIndex();
+        int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
+        DefaultComboBoxModel<String> modelo= ejecutar.obtener_especializaciones(id);
+        cbx_especializacion.setModel(modelo);
         if(area==0){
-            modelo= new DefaultComboBoxModel<>();
-            cbx_especializacion.setModel(modelo);
             cbx_especializacion.setEnabled(false);
         }else{
-            int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
-            modelo = ejecutar.obtener_especializaciones(id);
-            cbx_especializacion.setModel(modelo);
             cbx_especializacion.setEnabled(true);}
     }//GEN-LAST:event_cbxarea_trabajoActionPerformed
 

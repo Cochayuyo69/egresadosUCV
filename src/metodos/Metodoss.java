@@ -237,7 +237,7 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "UPDATE EGRESADOS SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, id_filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Operador_1 = ?, Num_telefono2 = ?,  Operador_2 = ?, Num_telefono3 = ?,  Operador_3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, id_area_trabajo = ?, id_areas_especializacion WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
+            String query = "UPDATE EGRESADOS SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, id_filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Operador_1 = ?, Num_telefono2 = ?,  Operador_2 = ?, Num_telefono3 = ?,  Operador_3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, id_area_trabajo = ?, id_areas_especializacion=? WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             preparedStmt.setString(1, unEgresado.getCodigoUCV());
@@ -272,7 +272,7 @@ public class Metodoss{
             con.close();
             JOptionPane.showMessageDialog(null, "Egresado editado con éxito.", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,  "Error al editar." + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+            System.out.println("Error al editar." + e.getMessage());
         }
     }
     
