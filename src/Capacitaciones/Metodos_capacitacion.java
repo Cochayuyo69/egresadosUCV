@@ -1,12 +1,16 @@
 
 package Capacitaciones;
 
+import java.awt.Component;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import metodos.Metodoss;
 
@@ -48,16 +52,17 @@ public class Metodos_capacitacion {
     
     //Buscar capacitación
     
-    public void buscar_capacitacion(String area_trabajo, String especializacion,String titulo, Datos_Capacitaciones datos){
+    public void buscar_capacitacion(String area_trabajo, String especializacion,String Id, Datos_Capacitaciones datos){
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT * FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND TITULO = ?;";
+            String query = "SELECT * FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND id = ?;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, area_trabajo);
             st.setString(2, especializacion);
-            st.setString(3, titulo);
+            st.setString(3, Id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
+                datos.setId(rs.getString("id"));
                 datos.setTitulo(rs.getString("TITULO"));
                 datos.setFecha(rs.getString("FECHA"));
                 datos.setTurno(rs.getString("TURNO"));
@@ -96,7 +101,7 @@ public class Metodos_capacitacion {
     public void editar_capacitacion(Datos_Capacitaciones Objeto_datos){
         try {
             Connection conectar=metodos.abrirconeccion();
-            String sql = "UPDATE Capacitaciones SET Fecha=?, Turno=?, Hora=?, Modalidad=?, Monto=?, Mensaje=?, Titulo=? WHERE AREA=? AND ESPECIALIZACION=?";
+            String sql = "UPDATE Capacitaciones SET Fecha=?, Turno=?, Hora=?, Modalidad=?, Monto=?, Mensaje=?, Titulo=? WHERE AREA=? AND ESPECIALIZACION=? AND id=?";
             PreparedStatement statement = conectar.prepareStatement(sql);
             // Establecer los valores de los parámetros
             statement.setString(1, Objeto_datos.getFecha());
@@ -108,6 +113,7 @@ public class Metodos_capacitacion {
             statement.setString(7, Objeto_datos.getTitulo()); 
             statement.setString(8, Objeto_datos.getArea());// Utilizamos el area como condición
             statement.setString(9, Objeto_datos.getEspecializacion());// Utilizamos especializacion como condición
+            statement.setString(10, Objeto_datos.getId());// Utilizamos especializacion como condición
             statement.executeUpdate();
             statement.close();
             conectar.close();
@@ -188,7 +194,7 @@ public class Metodos_capacitacion {
                 ResultSet resultado=preparedStmt.executeQuery();
 
                 while(resultado.next()){
-                    String titulo_capacitacion=resultado.getString("TITULO");
+                    String titulo_capacitacion=resultado.getString("TITULO")+"   ID:"+resultado.getString("id");
                     modelo.addElement(titulo_capacitacion);
                 }
                 preparedStmt.close();
@@ -198,4 +204,5 @@ public class Metodos_capacitacion {
             }
         return modelo;
     }
+    
 }

@@ -3,6 +3,7 @@ package Egresados;
 
 import Capacitaciones.Datos_Capacitaciones;
 import Capacitaciones.Metodos_capacitacion;
+import java.awt.Component;
 
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -13,6 +14,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metodos.Metodoss;
@@ -29,6 +33,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         initComponents();
         setPreferredSize(new Dimension(1250,750));
         llenarCombobox();
+        lbl_id.setText("");
         txt_monto.setEnabled(false);
         rb_pagar.addItemListener(new ItemListener() {
             @Override
@@ -69,6 +74,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         rb_pagar.setEnabled(true);
     }
     public void limpiar(){
+        lbl_id.setText("");
         txt_monto.setText("");
         txt_mensaje.setText("");
         txt_titulo.setText("");
@@ -101,6 +107,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txt_mensaje = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        lbl_id = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -225,6 +233,14 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         txt_mensaje.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txt_mensaje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("ID");
+
+        lbl_id.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_id.setText("ID");
+
         javax.swing.GroupLayout panel_datosLayout = new javax.swing.GroupLayout(panel_datos);
         panel_datos.setLayout(panel_datosLayout);
         panel_datosLayout.setHorizontalGroup(
@@ -249,7 +265,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                                 .addComponent(jLabel14)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_datosLayout.createSequentialGroup()
                                 .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbx_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,6 +279,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                                     .addComponent(cbx_modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_datosLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel16)
+                                .addGap(39, 39, 39)
+                                .addComponent(lbl_id)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rb_pagar)
@@ -297,7 +318,9 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                         .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(rb_pagar)))
                     .addGroup(panel_datosLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -306,7 +329,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(txt_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel1.add(panel_datos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 1080, 310));
@@ -516,8 +539,11 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         String Texto_Seleccionado = cbx_area.getSelectedItem().toString();
         int area=cbx_area.getSelectedIndex();
         if(area==0){
-            modelo= new DefaultComboBoxModel<>(new String[]{""});
+            modelo= new DefaultComboBoxModel<>();
+            cbx_especializacion.setModel(modelo);
             cbx_especializacion.setEnabled(false);
+            cbx_titulo.setModel(modelo);
+            cbx_titulo.setEnabled(false);
         }else{
             int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
             modelo = ejecutar.obtener_especializaciones(id); 
@@ -530,10 +556,12 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
         String Especializacion=cbx_especializacion.getSelectedItem().toString();
-        String Titulo=cbx_titulo.getSelectedItem().toString();
+        String Partes_titulo=cbx_titulo.getSelectedItem().toString();
+        String[] parts = Partes_titulo.split("\\s{2,}");
+        String id = parts[1].substring(parts[1].indexOf(":") + 1).trim();
         Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
         Date dia = null;
-        ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,Titulo, capacitaciones);
+        ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,id, capacitaciones);
         if(capacitaciones.getTitulo()!=null){
             txt_titulo.setText(capacitaciones.getTitulo());
             try {
@@ -553,6 +581,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
             }
             txt_mensaje.setText(capacitaciones.getMensaje());
             cbx_hora.setSelectedItem(capacitaciones.getHora());
+            lbl_id.setText(capacitaciones.getId());
             Desactivar();
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
@@ -585,6 +614,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         String hora=cbx_hora.getSelectedItem().toString();
         String modalidad=cbx_modalidad.getSelectedItem().toString();
         String mensaje=txt_mensaje.getText();
+        String ID=lbl_id.getText();
         boolean pago=rb_pagar.isSelected();
         double monto;
         // Evaluando si es de pago o no
@@ -603,7 +633,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         datos.setModalidad(modalidad);
         datos.setMensaje(mensaje);
         datos.setMonto(monto);
-        
+        datos.setId(ID);
         if(btnCrearActivo){
             ejecutar.guardar_Capacitacion(datos);
         }else {
@@ -624,6 +654,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         btn_eliminar.setEnabled(true);
         btn_buscar.setEnabled(true);
         cbx_titulo.setEnabled(false);
+        cbx_area.setEnabled(true);
+        cbx_especializacion.setEnabled(false);
     }//GEN-LAST:event_btn_nuevabusquedaActionPerformed
 
     private void txt_montoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_montoKeyTyped
@@ -655,10 +687,12 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         }else {
         String especializacion_Seleccionada = cbx_especializacion.getSelectedItem().toString();
         String area_seleccionada=cbx_area.getSelectedItem().toString();
-        modelo = ejecutar.obtener_Titulos(area_seleccionada, especializacion_Seleccionada);
+        modelo = ejecutar.obtener_Titulos(area_seleccionada, especializacion_Seleccionada);        
         cbx_titulo.setModel(modelo);
         cbx_titulo.setEnabled(true); 
         }
+        
+        
     }//GEN-LAST:event_cbx_especializacionActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
@@ -748,6 +782,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -758,6 +793,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl_id;
     private javax.swing.JPanel panel_datos;
     private javax.swing.JRadioButton rb_pagar;
     private javax.swing.JTextField txt_mensaje;

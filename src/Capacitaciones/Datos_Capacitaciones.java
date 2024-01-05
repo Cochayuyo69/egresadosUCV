@@ -2,6 +2,7 @@
 package Capacitaciones;
 
 public class Datos_Capacitaciones {
+    String id;
     String Area;
     String Especializacion;
     String Titulo;
@@ -14,8 +15,11 @@ public class Datos_Capacitaciones {
     
     //Constructor 
     public Datos_Capacitaciones(){};
-    public Datos_Capacitaciones(String Area, String Titulo, String Fecha, String Turno, String Hora, String Modalidad, String Mensaje, double Monto) {
+
+    public Datos_Capacitaciones(String id, String Area, String Especializacion, String Titulo, String Fecha, String Turno, String Hora, String Modalidad, String Mensaje, double Monto) {
+        this.id = id;
         this.Area = Area;
+        this.Especializacion = Especializacion;
         this.Titulo = Titulo;
         this.Fecha = Fecha;
         this.Turno = Turno;
@@ -24,8 +28,14 @@ public class Datos_Capacitaciones {
         this.Mensaje = Mensaje;
         this.Monto = Monto;
     }
-    
-    //Getter and Setter
+//Getter and Setter
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getArea() {
         return Area;
