@@ -1,5 +1,6 @@
 package Egresados;
 
+import Capacitaciones.Metodos_capacitacion;
 import Excel.BD_Excel;
 import datos.DatosEgresados;
 import java.awt.Dimension;
@@ -23,8 +24,12 @@ public class frmEgresados extends javax.swing.JFrame {
     DatosEgresados datos = new DatosEgresados();
     Metodoss metodos= new Metodoss();
     Excepciones excepcion = new Excepciones();
+    Metodos_capacitacion ejecutar= new Metodos_capacitacion();
+    boolean btnCrearActivo=false;
     public frmEgresados() {
         initComponents();
+        DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
+        cbxarea_trabajo.setModel(model5);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("EGRESADOS");
         llenarCombobox();
@@ -61,6 +66,7 @@ public class frmEgresados extends javax.swing.JFrame {
             cbxOpe2.setEnabled(false);
             cbxOpe3.setEnabled(false);
             cbxarea_trabajo.setEnabled(false);
+            cbx_especializacion.setEnabled(false);
     }
     
     //DESBLOQUEAR TODO
@@ -89,6 +95,7 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxOpe2.setEnabled(true);
         cbxOpe3.setEnabled(true);
         cbxarea_trabajo.setEnabled(true);
+        cbx_especializacion.setEnabled(true);
     }
     //LIMPIAR TODO
     public void limpiar(){
@@ -136,6 +143,8 @@ public class frmEgresados extends javax.swing.JFrame {
         cbxTipoDoc = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cbxarea_trabajo = new javax.swing.JComboBox<>();
+        cbx_especializacion = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
         txtNumeroDoc = new javax.swing.JTextField();
         jbtnbuscar = new javax.swing.JButton();
         jtxtcodigoE = new javax.swing.JTextField();
@@ -259,8 +268,8 @@ public class frmEgresados extends javax.swing.JFrame {
         jPanel2.add(cbxTipoDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 150, 50));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
-        jLabel11.setText("Area de trabajo");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 210, 40));
+        jLabel11.setText("Especialización");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 210, 40));
 
         cbxarea_trabajo.setBackground(new java.awt.Color(255, 255, 255));
         cbxarea_trabajo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -272,7 +281,21 @@ public class frmEgresados extends javax.swing.JFrame {
         });
         jPanel2.add(cbxarea_trabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 240, 50));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 600, 420));
+        cbx_especializacion.setBackground(new java.awt.Color(255, 255, 255));
+        cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        cbx_especializacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_especializacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_especializacionActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cbx_especializacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 240, 50));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
+        jLabel12.setText("Area de trabajo");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 210, 40));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 600, 490));
 
         txtNumeroDoc.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtNumeroDoc.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Nº Documento de identidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -321,13 +344,13 @@ public class frmEgresados extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jLabel10.setText("Tiene Título:");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 30));
 
         cbxEstadoTitulo.setBackground(new java.awt.Color(255, 255, 250));
         cbxEstadoTitulo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbxEstadoTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
         cbxEstadoTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.add(cbxEstadoTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, 50));
+        jPanel4.add(cbxEstadoTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 80, 40));
 
         txtResTitulo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtResTitulo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Resolución Título", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -336,9 +359,9 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtResTituloActionPerformed(evt);
             }
         });
-        jPanel4.add(txtResTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 320, 80));
+        jPanel4.add(txtResTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 320, 70));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 510, 140));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 660, 510, 150));
 
         jbtnEditar.setBackground(new java.awt.Color(204, 255, 255));
         jbtnEditar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -350,13 +373,13 @@ public class frmEgresados extends javax.swing.JFrame {
                 jbtnEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 790, 250, 75));
+        jPanel1.add(jbtnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 850, 250, 75));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/titulo_EGRESADOS.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/AZUL2_1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 840, 340, 200));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 880, 340, 200));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -374,7 +397,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtSemestreEgresoKeyTyped(evt);
             }
         });
-        jPanel3.add(txtSemestreEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 280, 80));
+        jPanel3.add(txtSemestreEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 280, 80));
 
         txtAñoEgreso.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtAñoEgreso.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Año de egreso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -388,9 +411,9 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtAñoEgresoKeyTyped(evt);
             }
         });
-        jPanel3.add(txtAñoEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 80));
+        jPanel3.add(txtAñoEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 240, 80));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 600, 140));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 600, 120));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -398,13 +421,13 @@ public class frmEgresados extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jLabel9.setText("Tiene Grado:");
-        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 40));
+        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 40));
 
         cbxEstadoGrado.setBackground(new java.awt.Color(255, 255, 250));
         cbxEstadoGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbxEstadoGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
         cbxEstadoGrado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel5.add(cbxEstadoGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, 50));
+        jPanel5.add(cbxEstadoGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 80, 50));
 
         txtResGrado.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         txtResGrado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Resolución Grado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
@@ -413,9 +436,9 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtResGradoActionPerformed(evt);
             }
         });
-        jPanel5.add(txtResGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 320, 80));
+        jPanel5.add(txtResGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 320, 80));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 510, 130));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 500, 510, 140));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -433,7 +456,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono1KeyTyped(evt);
             }
         });
-        jPanel6.add(txtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 70));
+        jPanel6.add(txtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 250, 70));
 
         cbxOpe1.setBackground(new java.awt.Color(255, 255, 250));
         cbxOpe1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -452,7 +475,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono2KeyTyped(evt);
             }
         });
-        jPanel6.add(txtTelefono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 250, 70));
+        jPanel6.add(txtTelefono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 250, 70));
 
         cbxOpe2.setBackground(new java.awt.Color(255, 255, 250));
         cbxOpe2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -476,14 +499,14 @@ public class frmEgresados extends javax.swing.JFrame {
                 txtTelefono3KeyTyped(evt);
             }
         });
-        jPanel6.add(txtTelefono3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 70));
+        jPanel6.add(txtTelefono3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 250, 70));
 
         cbxOpe3.setBackground(new java.awt.Color(255, 255, 250));
         cbxOpe3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbxOpe3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel6.add(cbxOpe3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 140, 60));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 510, 280));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 510, 300));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvs.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 120, 70));
@@ -498,10 +521,10 @@ public class frmEgresados extends javax.swing.JFrame {
                 jbtnnuevoActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 790, 249, 75));
+        jPanel1.add(jbtnnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 850, 249, 75));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rojo1_2.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 870, -1, 160));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 900, -1, 160));
 
         jbtnguardar.setBackground(new java.awt.Color(204, 255, 255));
         jbtnguardar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -513,7 +536,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 jbtnguardarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 790, 250, 75));
+        jPanel1.add(jbtnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 850, 250, 75));
 
         jbtnnuevabusqueda.setBackground(new java.awt.Color(255, 102, 102));
         jbtnnuevabusqueda.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -537,7 +560,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 btnExportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 890, 250, 75));
+        jPanel1.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 950, 250, 75));
 
         btnImportar.setBackground(new java.awt.Color(76, 128, 76));
         btnImportar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
@@ -549,7 +572,7 @@ public class frmEgresados extends javax.swing.JFrame {
                 btnImportarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 890, 250, 75));
+        jPanel1.add(btnImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 950, 250, 75));
 
         jscpegresados.setViewportView(jPanel1);
 
@@ -633,6 +656,7 @@ public class frmEgresados extends javax.swing.JFrame {
                     cbxEstadoTitulo.setSelectedItem(datosencontrados.getEstTitulo());
                     txtResTitulo.setText(datosencontrados.getReTitulo());
                     cbxarea_trabajo.setSelectedItem(metodos.obtener_nombre_area(datosencontrados.getAreaTrabajo()));
+                    cbx_especializacion.setSelectedItem(metodos.obtener_nombre_especializacion(datosencontrados.getEspecializacion()));
                     noeditar();
                 }
             }
@@ -809,6 +833,7 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnEditarActionPerformed
 
     private void jbtnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnnuevoActionPerformed
+        btnCrearActivo=true;
         limpiar();
         editar();
     }//GEN-LAST:event_jbtnnuevoActionPerformed
@@ -836,9 +861,11 @@ public class frmEgresados extends javax.swing.JFrame {
         String estTitulo = cbxEstadoTitulo.getSelectedItem().toString();
         String reTitulo = txtResTitulo.getText();
         int area_trabajo= metodos.obtener_id_Area_trabajo(cbxarea_trabajo.getSelectedItem().toString());
+        int especializacion;
         if (cbxEstadoTrabajo.getSelectedItem().toString().equals("No")){
             area_trabajo = 0;
-        }
+            especializacion=0;
+        }else { especializacion=metodos.obtener_id_especializacion(cbx_especializacion.getSelectedItem().toString());}
         
         //GUARDAR DATOS
         datos.setCodigoUCV(codigoUCV);
@@ -863,6 +890,7 @@ public class frmEgresados extends javax.swing.JFrame {
         datos.setReTitulo(reTitulo);
         datos.setEstTrabajo(estTrabajo);
         datos.setAreaTrabajo(area_trabajo);
+        datos.setEspecializacion(especializacion);
         //Traemos excepciones para guardar
         Excepciones guardar= new Excepciones();
         String necesario=guardar.ExcepcionesGuardar(codigoUCV, apellidoP, apellidoM, nombres, 
@@ -893,6 +921,7 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxOpe2ActionPerformed
 
     private void jbtnnuevabusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnnuevabusquedaActionPerformed
+        
         limpiar();
         noeditar();
         jtxtcodigoE.setEnabled(true);
@@ -923,12 +952,27 @@ public class frmEgresados extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImportarActionPerformed
 
     private void cbxarea_trabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxarea_trabajoActionPerformed
-        // TODO add your handling code here:
+        DefaultComboBoxModel<String> modelo;
+        String Texto_Seleccionado = cbxarea_trabajo.getSelectedItem().toString();
+        int area=cbxarea_trabajo.getSelectedIndex();
+        if(area==0){
+            modelo= new DefaultComboBoxModel<>();
+            cbx_especializacion.setModel(modelo);
+            cbx_especializacion.setEnabled(false);
+        }else{
+            int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
+            modelo = ejecutar.obtener_especializaciones(id);
+            cbx_especializacion.setModel(modelo);
+            cbx_especializacion.setEnabled(true);}
     }//GEN-LAST:event_cbxarea_trabajoActionPerformed
 
     private void cbxFilialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFilialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxFilialActionPerformed
+
+    private void cbx_especializacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacionActionPerformed
+
+    }//GEN-LAST:event_cbx_especializacionActionPerformed
             
         
     public static void main(String args[]) {
@@ -950,10 +994,12 @@ public class frmEgresados extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxOpe2;
     private javax.swing.JComboBox<String> cbxOpe3;
     private javax.swing.JComboBox<String> cbxTipoDoc;
+    private javax.swing.JComboBox<String> cbx_especializacion;
     private javax.swing.JComboBox<String> cbxarea_trabajo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

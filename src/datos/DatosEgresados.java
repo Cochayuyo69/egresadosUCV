@@ -8,6 +8,7 @@ public class DatosEgresados {
     private String Carrera = "INGENIERIA DE SISTEMAS";
     private String estTrabajo;
     private int areaTrabajo;
+    private int Especializacion;
     private String apellidoP;
     private String apellidoM;
     private String nombres;
@@ -27,11 +28,12 @@ public class DatosEgresados {
         
     }
 
-    public DatosEgresados(String codigoUCV, int filial, String estTrabajo, int areaTrabajo, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, int Operador1, int Operador2, int Operador3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
+    public DatosEgresados(String codigoUCV, int filial, String estTrabajo, int areaTrabajo, int Especializacion, String apellidoP, String apellidoM, String nombres, String correo, String tele1, String tele2, String tele3, int Operador1, int Operador2, int Operador3, String añoEgreso, String semestreEgreso, String tipoDocIdenti, String numDocIdenti, String estGrado, String reGrado, String estTitulo, String reTitulo) {
         this.codigoUCV = codigoUCV;
         this.filial = filial;
         this.estTrabajo = estTrabajo;
         this.areaTrabajo = areaTrabajo;
+        this.Especializacion = Especializacion;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.nombres = nombres;
@@ -50,6 +52,14 @@ public class DatosEgresados {
         this.reGrado = reGrado;
         this.estTitulo = estTitulo;
         this.reTitulo = reTitulo;
+    }
+
+    public int getEspecializacion() {
+        return Especializacion;
+    }
+
+    public void setEspecializacion(int Especializacion) {
+        this.Especializacion = Especializacion;
     }
 
     public String getCodigoUCV() {

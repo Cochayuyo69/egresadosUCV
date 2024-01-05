@@ -73,8 +73,8 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO EGRESADOS (Codigo_de_estudiante, Nombre_de_IE, id_filial, Carrera, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico, Num_telefono, Operador_1, Num_telefono2, Operador_2, Num_telefono3, Operador_3, Año_egreso, Semestre_egreso, Tipo_documento_identidad, Numero_documento_identidad, Tiene_Grado, Resolucion_Grado, Tiene_Titulo, Resolucion_Titulo, Estado_trabajo, id_area_trabajo, id_areas_especializacion) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, unEgresado.getCodigoUCV());
@@ -101,7 +101,8 @@ public class Metodoss{
             pstmt.setString(22, unEgresado.getReTitulo());
             pstmt.setString(23, unEgresado.getEstTrabajo());
             pstmt.setInt(24, unEgresado.getAreaTrabajo());
-
+            pstmt.setInt(25, unEgresado.getEspecializacion());
+            
             pstmt.executeUpdate();
             pstmt.close();
             con.close();
@@ -197,6 +198,7 @@ public class Metodoss{
             datos.setReTitulo(rs.getString("Resolucion_Titulo"));
             datos.setEstTrabajo(rs.getString("Estado_trabajo"));
             datos.setAreaTrabajo(rs.getInt("id_area_trabajo"));
+            datos.setEspecializacion(rs.getInt("id_areas_especializacion"));
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró al egresado", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -235,7 +237,7 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "UPDATE EGRESADOS SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, id_filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Operador_1 = ?, Num_telefono2 = ?,  Operador_2 = ?, Num_telefono3 = ?,  Operador_3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, id_area_trabajo = ? WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
+            String query = "UPDATE EGRESADOS SET Codigo_de_estudiante = ?, Nombre_de_IE = ?, id_filial = ?, Carrera = ?, Apellido_paterno = ?, Apellido_materno = ?, Nombres = ?, Correo_electronico = ?, Num_telefono = ?, Operador_1 = ?, Num_telefono2 = ?,  Operador_2 = ?, Num_telefono3 = ?,  Operador_3 = ?, Año_egreso = ?, Semestre_egreso = ?, Tipo_documento_identidad = ?, Numero_documento_identidad = ?, Tiene_Grado = ?, Resolucion_Grado = ?, Tiene_Titulo = ?, Resolucion_Titulo = ?, Estado_trabajo = ?, id_area_trabajo = ?, id_areas_especializacion WHERE Codigo_de_estudiante = ? OR Numero_documento_identidad = ?"; 
             PreparedStatement preparedStmt = con.prepareStatement(query);
 
             preparedStmt.setString(1, unEgresado.getCodigoUCV());
@@ -262,8 +264,9 @@ public class Metodoss{
             preparedStmt.setString(22, unEgresado.getReTitulo());
             preparedStmt.setString(23, unEgresado.getEstTrabajo());
             preparedStmt.setInt(24, unEgresado.getAreaTrabajo()); // Asegúrate de obtener el ID del área de trabajo en lugar de su nombre
-            preparedStmt.setString(25, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
-            preparedStmt.setString(26, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
+            preparedStmt.setInt(25, unEgresado.getEspecializacion());
+            preparedStmt.setString(26, unEgresado.getCodigoUCV()); // La condición WHERE se basa en el Codigo_de_estudiante
+            preparedStmt.setString(27, unEgresado.getNumDocIdenti()); // La condición WHERE para el Numero_documento_identidad
 
             preparedStmt.executeUpdate();
             con.close();
@@ -550,7 +553,52 @@ public class Metodoss{
 
         return nombreFilial;
     }
-    
+    // Obtener id especializacion
+    public int obtener_id_especializacion(String nombre_especializacion) {
+        int id_especializacion = 0; // Valor por defecto si no se encuentra el ID
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT id_area_trabajo FROM areas_especializacion WHERE Nombre_especializacion = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nombre_especializacion);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id_especializacion = rs.getInt("id_area_trabajo");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID de la especializacion: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return id_especializacion;
+    }
+    //Obtener nombre especializacion
+    public String obtener_nombre_especializacion(int id_especializacion) {
+        String nombreespecializacion = "";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String sql = "SELECT Nombre_especializacion FROM areas_especializacion WHERE id_area_trabajo  = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id_especializacion);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                nombreespecializacion = rs.getString("Nombre_especializacion");
+            }
+
+            stmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error el nombre de la filial: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return nombreespecializacion;
+    }
     //VERIFICAR CORREO
     public boolean verificarCorreo(String correo){
         if (correo.endsWith("@ucvvirtual.edu.pe")) {
