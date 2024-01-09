@@ -76,6 +76,10 @@ public class frmInvitaciones extends javax.swing.JFrame {
         cbx_titulo.setEnabled(false);
         cbx_area.setEnabled(true);
         cbx_especializacion.setEnabled(false);
+        
+        cbx_area2.setEnabled(false);
+        cbx_especializacion2.setEnabled(false);
+        jbtnbuscarEgresados.setEnabled(false);
 //        lbl_id.setText("");
 //        txt_monto.setEnabled(false);
 //        rb_pagar.addItemListener(new ItemListener() {
@@ -93,6 +97,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         
     }
     
+    //LLENAR JTABLE
     public void llenarTabla(DefaultTableModel model, int perfil, int espe){
         String[][] datos2 = metodos.mostrarEgresadosInvi(perfil, espe);
         if (datos2 != null) {
@@ -101,6 +106,12 @@ public class frmInvitaciones extends javax.swing.JFrame {
             }
         }  
     }
+    
+    //BORRAR DATOS DEL JTABLE
+    private void borrarDatosVisibles(DefaultTableModel model) {
+        model.setRowCount(0); // Eliminar todas las filas del modelo
+    }
+    
     public void Desactivar(){
 //        txt_monto.setEnabled(false);
 //        txt_mensaje.setEnabled(false);
@@ -113,6 +124,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         cbx_area.setEnabled(false);
         cbx_especializacion.setEnabled(false);
         cbx_titulo.setEnabled(false);
+        cbx_especializacion2.setEnabled(false);
     }
     
     public void activar(){
@@ -131,17 +143,23 @@ public class frmInvitaciones extends javax.swing.JFrame {
 //        txt_mensaje.setText("");
 //        txt_titulo.setText("");
 //        cbx_hora.setSelectedIndex(0);
-//        cbx_area.setSelectedIndex(0);
+          cbx_area.setSelectedIndex(0);
 //        cbx_modalidad.setSelectedIndex(0);
 //        cbx_turno.setSelectedIndex(0);
 //        dch_fecha.setDate(null);
 //        rb_pagar.setSelected(false);
+        borrarDatosVisibles(model1);
+        borrarDatosVisibles(model2);
+        jtxtTitulo.setText("");
+        jtxaMensaje.setText("");
     }
     
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
         cbx_area.setModel(model5);
-        DefaultComboBoxModel<String> modelo_horas=ejecutar.obtenerhoras("MAÑANA");
+        DefaultComboBoxModel<String> model6 = metodos.obtener_areas_trabajo();
+        cbx_area2.setModel(model6);
+        //DefaultComboBoxModel<String> modelo_horas=ejecutar.obtenerhoras("MAÑANA");
         //cbx_hora.setModel(modelo_horas);
     }
     
@@ -236,23 +254,30 @@ public class frmInvitaciones extends javax.swing.JFrame {
         btn_nuevabusqueda = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         cbx_titulo = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtblEgreTodos = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtblEgreEspe = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtxaMensaje = new javax.swing.JTextArea();
-        jLabel5 = new javax.swing.JLabel();
-        btn_EnviarEspe = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jtxtTitulo = new javax.swing.JTextField();
-        btn_SelecEspe = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtblEgreEspe = new javax.swing.JTable();
+        btn_EnviarEspe = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtblEgreTodos = new javax.swing.JTable();
+        cbx_area2 = new javax.swing.JComboBox<>();
+        cbx_especializacion2 = new javax.swing.JComboBox<>();
+        jbtnbuscarEgresados = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         btn_EnviarTodos = new javax.swing.JButton();
-        btn_SelecTodos = new javax.swing.JButton();
-        btn_DeselecEspe = new javax.swing.JButton();
-        btn_DeselecTodos = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1234, 832));
@@ -372,28 +397,34 @@ public class frmInvitaciones extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 1080, 110));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel3.setText("TODOS LOS EGRESADOS");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 320, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel4.setText("TÍTULO DEL MENSAJE:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, -1));
 
-        jtblEgreTodos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jtblEgreTodos);
+        jtxaMensaje.setColumns(20);
+        jtxaMensaje.setRows(5);
+        jScrollPane3.setViewportView(jtxaMensaje);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 490, 310));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 340, 150));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel6.setText("MENSAJE:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
+
+        jtxtTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtTituloActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 50));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel5.setText("EGRESADOS DE LA ESPECIALIZACIÓN");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
         jtblEgreEspe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -416,20 +447,10 @@ public class frmInvitaciones extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jtblEgreEspe);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 490, 310));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 490, 310));
 
-        jtxaMensaje.setColumns(20);
-        jtxaMensaje.setRows(5);
-        jScrollPane3.setViewportView(jtxaMensaje);
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 340, 150));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel5.setText("EGRESADOS DE LA ESPECIALIZACIÓN");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
-
-        btn_EnviarEspe.setBackground(new java.awt.Color(0, 153, 51));
-        btn_EnviarEspe.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btn_EnviarEspe.setBackground(new java.awt.Color(0, 186, 0));
+        btn_EnviarEspe.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         btn_EnviarEspe.setText("ENVIAR CORREOS");
         btn_EnviarEspe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_EnviarEspe.addActionListener(new java.awt.event.ActionListener() {
@@ -437,32 +458,97 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 btn_EnviarEspeActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_EnviarEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 680, 190, 46));
+        jPanel4.add(btn_EnviarEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 190, 46));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        jLabel6.setText("MENSAJE:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
-
-        jtxtTitulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtTituloActionPerformed(evt);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
             }
         });
-        jPanel1.add(jtxtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 50));
-
-        btn_SelecEspe.setBackground(new java.awt.Color(51, 51, 255));
-        btn_SelecEspe.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_SelecEspe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EXPORTAR.png"))); // NOI18N
-        btn_SelecEspe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn_SelecEspe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SelecEspeActionPerformed(evt);
+        jLabel10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel10KeyPressed(evt);
             }
         });
-        jPanel1.add(btn_SelecEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 680, 70, 46));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, -1, -1));
 
-        btn_EnviarTodos.setBackground(new java.awt.Color(0, 153, 51));
-        btn_EnviarTodos.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jLabel11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel11KeyPressed(evt);
+            }
+        });
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, -1, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 530, 430));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtblEgreTodos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jtblEgreTodos);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 490, 310));
+
+        cbx_area2.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_area2.setToolTipText("");
+        cbx_area2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_area2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbx_area2.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cbx_area2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_area2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbx_area2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 180, 43));
+
+        cbx_especializacion2.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_especializacion2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_especializacion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_especializacion2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbx_especializacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 200, 44));
+
+        jbtnbuscarEgresados.setBackground(new java.awt.Color(255, 102, 102));
+        jbtnbuscarEgresados.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jbtnbuscarEgresados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        jbtnbuscarEgresados.setBorder(null);
+        jbtnbuscarEgresados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnbuscarEgresadosActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jbtnbuscarEgresados, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 50, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel7.setText("PERFIL");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, 22));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel3.setText("TODOS LOS EGRESADOS");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        btn_EnviarTodos.setBackground(new java.awt.Color(0, 186, 0));
+        btn_EnviarTodos.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         btn_EnviarTodos.setText("ENVIAR CORREOS");
         btn_EnviarTodos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_EnviarTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -470,54 +556,49 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 btn_EnviarTodosActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_EnviarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 680, 190, 46));
+        jPanel3.add(btn_EnviarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 190, 46));
 
-        btn_SelecTodos.setBackground(new java.awt.Color(51, 51, 255));
-        btn_SelecTodos.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_SelecTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EXPORTAR.png"))); // NOI18N
-        btn_SelecTodos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn_SelecTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SelecTodosActionPerformed(evt);
+        jLabel8.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel8.setText("ESPECIALIZACIÓN");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, -1, 16));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
             }
         });
-        jPanel1.add(btn_SelecTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 680, 70, 46));
-
-        btn_DeselecEspe.setBackground(new java.awt.Color(255, 51, 0));
-        btn_DeselecEspe.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_DeselecEspe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/IMPORTAR.png"))); // NOI18N
-        btn_DeselecEspe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn_DeselecEspe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_DeselecEspeActionPerformed(evt);
+        jLabel13.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel13KeyPressed(evt);
             }
         });
-        jPanel1.add(btn_DeselecEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 680, 70, 46));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, -1, -1));
 
-        btn_DeselecTodos.setBackground(new java.awt.Color(255, 51, 0));
-        btn_DeselecTodos.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        btn_DeselecTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/IMPORTAR.png"))); // NOI18N
-        btn_DeselecTodos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn_DeselecTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_DeselecTodosActionPerformed(evt);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
             }
         });
-        jPanel1.add(btn_DeselecTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 680, 70, 46));
+        jLabel12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel12KeyPressed(evt);
+            }
+        });
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 310, 720, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1228, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1299, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
         );
 
         pack();
@@ -574,6 +655,8 @@ public class frmInvitaciones extends javax.swing.JFrame {
         llenarTabla(model1, perfil, espe);
         Desactivar();
         
+        
+        cbx_area2.setEnabled(true);
 //        ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,id, capacitaciones);
 //        if(capacitaciones.getTitulo()!=null){
 //            txt_titulo.setText(capacitaciones.getTitulo());
@@ -600,8 +683,8 @@ public class frmInvitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_nuevabusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevabusquedaActionPerformed
-//        limpiar();
-//        Desactivar();
+        limpiar();
+        Desactivar();
         btnBuscarActivo = true;
 //        btnCrearActivo=false;
 //        btn_editar.setEnabled(true);
@@ -611,6 +694,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         cbx_titulo.setEnabled(false);
         cbx_area.setEnabled(true);
         cbx_especializacion.setEnabled(false);
+        
     }//GEN-LAST:event_btn_nuevabusquedaActionPerformed
 
     private void cbx_tituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_tituloActionPerformed
@@ -634,10 +718,6 @@ public class frmInvitaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtTituloActionPerformed
 
-    private void btn_SelecEspeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SelecEspeActionPerformed
-        selectAllCheckboxes(jtblEgreEspe);
-    }//GEN-LAST:event_btn_SelecEspeActionPerformed
-
     private void btn_EnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EnviarTodosActionPerformed
         String Titulo = jtxtTitulo.getText();
         String mensaje = jtxaMensaje.getText();
@@ -649,17 +729,69 @@ public class frmInvitaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_EnviarTodosActionPerformed
 
-    private void btn_SelecTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SelecTodosActionPerformed
+    private void jbtnbuscarEgresadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnbuscarEgresadosActionPerformed
+        borrarDatosVisibles(model2); 
+        String Area_seleccionada=cbx_area2.getSelectedItem().toString();
+        String Especializacion=cbx_especializacion2.getSelectedItem().toString();  
+        
+        int perfil = metodos.obtenerIdPerfil(Area_seleccionada);
+        int espe = metodos.obtenerIdEspe(Especializacion);
+        
+        llenarTabla(model2, perfil, espe);
+    }//GEN-LAST:event_jbtnbuscarEgresadosActionPerformed
+
+    private void cbx_area2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_area2ActionPerformed
+        DefaultComboBoxModel<String> modelo;
+        String Texto_Seleccionado = cbx_area2.getSelectedItem().toString();
+        int area=cbx_area2.getSelectedIndex();
+        if(area==0){
+            modelo= new DefaultComboBoxModel<>();
+            cbx_especializacion2.setModel(modelo);
+            cbx_especializacion2.setEnabled(false);
+        }else{
+            int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
+            modelo = ejecutar.obtener_especializaciones(id);
+            cbx_especializacion2.setModel(modelo);
+            cbx_especializacion2.setEnabled(true);
+            jbtnbuscarEgresados.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbx_area2ActionPerformed
+
+    private void cbx_especializacion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacion2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_especializacion2ActionPerformed
+
+    private void jLabel11KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel11KeyPressed
+        
+    }//GEN-LAST:event_jLabel11KeyPressed
+
+    private void jLabel10KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel10KeyPressed
+        
+    }//GEN-LAST:event_jLabel10KeyPressed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        selectAllCheckboxes(jtblEgreEspe);
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         selectAllCheckboxes(jtblEgreTodos);
-    }//GEN-LAST:event_btn_SelecTodosActionPerformed
+    }//GEN-LAST:event_jLabel12MouseClicked
 
-    private void btn_DeselecEspeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeselecEspeActionPerformed
+    private void jLabel12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel12KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel12KeyPressed
+
+    private void jLabel13KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel13KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel13KeyPressed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         deselectAllCheckboxes(jtblEgreEspe);
-    }//GEN-LAST:event_btn_DeselecEspeActionPerformed
+    }//GEN-LAST:event_jLabel10MouseClicked
 
-    private void btn_DeselecTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeselecTodosActionPerformed
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         deselectAllCheckboxes(jtblEgreTodos);
-    }//GEN-LAST:event_btn_DeselecTodosActionPerformed
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -697,29 +829,36 @@ public class frmInvitaciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_DeselecEspe;
-    private javax.swing.JButton btn_DeselecTodos;
     private javax.swing.JButton btn_EnviarEspe;
     private javax.swing.JButton btn_EnviarTodos;
-    private javax.swing.JButton btn_SelecEspe;
-    private javax.swing.JButton btn_SelecTodos;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_nuevabusqueda;
     private javax.swing.JComboBox<String> cbx_area;
+    private javax.swing.JComboBox<String> cbx_area2;
     private javax.swing.JComboBox<String> cbx_especializacion;
+    private javax.swing.JComboBox<String> cbx_especializacion2;
     private javax.swing.JComboBox<String> cbx_titulo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton jbtnbuscarEgresados;
     private javax.swing.JTable jtblEgreEspe;
     private javax.swing.JTable jtblEgreTodos;
     private javax.swing.JTextArea jtxaMensaje;

@@ -71,6 +71,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnCentro.setBackground(new java.awt.Color(255, 255, 250));
         btnCentro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/centrolabores.png"))); // NOI18N
         btnCentro.setBorder(null);
+        btnCentro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCentroActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
 
         btnReportes.setBackground(new java.awt.Color(255, 255, 250));
@@ -134,6 +139,11 @@ public class frmMenu extends javax.swing.JFrame {
         frmPerfiles f = new frmPerfiles();
         f.setVisible(true);
     }//GEN-LAST:event_btnPerfilesActionPerformed
+
+    private void btnCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentroActionPerformed
+        frmInvitaciones f = new frmInvitaciones();
+        f.setVisible(true);
+    }//GEN-LAST:event_btnCentroActionPerformed
 
     public static void main(String args[]) {
         

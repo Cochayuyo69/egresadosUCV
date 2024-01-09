@@ -733,7 +733,7 @@ public class Metodoss{
         }
     }
     
-    //ENVIAR CORREO NUEVA CONTRASENA
+    //ENVIAR CORREO EGRESADOS
     public void enviarCorreoEgre(String correo, String mensaje, String Titulo){
         String emailTo = correo;
         String subject = Titulo;
