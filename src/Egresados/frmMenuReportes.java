@@ -1,27 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Egresados;
 
+import Capacitaciones.Metodos_capacitacion;
+import Reportes.metodos_reportes;
 import datos.DatosEgresados;
 import java.awt.Dimension;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import metodos.Metodoss;
 
-/**
- *
- * @author anton
- */
 public class frmMenuReportes extends javax.swing.JFrame {
-    
+    Metodos_capacitacion ejecutar= new Metodos_capacitacion();
     DatosEgresados datos = new DatosEgresados();
     Metodoss metodos = new Metodoss();
-    
+    //Capacitaciones
+    metodos_reportes reporte= new metodos_reportes();
+    DefaultTableModel modelo_capacitaciones = new DefaultTableModel();
+    String[][] capacitaciones;
+    Object[] indice={"ID", "AREA", "ESPECIALIZACIÓN", "TÍTULO", "FECHA", "TURNO", "HORA", "MODALIDAD", "COSTO", "MENSAJE"};
+    //
     public frmMenuReportes() {
         initComponents();
         DefaultTableModel model = new DefaultTableModel();
+        DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
+        cbx_area.setModel(model5);
         model.addColumn("ID");
         model.addColumn("Código de Estudiante");
         model.addColumn("Filial");
@@ -47,12 +50,34 @@ public class frmMenuReportes extends javax.swing.JFrame {
         
         tblDatos.setModel(model);
         
+        
+        modelo_capacitaciones.setColumnIdentifiers(indice);
+
+        tbl_reporte_capacitaciones.setModel(modelo_capacitaciones);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(1).setPreferredWidth(170);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(2).setPreferredWidth(170);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(3).setPreferredWidth(370);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(6).setPreferredWidth(100);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(8).setPreferredWidth(100);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(9).setPreferredWidth(400);
+        
         String[][] datos = metodos.mostrarEgresados();
         if (datos != null) {
             for (String[] row : datos) {
                 model.addRow(row);
             }
-        }  
+        }
+        
+        capacitaciones =reporte.Capacitaciones();
+        if (capacitaciones != null) {
+            for (String[] FILA : capacitaciones) {
+                modelo_capacitaciones.addRow(FILA);
+            }
+        }
     }
 
     /**
@@ -75,8 +100,20 @@ public class frmMenuReportes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbl_reporte_capacitaciones = new javax.swing.JTable();
+        cbx_area = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cbx_especializacion = new javax.swing.JComboBox<>();
+        btn_nuevabusqueda_capacitacion = new javax.swing.JButton();
+        btn_buscar_capacitacion = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1402, 720));
@@ -170,40 +207,174 @@ public class frmMenuReportes extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1228, Short.MAX_VALUE)
+            .addGap(0, 1231, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
 
         materialTabbed2.addTab("PERFILES", jPanel2);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1228, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
-        );
-
-        materialTabbed2.addTab("CAPACITACIONES", jPanel4);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1228, Short.MAX_VALUE)
+            .addGap(0, 1231, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
 
         materialTabbed2.addTab("C. LABORES", jPanel5);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvs.png"))); // NOI18N
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/REPORTE DE CAPACITACIONES.png"))); // NOI18N
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tbl_reporte_capacitaciones.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        tbl_reporte_capacitaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tbl_reporte_capacitaciones);
+
+        jScrollPane2.setViewportView(jScrollPane3);
+
+        cbx_area.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_area.setToolTipText("");
+        cbx_area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_area.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbx_area.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cbx_area.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_areaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel5.setText("AREA");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel6.setText("ESPECIALIZACION");
+
+        cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_especializacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_especializacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_especializacionActionPerformed(evt);
+            }
+        });
+
+        btn_nuevabusqueda_capacitacion.setBackground(new java.awt.Color(178, 255, 255));
+        btn_nuevabusqueda_capacitacion.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btn_nuevabusqueda_capacitacion.setText("NUEVA BUSQUEDA");
+        btn_nuevabusqueda_capacitacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_nuevabusqueda_capacitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nuevabusqueda_capacitacionActionPerformed(evt);
+            }
+        });
+
+        btn_buscar_capacitacion.setBackground(new java.awt.Color(255, 102, 102));
+        btn_buscar_capacitacion.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btn_buscar_capacitacion.setText("BUSCAR");
+        btn_buscar_capacitacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_buscar_capacitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscar_capacitacionActionPerformed(evt);
+            }
+        });
+
+        btnExportar.setBackground(new java.awt.Color(76, 128, 76));
+        btnExportar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EXPORTAR.png"))); // NOI18N
+        btnExportar.setText("EXPORTAR");
+        btnExportar.setBorder(null);
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btn_buscar_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(btn_nuevabusqueda_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(222, 222, 222)
+                                .addComponent(jLabel6)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(456, 456, 456))))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel4)))
+                        .addGap(116, 116, 116))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_buscar_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_nuevabusqueda_capacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        materialTabbed2.addTab("CAPACITACIONES", jPanel4);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -213,7 +384,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(materialTabbed2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(materialTabbed2, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
@@ -291,6 +462,62 @@ public class frmMenuReportes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblDatosComponentResized
 
+    private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
+
+        DefaultComboBoxModel<String> modelo;
+        String Texto_Seleccionado = cbx_area.getSelectedItem().toString();
+        int area=cbx_area.getSelectedIndex();
+        if(area==0){
+            modelo= new DefaultComboBoxModel<>();
+            cbx_especializacion.setModel(modelo);
+            cbx_especializacion.setEnabled(false);
+        }else{
+            int id=metodos.obtener_id_Area_trabajo(Texto_Seleccionado);
+            modelo = ejecutar.obtener_especializaciones(id);
+            cbx_especializacion.setModel(modelo);
+            cbx_especializacion.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbx_areaActionPerformed
+
+    private void cbx_especializacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacionActionPerformed
+
+    }//GEN-LAST:event_cbx_especializacionActionPerformed
+
+    private void btn_nuevabusqueda_capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevabusqueda_capacitacionActionPerformed
+        cbx_area.setSelectedIndex(0);
+        cbx_area.setEnabled(true);
+        cbx_especializacion.setEnabled(false);
+        modelo_capacitaciones.setRowCount(0);
+        capacitaciones =reporte.Capacitaciones();
+        if (capacitaciones != null) {
+            for (String[] FILA : capacitaciones) {
+                modelo_capacitaciones.addRow(FILA);
+            }
+        }
+    }//GEN-LAST:event_btn_nuevabusqueda_capacitacionActionPerformed
+
+    private void btn_buscar_capacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_capacitacionActionPerformed
+        modelo_capacitaciones.setRowCount(0);
+        String area=cbx_area.getSelectedItem().toString();
+        String especializacion=cbx_especializacion.getSelectedItem().toString();
+        capacitaciones = reporte.mostrar_capacitaciones(area, especializacion);
+        if (capacitaciones != null) {
+            for (String[] row : capacitaciones) {
+                modelo_capacitaciones.addRow(row);
+            }
+        }
+        tbl_reporte_capacitaciones.setModel(modelo_capacitaciones);
+    }//GEN-LAST:event_btn_buscar_capacitacionActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        String rutaArchivo=reporte.obtenerRutaArchivo();
+        if(rutaArchivo!=null){
+        reporte.exportar_Excel(indice, capacitaciones, rutaArchivo);
+        }else{
+            JOptionPane.showMessageDialog(null, "Exportación cancelada");
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,18 +555,30 @@ public class frmMenuReportes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btn_buscar_capacitacion;
+    private javax.swing.JButton btn_nuevabusqueda_capacitacion;
+    private javax.swing.JComboBox<String> cbx_area;
+    private javax.swing.JComboBox<String> cbx_especializacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnbuscar;
     private javax.swing.JTextField jtxtcodigoE;
     private tabbed.MaterialTabbed materialTabbed2;
     public javax.swing.JTable tblDatos;
+    private javax.swing.JTable tbl_reporte_capacitaciones;
     private javax.swing.JTextField txtNumeroDoc;
     // End of variables declaration//GEN-END:variables
 }
