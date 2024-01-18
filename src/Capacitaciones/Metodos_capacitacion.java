@@ -16,7 +16,7 @@ import metodos.Metodoss;
 
 public class Metodos_capacitacion {
     Metodoss metodos=new Metodoss();
-    //Consturtor
+    
 
     public Metodos_capacitacion() {
     }
@@ -52,14 +52,14 @@ public class Metodos_capacitacion {
     
     //Buscar capacitación
     
-    public void buscar_capacitacion(String area_trabajo, String especializacion,String Id, Datos_Capacitaciones datos){
+    public void buscar_capacitacion(String area_trabajo, String especializacion,int Id, Datos_Capacitaciones datos){
         try {
             Connection conectar=metodos.abrirconeccion();
             String query = "SELECT * FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND id = ?;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, area_trabajo);
             st.setString(2, especializacion);
-            st.setString(3, Id);
+            st.setInt(3, Id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 datos.setId(rs.getString("id"));
@@ -204,5 +204,41 @@ public class Metodos_capacitacion {
             }
         return modelo;
     }
-    
+    public void guardar_en_historial (String Nombre, String Correo, int id_capacitacion){
+        String Hora=metodos.hora();
+        String Fecha=metodos.fecha();
+        String capacitaciones_guardadas="";
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            //Obtener las capacitaciones ya guardadas
+            String sqlSeleccionar = "SELECT CAPACITACIONES FROM EGRESADOS WHERE Nombres = ? AND Correo_electronico = ?";
+            PreparedStatement stmtSeleccionar = conectar.prepareStatement(sqlSeleccionar);
+            stmtSeleccionar.setString(1, Nombre);
+            stmtSeleccionar.setString(2, Correo);
+            ResultSet rs = stmtSeleccionar.executeQuery();
+            if(rs.next()){
+                if(rs.getString("CAPACITACIONES")!=null){
+                    capacitaciones_guardadas = rs.getString("CAPACITACIONES");
+                }else{
+                    capacitaciones_guardadas="";
+                }
+            }else {
+                System.out.println("No se encontró el egresado con nombre " + Nombre + " y correo " + Correo);
+            }
+            stmtSeleccionar.close();
+            //Colocar las capacitaciones ya guardadas mas la nueva
+            String sqlActualizar = "UPDATE EGRESADOS SET Capacitaciones = ? WHERE Nombres = ? AND Correo_electronico = ?";
+            PreparedStatement stmtActualizar = conectar.prepareStatement(sqlActualizar);
+            stmtActualizar.setString(1, capacitaciones_guardadas+id_capacitacion+"-"+Fecha+"-"+Hora+"//");
+            stmtActualizar.setString(2, Nombre);
+            stmtActualizar.setString(3, Correo);
+            stmtActualizar.executeUpdate();
+            stmtActualizar.close();
+            conectar.close();
+            System.out.println("Capacitación agregada a el egresado correctamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Capacitación no agregada a el egresado correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println(e);
+        }
+    }
 }

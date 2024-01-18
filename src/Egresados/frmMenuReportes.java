@@ -18,7 +18,10 @@ public class frmMenuReportes extends javax.swing.JFrame {
     metodos_reportes reporte= new metodos_reportes();
     DefaultTableModel modelo_capacitaciones = new DefaultTableModel();
     String[][] capacitaciones;
+    DefaultTableModel modelo_centro_labores = new DefaultTableModel();
+    String[][] centro_labores;
     Object[] indice={"ID", "AREA", "ESPECIALIZACIÓN", "TÍTULO", "FECHA", "TURNO", "HORA", "MODALIDAD", "COSTO", "MENSAJE"};
+    Object[] indice_labores={"ID", "AREA","ESPECIALIZACIÓN"};
     //
     public frmMenuReportes() {
         initComponents();
@@ -26,6 +29,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
         cbx_area.setModel(model5);
+        cbx_area_labores.setModel(model5);
         model.addColumn("ID");
         model.addColumn("Código de Estudiante");
         model.addColumn("Filial");
@@ -66,6 +70,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
         tbl_reporte_capacitaciones.getColumnModel().getColumn(8).setPreferredWidth(100);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(9).setPreferredWidth(400);
         
+        modelo_centro_labores.setColumnIdentifiers(indice_labores);
         String[][] datos = metodos.mostrarEgresados();
         if (datos != null) {
             for (String[] row : datos) {
@@ -101,6 +106,8 @@ public class frmMenuReportes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -115,6 +122,13 @@ public class frmMenuReportes extends javax.swing.JFrame {
         btn_buscar_capacitacion = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbl_reporte_labores = new javax.swing.JTable();
+        btn_buscar_centro_labores = new javax.swing.JButton();
+        cbx_area_labores = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1402, 720));
@@ -204,15 +218,34 @@ public class frmMenuReportes extends javax.swing.JFrame {
 
         materialTabbed2.addTab("GENERAL", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvs.png"))); // NOI18N
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/REPORTE DE PERFILES.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1231, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(268, 268, 268)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(440, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 727, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel8)))
+                .addContainerGap(661, Short.MAX_VALUE))
         );
 
         materialTabbed2.addTab("PERFILES", jPanel2);
@@ -323,7 +356,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
                                 .addComponent(jLabel6)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(119, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,20 +392,89 @@ public class frmMenuReportes extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         materialTabbed2.addTab("CAPACITACIONES", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        tbl_reporte_labores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(tbl_reporte_labores);
+
+        jScrollPane4.setViewportView(jScrollPane5);
+
+        btn_buscar_centro_labores.setBackground(new java.awt.Color(255, 102, 102));
+        btn_buscar_centro_labores.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btn_buscar_centro_labores.setText("BUSCAR");
+        btn_buscar_centro_labores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_buscar_centro_labores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscar_centro_laboresActionPerformed(evt);
+            }
+        });
+
+        cbx_area_labores.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_area_labores.setToolTipText("");
+        cbx_area_labores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_area_labores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbx_area_labores.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cbx_area_labores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_area_laboresActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ucvs.png"))); // NOI18N
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/REPORTE DE CENTRO DE LABORES.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1231, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(cbx_area_labores, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(btn_buscar_centro_labores, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113))))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(236, 236, 236)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addGap(0, 180, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 727, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(72, 72, 72)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbx_area_labores, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar_centro_labores, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         materialTabbed2.addTab("C. LABORES", jPanel5);
@@ -519,6 +621,22 @@ public class frmMenuReportes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportarActionPerformed
 
+    private void btn_buscar_centro_laboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_centro_laboresActionPerformed
+        modelo_centro_labores.setRowCount(0);
+        String area=cbx_area_labores.getSelectedItem().toString();
+        centro_labores=reporte.mostrar_centros_de_labores(area);
+        if (centro_labores != null) {
+            for (String[] row : capacitaciones) {
+                modelo_centro_labores.addRow(row);
+            }
+        }
+        tbl_reporte_labores.setModel(modelo_centro_labores);
+    }//GEN-LAST:event_btn_buscar_centro_laboresActionPerformed
+
+    private void cbx_area_laboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_area_laboresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_area_laboresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -558,15 +676,21 @@ public class frmMenuReportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExportar;
     private javax.swing.JButton btn_buscar_capacitacion;
+    private javax.swing.JButton btn_buscar_centro_labores;
     private javax.swing.JButton btn_nuevabusqueda_capacitacion;
     private javax.swing.JComboBox<String> cbx_area;
+    private javax.swing.JComboBox<String> cbx_area_labores;
     private javax.swing.JComboBox<String> cbx_especializacion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -575,11 +699,14 @@ public class frmMenuReportes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton jbtnbuscar;
     private javax.swing.JTextField jtxtcodigoE;
     private tabbed.MaterialTabbed materialTabbed2;
     public javax.swing.JTable tblDatos;
     private javax.swing.JTable tbl_reporte_capacitaciones;
+    private javax.swing.JTable tbl_reporte_labores;
     private javax.swing.JTextField txtNumeroDoc;
     // End of variables declaration//GEN-END:variables
 }

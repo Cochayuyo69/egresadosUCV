@@ -10,6 +10,8 @@ import java.util.List;
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
@@ -1034,6 +1036,29 @@ public class Metodoss{
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
         return existe;
+    }
+    public String hora(){
+        Calendar Hora= Calendar.getInstance();
+        int H, Min;
+        String Hora_Actual;
+        Min=Hora.get(Calendar.MINUTE);
+        if(Min<10){
+            Hora_Actual=Hora.get(Calendar.HOUR_OF_DAY)+":"+"0"+Min;
+        }else{
+            Hora_Actual=Hora.get(Calendar.HOUR_OF_DAY)+":"+Min;
+        }
+        return Hora_Actual;
+    }
+    public String fecha(){
+        LocalDate fecha_con_guion=LocalDate.now();
+        String fecha= String.valueOf(fecha_con_guion).replace("-", "/");
+        return fecha;
+    }
+    public int obtener_id_del_titulo(String Titulo){
+        String[] parts = Titulo.split("\\s{2,}");
+        String id = parts[1].substring(parts[1].indexOf(":") + 1).trim();
+        int ID=Integer.parseInt(id);
+        return ID;
     }
 }
 

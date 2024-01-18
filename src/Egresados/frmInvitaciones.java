@@ -94,7 +94,6 @@ public class frmInvitaciones extends javax.swing.JFrame {
 //                }
 //            }
 //        });
-        
     }
     
     //LLENAR JTABLE
@@ -704,11 +703,13 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private void btn_EnviarEspeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EnviarEspeActionPerformed
         String Titulo = jtxtTitulo.getText();
         String mensaje = jtxaMensaje.getText();
+        int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
         String[][] seleccionados = obtenerSeleccionados(jtblEgreEspe);
         for (String[] datos : seleccionados) {
             String nombre = datos[0];
             String correo = datos[1];
             metodos.enviarCorreoEgre(correo, mensaje, Titulo);
+            ejecutar.guardar_en_historial(nombre, correo, ID_Cap);
         }
         //metodos.enviarCorreoEgre("correo", mensaje, Titulo);
         //mostrarSeleccionados(jtblEgreTodos, "Todos los Egresados");
