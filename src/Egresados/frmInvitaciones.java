@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Egresados;
 
 import Capacitaciones.Datos_Capacitaciones;
@@ -33,11 +30,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- *
- * @author anton
- */
 public class frmInvitaciones extends javax.swing.JFrame {
     SimpleDateFormat formato_fecha= new SimpleDateFormat("dd/MM/yyyy");
     Datos_Capacitaciones datos1= new Datos_Capacitaciones();
@@ -722,11 +714,13 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private void btn_EnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EnviarTodosActionPerformed
         String Titulo = jtxtTitulo.getText();
         String mensaje = jtxaMensaje.getText();
+        int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
         String[][] seleccionados = obtenerSeleccionados(jtblEgreTodos);
         for (String[] datos : seleccionados) {
             String nombre = datos[0];
             String correo = datos[1];
             metodos.enviarCorreoEgre(correo, mensaje, Titulo);
+            ejecutar.guardar_en_historial(nombre, correo, ID_Cap);
         }
     }//GEN-LAST:event_btn_EnviarTodosActionPerformed
 

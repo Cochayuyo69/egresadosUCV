@@ -241,4 +241,24 @@ public class Metodos_capacitacion {
             System.out.println(e);
         }
     }
+    //Obtener titulo de capacitacion por id
+    public void buscar_capacitacion_por_id(Datos_Capacitaciones DATOS, String ID) {
+    try {
+        Connection conectar=metodos.abrirconeccion();
+        String query = "SELECT * FROM Capacitaciones WHERE id = ?;";
+        PreparedStatement st = conectar.prepareStatement(query);
+        st.setString(1, ID);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            DATOS.setArea(rs.getString("AREA"));
+            DATOS.setEspecializacion(rs.getString("ESPECIALIZACION"));
+            DATOS.setTitulo(rs.getString("TITULO"));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        conectar.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+    }
+    }
 }

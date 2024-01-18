@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Reportes;
 
+import Capacitaciones.Datos_Capacitaciones;
+import Capacitaciones.Metodos_capacitacion;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,13 +20,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- *
- * @author Acer
- */
 public class metodos_reportes {
     Metodoss metodos=new Metodoss();
-
+    Metodos_capacitacion ejecutar = new Metodos_capacitacion();
+    Datos_Capacitaciones datos= new Datos_Capacitaciones();
 //METODO PARA MOSTRAR capacitaciones creadas
     public String[][] mostrar_capacitaciones(String Area, String Especializacion) {
         try {
@@ -126,7 +122,47 @@ public class metodos_reportes {
         }
         return null;
     }
-    
+    //METODO PARA MOSTRAR capacitaciones de un egresado
+    public String[][] mostrar_capacitaciones_egresado(String Codigo) {
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String query = "SELECT CAPACITACIONES FROM EGRESADOS WHERE Codigo_de_estudiante = ?;";
+
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, Codigo);
+            ResultSet rs = st.executeQuery();
+            
+            List<String[]> lista_capacitaciones = new ArrayList<>();
+            if (rs.next()) {
+                String texto=rs.getString(1);
+                String[] cap_recuperadas = texto.split("//");
+                for (int j = 0; j < cap_recuperadas.length; j++) {
+                    String[]partes_cap=cap_recuperadas[j].split("-");
+                    String[] data = new String[6];//CREAR UN NUEVO ARRAY EN CADA VUELTA 
+                    
+                    data[0]=partes_cap[0];
+                    ejecutar.buscar_capacitacion_por_id(datos, partes_cap[0]);
+                    data[1]=datos.getArea();
+                    data[2]=datos.getEspecializacion();
+                    data[3]=datos.getTitulo();
+                    data[4]=partes_cap[1];
+                    data[5]=partes_cap[2];
+                    lista_capacitaciones.add(data);
+                }
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][6];
+            for (int i = 0; i < lista_capacitaciones.size(); i++) {
+                matriz_capacitaciones[i] = lista_capacitaciones.get(i);
+            }
+            return matriz_capacitaciones;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "No se encontraron capacitaciones del egresado" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
     public void exportar_Excel(Object[] Primera_fila, String[][] datos, String rutaArchivo) {
         try (
             Workbook libro = new XSSFWorkbook()) {
