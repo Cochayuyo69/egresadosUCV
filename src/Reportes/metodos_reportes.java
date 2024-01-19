@@ -57,6 +57,51 @@ public class metodos_reportes {
         }
         return null;
     }
+    
+    //MOSTRAR CAPACITACIONES POR ANIO Y MES
+     public String[][] mostrarCapacitacionesFecha(String area, String especializacion, String anio, String mes) {
+        try {
+            Connection conectar = metodos.abrirconeccion();
+            
+            String meselegido = "" + metodos.obtenerNumeroMes(mes);
+            
+            // Consulta SQL con condiciones para años y meses
+            String query = "SELECT id, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE " +
+                           "FROM Capacitaciones " +
+                           "WHERE AREA = ? AND ESPECIALIZACION = ? " +
+                           "AND YEAR(STR_TO_DATE(FECHA, '%d/%m/%Y')) = ? " +
+                           "AND MONTH(STR_TO_DATE(FECHA, '%d/%m/%Y')) = ?";
+
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, area);
+            st.setString(2, especializacion);
+            st.setString(3, anio);
+            st.setString(4, meselegido);
+
+            ResultSet rs = st.executeQuery();
+
+            List<String[]> listaCapacitaciones = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[10]; // Ajusta el tamaño según las columnas que estás recuperando
+                for (int j = 0; j < 10; j++) { // Ajusta el límite según las columnas que estás recuperando
+                    data[j] = rs.getString(j + 1);
+                }
+                listaCapacitaciones.add(data);
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matrizCapacitaciones = new String[listaCapacitaciones.size()][10];
+            for (int i = 0; i < listaCapacitaciones.size(); i++) {
+                matrizCapacitaciones[i] = listaCapacitaciones.get(i);
+            }
+            return matrizCapacitaciones;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se encontraron capacitaciones con esa área y especialización en el año y mes especificados. " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
+    
     //Mostrar centro de labores
     public String[][] mostrar_centros_de_labores(String Area) {
         try {
@@ -91,6 +136,7 @@ public class metodos_reportes {
         }
         return null;
     }
+    
     //Motrar todas las capacitaciones
     public String[][] Capacitaciones() {
         try {
@@ -163,6 +209,7 @@ public class metodos_reportes {
         }
         return null;
     }
+    
     public void exportar_Excel(Object[] Primera_fila, String[][] datos, String rutaArchivo) {
         try (
             Workbook libro = new XSSFWorkbook()) {

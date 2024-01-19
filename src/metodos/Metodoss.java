@@ -1037,6 +1037,7 @@ public class Metodoss{
         }
         return existe;
     }
+    
     public String hora(){
         Calendar Hora= Calendar.getInstance();
         int H, Min;
@@ -1060,6 +1061,108 @@ public class Metodoss{
         int ID=Integer.parseInt(id);
         return ID;
     }
+    
+    //METODO SI EXISTE CODIGO
+    public DefaultComboBoxModel<String> conseguirAniosCapas(String area, String especializacion) {
+        DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
+
+        try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection(url, user, pass);
+                String query = "SELECT DISTINCT YEAR(STR_TO_DATE(FECHA, '%d/%m/%Y')) AS Anio FROM Capacitaciones WHERE AREA = ? AND ESPECIALIZACION = ?";
+                try (PreparedStatement statement = con.prepareStatement(query)) {
+                statement.setString(1, area);
+                statement.setString(2, especializacion);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int year = resultSet.getInt("Anio");
+                        String anio = ""+year;
+                        modeloComboBox.addElement(anio);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener los años: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return modeloComboBox;    
+    }
+    
+    private String obtenerNombreMes(int numeroMes) {
+        String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+        // Asegurarse de que el número del mes esté dentro de un rango válido
+        if (numeroMes >= 1 && numeroMes <= 12) {
+            return nombresMeses[numeroMes - 1];
+        } else {
+            return "Mes no válido";
+        }
+    }
+    
+    public int obtenerNumeroMes(String nombreMes) {
+        String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+        // Buscar el nombre del mes en el arreglo y devolver su posición + 1 (considerando que los meses comienzan en 1)
+        for (int i = 0; i < nombresMeses.length; i++) {
+            if (nombresMeses[i].equalsIgnoreCase(nombreMes)) {
+                return i + 1;
+            }
+        }
+
+        // Si no se encuentra el nombre del mes, retornar -1 o algún valor que indique que no es válido
+        return -1;
+    }
+    
+    
+    public DefaultComboBoxModel<String> conseguirMesesCapas(String area, String especializacion, String anioSeleccionado) {
+        DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+            String query = "SELECT DISTINCT MONTH(STR_TO_DATE(FECHA, '%d/%m/%Y')) AS Mes " +
+                           "FROM Capacitaciones " +
+                           "WHERE AREA = ? AND ESPECIALIZACION = ? AND YEAR(STR_TO_DATE(FECHA, '%d/%m/%Y')) = ?";
+
+            try (PreparedStatement statement = con.prepareStatement(query)) {
+                statement.setString(1, area);
+                statement.setString(2, especializacion);
+                statement.setString(3, anioSeleccionado);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int mesNumero = resultSet.getInt("Mes");
+                        String nombreMes = obtenerNombreMes(mesNumero); // Método auxiliar para obtener el nombre del mes
+                        modeloComboBox.addElement(nombreMes);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener los meses: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return modeloComboBox;
+    }
+    
 }
 
 
