@@ -80,14 +80,12 @@ public class Metodos_capacitacion {
     }
     //ELIMINAR CAPACITACION
     
-    public void eliminar_capacitacion(String area,String Especializacion, String borrar_capacitacion){
+    public void eliminar_capacitacion(int ID_capacitacion){
         try {
             Connection conectar=metodos.abrirconeccion();
-            String sql = "DELETE FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND TITULO = ?";
+            String sql = "DELETE FROM Capacitaciones WHERE id = ?";
             PreparedStatement statement = conectar.prepareStatement(sql);
-            statement.setString(1, area);
-            statement.setString(2, Especializacion);
-            statement.setString(3, borrar_capacitacion);
+            statement.setInt(1, ID_capacitacion);
             statement.executeUpdate();
             statement.close();
             conectar.close();
@@ -125,42 +123,19 @@ public class Metodos_capacitacion {
     }
     
     //Excepciones
-    
-    public String excepciones(String fecha, String mensaje, String titulo){
-        if(fecha == null){
-            return "Ingrese una fecha para la capacitación";
-        } else if (mensaje == null){
-            return "Ingrese una mensaje para la capacitación";
-        } else if (titulo == null){
+    public String excepciones(Datos_Capacitaciones DATA){
+        if (DATA.getTitulo().equals("")){
             return "Ingrese una titulo para la capacitación";
-        } 
-        return "";
-    }
-    
-    
-    //Metodo para llenar combobox de horas segun sea el turno
-    public DefaultComboBoxModel<String> obtenerhoras(String turno) {
-    DefaultComboBoxModel<String> modelo_horas = new DefaultComboBoxModel<>();
-    try {
-        Connection conectar =metodos.abrirconeccion();
-        String query = "SELECT Horas FROM HORAS_"+turno;
-        PreparedStatement preparedStmt = conectar.prepareStatement(query);
-        ResultSet resultado = preparedStmt.executeQuery();
-
-        while (resultado.next()) {
-            String horas = resultado.getString("Horas");
-            modelo_horas.addElement(horas);
-            System.out.println(horas);
+        }else if(DATA.getFecha().equals("")){
+            return "Ingrese una fecha para la capacitación";
+        } else if (DATA.getMensaje().equals("")){
+            return "Ingrese una mensaje para la capacitación";
+        } else if (DATA.getMonto()==null){
+            return "Si la capacitación es de pago ingrese un monto válido";
         }
-        preparedStmt.close();
-        conectar.close();
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al obtener horas: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
-        System.out.println("Error al obtener horas: " + e.getMessage()); // Mensaje de depuración
+        return "";
+                
     }
-    return modelo_horas;
-}
-    
     //Metodo para llenar combobox DE CAPACITACIONES de cualquier area
     public DefaultComboBoxModel<String> obtener_especializaciones(int id_area){
         DefaultComboBoxModel<String> modelo= new DefaultComboBoxModel<>();
@@ -194,7 +169,7 @@ public class Metodos_capacitacion {
                 ResultSet resultado=preparedStmt.executeQuery();
 
                 while(resultado.next()){
-                    String titulo_capacitacion=resultado.getString("TITULO")+"   ID:"+resultado.getString("id");
+                    String titulo_capacitacion=resultado.getString("TITULO")+"   ID:"+resultado.getString("ID_CAPACITACION");
                     modelo.addElement(titulo_capacitacion);
                 }
                 preparedStmt.close();
@@ -204,40 +179,29 @@ public class Metodos_capacitacion {
             }
         return modelo;
     }
-    public void guardar_en_historial (String Nombre, String Correo, int id_capacitacion){
+    public void guardar_en_historial (String Codigo,String Area, String Especializacion, int id_capacitacion){
         String Hora=metodos.hora();
         String Fecha=metodos.fecha();
-        String capacitaciones_guardadas="";
         try {
             Connection conectar=metodos.abrirconeccion();
             //Obtener las capacitaciones ya guardadas
-            String sqlSeleccionar = "SELECT CAPACITACIONES FROM EGRESADOS WHERE Nombres = ? AND Correo_electronico = ?";
-            PreparedStatement stmtSeleccionar = conectar.prepareStatement(sqlSeleccionar);
-            stmtSeleccionar.setString(1, Nombre);
-            stmtSeleccionar.setString(2, Correo);
-            ResultSet rs = stmtSeleccionar.executeQuery();
-            if(rs.next()){
-                if(rs.getString("CAPACITACIONES")!=null){
-                    capacitaciones_guardadas = rs.getString("CAPACITACIONES");
-                }else{
-                    capacitaciones_guardadas="";
-                }
-            }else {
-                System.out.println("No se encontró el egresado con nombre " + Nombre + " y correo " + Correo);
-            }
+            String sqlinsertar ="INSERT INTO HISTORIAL_CAPACITACIONES (CODIGO_EGRESADO, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO)" + 
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmtSeleccionar = conectar.prepareStatement(sqlinsertar);
+            stmtSeleccionar.setString(1, Codigo);
+            stmtSeleccionar.setString(2, Area);
+            stmtSeleccionar.setString(3, Especializacion);
+            stmtSeleccionar.setInt(4, id_capacitacion);
+            stmtSeleccionar.setString(5, Fecha);
+            stmtSeleccionar.setString(6, Hora);
+            
+            stmtSeleccionar.executeUpdate();
             stmtSeleccionar.close();
-            //Colocar las capacitaciones ya guardadas mas la nueva
-            String sqlActualizar = "UPDATE EGRESADOS SET Capacitaciones = ? WHERE Nombres = ? AND Correo_electronico = ?";
-            PreparedStatement stmtActualizar = conectar.prepareStatement(sqlActualizar);
-            stmtActualizar.setString(1, capacitaciones_guardadas+id_capacitacion+"-"+Fecha+"-"+Hora+"//");
-            stmtActualizar.setString(2, Nombre);
-            stmtActualizar.setString(3, Correo);
-            stmtActualizar.executeUpdate();
-            stmtActualizar.close();
             conectar.close();
-            System.out.println("Capacitación agregada a el egresado correctamente");
+            
+            System.out.println("Capacitación del egresado agregada correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Capacitación no agregada a el egresado correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Capacitación del egresado no agregada correctamente al historial", "AVISO", JOptionPane.INFORMATION_MESSAGE);
             System.out.println(e);
         }
     }

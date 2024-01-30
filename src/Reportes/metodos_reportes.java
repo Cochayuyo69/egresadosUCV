@@ -28,7 +28,7 @@ public class metodos_reportes {
     public String[][] mostrar_capacitaciones(String Area, String Especializacion) {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT id, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE AREA = ? and ESPECIALIZACION = ?;";
+            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE AREA = ? and ESPECIALIZACION = ?;";
 
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, Area);
@@ -66,7 +66,7 @@ public class metodos_reportes {
             String meselegido = "" + metodos.obtenerNumeroMes(mes);
             
             // Consulta SQL con condiciones para años y meses
-            String query = "SELECT id, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE " +
+            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE " +
                            "FROM Capacitaciones " +
                            "WHERE AREA = ? AND ESPECIALIZACION = ? " +
                            "AND YEAR(STR_TO_DATE(FECHA, '%d/%m/%Y')) = ? " +
@@ -141,7 +141,7 @@ public class metodos_reportes {
     public String[][] Capacitaciones() {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT id, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones";
+            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones";
 
             PreparedStatement st = conectar.prepareStatement(query);
             
@@ -172,29 +172,23 @@ public class metodos_reportes {
     public String[][] mostrar_capacitaciones_egresado(String Codigo) {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT CAPACITACIONES FROM EGRESADOS WHERE Codigo_de_estudiante = ?;";
+            String query = "SELECT ID_HISTORIAL, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO FROM HISTORIAL_CAPACITACIONES WHERE CODIGO_EGRESADO = ?;";
 
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, Codigo);
             ResultSet rs = st.executeQuery();
             
             List<String[]> lista_capacitaciones = new ArrayList<>();
-            if (rs.next()) {
-                String texto=rs.getString(1);
-                String[] cap_recuperadas = texto.split("//");
-                for (int j = 0; j < cap_recuperadas.length; j++) {
-                    String[]partes_cap=cap_recuperadas[j].split("-");
-                    String[] data = new String[6];//CREAR UN NUEVO ARRAY EN CADA VUELTA 
-                    
-                    data[0]=partes_cap[0];
-                    ejecutar.buscar_capacitacion_por_id(datos, partes_cap[0]);
-                    data[1]=datos.getArea();
-                    data[2]=datos.getEspecializacion();
-                    data[3]=datos.getTitulo();
-                    data[4]=partes_cap[1];
-                    data[5]=partes_cap[2];
-                    lista_capacitaciones.add(data);
+            while (rs.next()) {
+                String[] data = new String[6]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 6; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    if(j==3){
+                        data[j]=metodos.obtener_titulo_capacitacion(Integer.parseInt(rs.getString(j+1)));
+                    }else {
+                        data[j] = rs.getString(j + 1);
+                    }
                 }
+                lista_capacitaciones.add(data);
             }
             conectar.close();
 
@@ -253,5 +247,67 @@ public class metodos_reportes {
             } else {
                 return null;
             }
+    }
+    public String[][] Buscar_capacitacion_por_fecha(String Fecha_inicio, String Fecha_fin) {
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE FECHA BETWEEN '"+Fecha_inicio+"' AND '"+Fecha_fin+"';";
+            PreparedStatement st = conectar.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            
+            List<String[]> lista_capacitaciones = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[10]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 10; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                   
+                        data[j] = rs.getString(j + 1);
+                }
+                lista_capacitaciones.add(data);
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][10];
+            for (int i = 0; i < lista_capacitaciones.size(); i++) {
+                matriz_capacitaciones[i] = lista_capacitaciones.get(i);
+            }
+            return matriz_capacitaciones;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "No se encontraron capacitaciones del egresado" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
+    
+    public String[][] Buscar_CAPACITACION_EGRESADOS_por_fecha(String Fecha_inicio, String Fecha_fin) {
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String query = "SELECT ID_HISTORIAL, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO FROM HISTORIAL_CAPACITACIONES WHERE FECHA_ENVIO BETWEEN '"+Fecha_inicio+"' AND '"+Fecha_fin+"';";
+            PreparedStatement st = conectar.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            
+            List<String[]> lista_capacitaciones = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[6]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 6; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    if(j==3){
+                        data[j]=metodos.obtener_titulo_capacitacion(Integer.parseInt(rs.getString(j+1)));
+                    }else {
+                        data[j] = rs.getString(j + 1);
+                    }
+                }
+                lista_capacitaciones.add(data);
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][6];
+            for (int i = 0; i < lista_capacitaciones.size(); i++) {
+                matriz_capacitaciones[i] = lista_capacitaciones.get(i);
+            }
+            return matriz_capacitaciones;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "No se encontraron capacitaciones del egresado" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
     }
 }

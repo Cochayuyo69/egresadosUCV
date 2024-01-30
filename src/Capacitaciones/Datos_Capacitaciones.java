@@ -11,12 +11,12 @@ public class Datos_Capacitaciones {
     String Hora;
     String Modalidad;
     String Mensaje;
-    double Monto;
+    Double Monto;
     
     //Constructor 
     public Datos_Capacitaciones(){};
 
-    public Datos_Capacitaciones(String id, String Area, String Especializacion, String Titulo, String Fecha, String Turno, String Hora, String Modalidad, String Mensaje, double Monto) {
+    public Datos_Capacitaciones(String id, String Area, String Especializacion, String Titulo, String Fecha, String Turno, String Hora, String Modalidad, String Mensaje, Double Monto) {
         this.id = id;
         this.Area = Area;
         this.Especializacion = Especializacion;
@@ -102,11 +102,11 @@ public class Datos_Capacitaciones {
         this.Mensaje = Mensaje;
     }
 
-    public double getMonto() {
+    public Double getMonto() {
         return Monto;
     }
 
-    public void setMonto(double Monto) {
+    public void setMonto(Double Monto) {
         this.Monto = Monto;
     }
     

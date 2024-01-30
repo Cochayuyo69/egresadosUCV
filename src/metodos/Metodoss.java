@@ -317,7 +317,7 @@ public class Metodoss{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
 
-            String query = "SELECT Apellido_paterno, Apellido_materno, Nombres, Correo_electronico FROM EGRESADOS WHERE id_area_trabajo = ? and id_areas_especializacion = ?;";
+            String query = "SELECT Codigo_de_estudiante, Apellido_paterno, Apellido_materno, Nombres, Correo_electronico FROM EGRESADOS WHERE id_area_trabajo = ? and id_areas_especializacion = ?;";
 
             PreparedStatement st = con.prepareStatement(query);
             st.setInt(1, perfil);
@@ -327,8 +327,8 @@ public class Metodoss{
 
             List<String[]> dataList = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[4]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 4; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                String[] data = new String[5]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 5; j++) { // Ajusta el límite en función de las columnas que estás recuperando
                     data[j] = rs.getString(j + 1);
                 }
                 dataList.add(data);
@@ -336,7 +336,7 @@ public class Metodoss{
             con.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] dataArr = new String[dataList.size()][4];
+            String[][] dataArr = new String[dataList.size()][5];
             for (int i = 0; i < dataList.size(); i++) {
                 dataArr[i] = dataList.get(i);
             }
@@ -1051,8 +1051,7 @@ public class Metodoss{
         return Hora_Actual;
     }
     public String fecha(){
-        LocalDate fecha_con_guion=LocalDate.now();
-        String fecha= String.valueOf(fecha_con_guion).replace("-", "/");
+        String fecha=String.valueOf(LocalDate.now());
         return fecha;
     }
     public int obtener_id_del_titulo(String Titulo){
@@ -1161,6 +1160,28 @@ public class Metodoss{
         }
 
         return modeloComboBox;
+    }
+    public String obtener_titulo_capacitacion (int id_capacitacion){
+    String res = null; // Vector para almacenar los resultados
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT * FROM Capacitaciones WHERE ID_CAPACITACION = ?;";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, id_capacitacion);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                res = rs.getString("TITULO");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el titulo de la capacitación " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        return res;
     }
     
 }

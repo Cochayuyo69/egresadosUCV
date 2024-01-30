@@ -45,6 +45,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         setPreferredSize(new Dimension(1250,750));
         llenarCombobox();
         
+        model1.addColumn("Código UCV");
         model1.addColumn("Apellido P");
         model1.addColumn("Apellido M");
         model1.addColumn("Nombre");
@@ -55,6 +56,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         jtblEgreEspe.getColumn("Selección").setCellRenderer(new CheckBoxRenderer());
         jtblEgreEspe.getColumn("Selección").setCellEditor(new CheckBoxEditor());
         
+        model2.addColumn("Código UCV");
         model2.addColumn("Apellido P");
         model2.addColumn("Apellido M");
         model2.addColumn("Nombre");
@@ -196,15 +198,16 @@ public class frmInvitaciones extends javax.swing.JFrame {
             Boolean seleccionado = (Boolean) model.getValueAt(i, model.findColumn("Selección"));
 
             if (seleccionado != null && seleccionado) {
+                String codigo_ucv = (String) model.getValueAt(i, model.findColumn("Código UCV"));
                 String nombre = (String) model.getValueAt(i, model.findColumn("Nombre"));
                 String correo = (String) model.getValueAt(i, model.findColumn("Correo Electrónico"));
 
-                seleccionadosList.add(new String[]{nombre, correo});
+                seleccionadosList.add(new String[]{codigo_ucv,nombre, correo});
             }
         }
 
         // Convertir la lista a una matriz
-        String[][] seleccionadosArray = new String[seleccionadosList.size()][2];
+        String[][] seleccionadosArray = new String[seleccionadosList.size()][3];
         seleccionadosArray = seleccionadosList.toArray(seleccionadosArray);
 
         return seleccionadosArray;
@@ -269,6 +272,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1234, 832));
@@ -386,28 +390,28 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 1080, 110));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 1080, 110));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel4.setText("TÍTULO DEL MENSAJE:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
         jtxaMensaje.setColumns(20);
         jtxaMensaje.setRows(5);
         jScrollPane3.setViewportView(jtxaMensaje);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, 340, 150));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 340, 150));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel6.setText("MENSAJE:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
 
         jtxtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTituloActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 50));
+        jPanel1.add(jtxtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 280, 50));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -438,7 +442,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jtblEgreEspe);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 490, 310));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 490, 190));
 
         btn_EnviarEspe.setBackground(new java.awt.Color(0, 186, 0));
         btn_EnviarEspe.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
@@ -449,7 +453,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 btn_EnviarEspeActionPerformed(evt);
             }
         });
-        jPanel4.add(btn_EnviarEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 190, 46));
+        jPanel4.add(btn_EnviarEspe, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 190, 46));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -462,7 +466,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 jLabel10KeyPressed(evt);
             }
         });
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, -1, -1));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -475,9 +479,9 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 jLabel11KeyPressed(evt);
             }
         });
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, -1, -1));
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, -1, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 530, 430));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 530, 350));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -496,7 +500,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtblEgreTodos);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 490, 310));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 490, 200));
 
         cbx_area2.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         cbx_area2.setToolTipText("");
@@ -547,7 +551,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 btn_EnviarTodosActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_EnviarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 190, 46));
+        jPanel3.add(btn_EnviarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 190, 46));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel8.setText("ESPECIALIZACIÓN");
@@ -564,7 +568,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 jLabel13KeyPressed(evt);
             }
         });
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, -1, -1));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -577,9 +581,12 @@ public class frmInvitaciones extends javax.swing.JFrame {
                 jLabel12KeyPressed(evt);
             }
         });
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, -1, -1));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 310, 720, 430));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 380, 720, 350));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/titulo_INVITACIONES.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -589,7 +596,9 @@ public class frmInvitaciones extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -695,13 +704,16 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private void btn_EnviarEspeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EnviarEspeActionPerformed
         String Titulo = jtxtTitulo.getText();
         String mensaje = jtxaMensaje.getText();
+        String area= cbx_area.getSelectedItem().toString();
+        String especializacion=cbx_especializacion.getSelectedItem().toString();
         int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
         String[][] seleccionados = obtenerSeleccionados(jtblEgreEspe);
         for (String[] datos : seleccionados) {
-            String nombre = datos[0];
-            String correo = datos[1];
+            String Codigo_ucv= datos[0];
+            String nombre = datos[1];
+            String correo = datos[2];
             metodos.enviarCorreoEgre(correo, mensaje, Titulo);
-            ejecutar.guardar_en_historial(nombre, correo, ID_Cap);
+            ejecutar.guardar_en_historial(Codigo_ucv, area, especializacion, ID_Cap);
         }
         //metodos.enviarCorreoEgre("correo", mensaje, Titulo);
         //mostrarSeleccionados(jtblEgreTodos, "Todos los Egresados");
@@ -717,10 +729,11 @@ public class frmInvitaciones extends javax.swing.JFrame {
         int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
         String[][] seleccionados = obtenerSeleccionados(jtblEgreTodos);
         for (String[] datos : seleccionados) {
-            String nombre = datos[0];
-            String correo = datos[1];
+            String Codigo_ucv= datos[0];
+            String nombre = datos[1];
+            String correo = datos[2];
             metodos.enviarCorreoEgre(correo, mensaje, Titulo);
-            ejecutar.guardar_en_historial(nombre, correo, ID_Cap);
+//            ejecutar.guardar_en_historial(Codigo_ucv, ID_Cap);
         }
     }//GEN-LAST:event_btn_EnviarTodosActionPerformed
 
@@ -846,6 +859,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

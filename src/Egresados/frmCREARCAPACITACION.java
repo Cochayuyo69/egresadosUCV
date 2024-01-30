@@ -3,27 +3,23 @@ package Egresados;
 
 import Capacitaciones.Datos_Capacitaciones;
 import Capacitaciones.Metodos_capacitacion;
-import java.awt.Component;
-
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import metodos.Metodoss;
 
  
 public class frmCREARCAPACITACION extends javax.swing.JFrame {
-    SimpleDateFormat formato_fecha= new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formato_fecha= new SimpleDateFormat("yyyy-MM-dd");
     Datos_Capacitaciones datos= new Datos_Capacitaciones();
     Metodos_capacitacion ejecutar= new Metodos_capacitacion();
     Metodoss metodos= new Metodoss();
@@ -60,6 +56,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         txt_mensaje.setEnabled(false);
         txt_titulo.setEnabled(false);
         cbx_hora.setEnabled(false);
+        cbx_minutos.setEnabled(false);
         cbx_modalidad.setEnabled(false);
         cbx_turno.setEnabled(false);
         rb_pagar.setEnabled(false);
@@ -69,6 +66,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         txt_mensaje.setEnabled(true);
         txt_titulo.setEnabled(true);
         cbx_hora.setEnabled(true);
+        cbx_minutos.setEnabled(true);
         cbx_modalidad.setEnabled(true);
         cbx_turno.setEnabled(true);
         dch_fecha.setEnabled(true);
@@ -79,9 +77,10 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         txt_monto.setText("");
         txt_mensaje.setText("");
         txt_titulo.setText("");
-        cbx_hora.setSelectedIndex(0);
         cbx_area.setSelectedIndex(0);
         cbx_modalidad.setSelectedIndex(0);
+        cbx_hora.setSelectedIndex(0);
+        cbx_minutos.setSelectedIndex(0);
         cbx_turno.setSelectedIndex(0);
         dch_fecha.setDate(null);
         rb_pagar.setSelected(false);
@@ -110,6 +109,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         txt_mensaje = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
+        lbl_id1 = new javax.swing.JLabel();
+        cbx_minutos = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -152,7 +153,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         textField.setEditable(false);
         dch_fecha.setBackground(new java.awt.Color(255, 255, 255));
         dch_fecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        dch_fecha.setDateFormatString("dd/MM/yyyy");
+        dch_fecha.setDateFormatString("yyyy-MM-dd");
         dch_fecha.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         dch_fecha.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
 
@@ -172,7 +173,13 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         jLabel10.setText("HORA");
 
         cbx_hora.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_hora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         cbx_hora.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_hora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_horaActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel11.setText("MODALIDAD");
@@ -221,6 +228,18 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         lbl_id.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         lbl_id.setText("ID");
 
+        lbl_id1.setFont(new java.awt.Font("Vensim Serif Bengali", 1, 36)); // NOI18N
+        lbl_id1.setText(":");
+
+        cbx_minutos.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_minutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        cbx_minutos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_minutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_minutosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_datosLayout = new javax.swing.GroupLayout(panel_datos);
         panel_datos.setLayout(panel_datosLayout);
         panel_datosLayout.setHorizontalGroup(
@@ -234,67 +253,69 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                             .addGroup(panel_datosLayout.createSequentialGroup()
                                 .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_datosLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(dch_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(dch_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel14))
+                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panel_datosLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panel_datosLayout.createSequentialGroup()
-                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbx_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addGap(18, 18, 18)
-                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbx_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addGap(18, 18, 18)
-                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbx_modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_datosLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel16)
                                 .addGap(39, 39, 39)
                                 .addComponent(lbl_id)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rb_pagar)
                                 .addGap(24, 24, 24)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_datosLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(cbx_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_datosLayout.createSequentialGroup()
+                                        .addComponent(cbx_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbl_id1))
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                                .addComponent(cbx_minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(cbx_modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(24, 24, 24))
         );
         panel_datosLayout.setVerticalGroup(
             panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_datosLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_titulo)
-                        .addComponent(dch_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
-                    .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbx_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbx_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbx_modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_datosLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(17, 17, 17)
+                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_titulo)
+                                .addComponent(dch_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                            .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbx_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbx_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbx_modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbx_minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
                         .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,13 +324,15 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                                 .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(rb_pagar)))
                     .addGroup(panel_datosLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(lbl_id1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(panel_datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(txt_mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel1.add(panel_datos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 1080, 310));
@@ -545,7 +568,9 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
                 txt_monto.setText(null);
             }
             txt_mensaje.setText(capacitaciones.getMensaje());
-            cbx_hora.setSelectedItem(capacitaciones.getHora());
+            String []partes_hora=capacitaciones.getHora().split(":");
+            cbx_hora.setSelectedItem(partes_hora[0]);
+            cbx_minutos.setSelectedItem(partes_hora[1]);
             lbl_id.setText(capacitaciones.getId());
             Desactivar();
         }
@@ -570,23 +595,28 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         //hellow
+        String fecha="";
+        if (dch_fecha.getDate()!=null){
+            fecha=formato_fecha.format(dch_fecha.getDate());
+        }
         String area_Seleccionada=cbx_area.getSelectedItem().toString();
         String especilizacion_seleccionada=cbx_especializacion.getSelectedItem().toString();
         String titulo=txt_titulo.getText();
-        String fecha=formato_fecha.format(dch_fecha.getDate() );
-        System.out.println(fecha);
         String turno=cbx_turno.getSelectedItem().toString();
-        String hora=cbx_hora.getSelectedItem().toString();
+        String hora=cbx_hora.getSelectedItem().toString()+":"+cbx_minutos.getSelectedItem().toString();
         String modalidad=cbx_modalidad.getSelectedItem().toString();
         String mensaje=txt_mensaje.getText();
         String ID=lbl_id.getText();
         boolean pago=rb_pagar.isSelected();
-        double monto;
+        Double monto=null;
         // Evaluando si es de pago o no
         if(pago){
-            monto=Double.parseDouble(txt_monto.getText());
+            String montoTexto = txt_monto.getText().trim();
+            if(!montoTexto.isEmpty()){
+                monto=Double.valueOf(txt_monto.getText());
+            }
         }else{
-            monto=0;
+            monto=0.0;
         }
         
         datos.setArea(area_Seleccionada);
@@ -599,14 +629,16 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         datos.setMensaje(mensaje);
         datos.setMonto(monto);
         datos.setId(ID);
-        if(btnCrearActivo){
-            ejecutar.guardar_Capacitacion(datos);
-        }else {
-            ejecutar.editar_capacitacion(datos);
-        }
-            
         
-        Desactivar();
+        String excepciones=ejecutar.excepciones(datos);
+        if(excepciones.equals("") && btnCrearActivo){
+            ejecutar.guardar_Capacitacion(datos);
+            Desactivar();
+        }else if(excepciones.equals("") && !btnCrearActivo) {
+            ejecutar.editar_capacitacion(datos);
+            Desactivar();
+        }else{JOptionPane.showMessageDialog(null, excepciones, "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_nuevabusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevabusquedaActionPerformed
@@ -639,15 +671,12 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_montoActionPerformed
 
     private void cbx_turnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_turnoActionPerformed
-        String turno=cbx_turno.getSelectedItem().toString();
-        DefaultComboBoxModel<String> modelo_horas=ejecutar.obtenerhoras(turno);
-        cbx_hora.setModel(modelo_horas);
+
     }//GEN-LAST:event_cbx_turnoActionPerformed
 
     private void cbx_especializacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacionActionPerformed
-        DefaultComboBoxModel<String> modelo;
+        DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
         if(btnCrearActivo){
-            modelo=new DefaultComboBoxModel<>(new String[]{""});
             cbx_titulo.setEnabled(false);
         }else {
         String especializacion_Seleccionada = cbx_especializacion.getSelectedItem().toString();
@@ -675,21 +704,25 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        String Area_Selecionada= cbx_area.getSelectedItem().toString();
-        String Especializacion_seleccionada=cbx_especializacion.getSelectedItem().toString();
-        String Titulo_Seleccionado=cbx_titulo.getSelectedItem().toString();
-        ejecutar.eliminar_capacitacion(Area_Selecionada,Especializacion_seleccionada, Titulo_Seleccionado);
+        int Titulo_Seleccionado=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
+        ejecutar.eliminar_capacitacion(Titulo_Seleccionado);
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void cbx_tituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_tituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbx_tituloActionPerformed
 
+    private void cbx_horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_horaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_horaActionPerformed
+
+    private void cbx_minutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_minutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_minutosActionPerformed
+
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
         cbx_area.setModel(model5);
-        DefaultComboBoxModel<String> modelo_horas=ejecutar.obtenerhoras("MAÑANA");
-        cbx_hora.setModel(modelo_horas);
     }
     /**
      * @param args the command line arguments
@@ -736,6 +769,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx_area;
     private javax.swing.JComboBox<String> cbx_especializacion;
     private javax.swing.JComboBox<String> cbx_hora;
+    private javax.swing.JComboBox<String> cbx_minutos;
     private javax.swing.JComboBox<String> cbx_modalidad;
     private javax.swing.JComboBox<String> cbx_titulo;
     private javax.swing.JComboBox<String> cbx_turno;
@@ -759,6 +793,7 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_id;
+    private javax.swing.JLabel lbl_id1;
     private javax.swing.JPanel panel_datos;
     private javax.swing.JRadioButton rb_pagar;
     private javax.swing.JTextField txt_mensaje;
