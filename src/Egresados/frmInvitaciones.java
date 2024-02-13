@@ -39,7 +39,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private boolean btnCrearActivo=false;
     DefaultTableModel model1 = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
-    
+    String []Partes_titulo;
     public frmInvitaciones() {
         initComponents();
         setPreferredSize(new Dimension(1250,750));
@@ -643,9 +643,8 @@ public class frmInvitaciones extends javax.swing.JFrame {
         model1.setRowCount(0);
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
         String Especializacion=cbx_especializacion.getSelectedItem().toString();
-        String Partes_titulo=cbx_titulo.getSelectedItem().toString();
-        String[] parts = Partes_titulo.split("\\s{2,}");
-        String id = parts[1].substring(parts[1].indexOf(":") + 1).trim();
+        Partes_titulo=metodos.obtener_partes_titulo(cbx_titulo.getSelectedItem().toString());
+        String id = Partes_titulo[0].trim();
         Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
         Date dia = null;
         
@@ -706,7 +705,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         String mensaje = jtxaMensaje.getText();
         String area= cbx_area.getSelectedItem().toString();
         String especializacion=cbx_especializacion.getSelectedItem().toString();
-        int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
+        int ID_Cap=Integer.parseInt(Partes_titulo[0]);
         String[][] seleccionados = obtenerSeleccionados(jtblEgreEspe);
         for (String[] datos : seleccionados) {
             String Codigo_ucv= datos[0];

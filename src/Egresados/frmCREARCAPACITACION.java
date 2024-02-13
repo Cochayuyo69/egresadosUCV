@@ -546,7 +546,8 @@ public class frmCREARCAPACITACION extends javax.swing.JFrame {
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
         String Especializacion=cbx_especializacion.getSelectedItem().toString();
         String titulo=cbx_titulo.getSelectedItem().toString();
-        int id = metodos.obtener_id_del_titulo(titulo);
+        String []titulo_partes=metodos.obtener_partes_titulo(titulo);
+        int id = Integer.parseInt(titulo_partes[0]);
         Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
         Date dia = null;
         ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,id, capacitaciones);

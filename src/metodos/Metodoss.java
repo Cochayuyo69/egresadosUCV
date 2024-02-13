@@ -1183,7 +1183,10 @@ public class Metodoss{
         }
         return res;
     }
-    
+    public String[] obtener_partes_titulo(String Titulo){
+        String[] parts = Titulo.split("\\.");
+        return parts;
+    }
 }
 
 

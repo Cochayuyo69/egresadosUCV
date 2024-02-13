@@ -55,14 +55,14 @@ public class Metodos_capacitacion {
     public void buscar_capacitacion(String area_trabajo, String especializacion,int Id, Datos_Capacitaciones datos){
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT * FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND id = ?;";
+            String query = "SELECT * FROM Capacitaciones WHERE AREA=? AND ESPECIALIZACION=? AND ID_CAPACITACION = ?;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, area_trabajo);
             st.setString(2, especializacion);
             st.setInt(3, Id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                datos.setId(rs.getString("id"));
+                datos.setId(rs.getString("ID_CAPACITACION"));
                 datos.setTitulo(rs.getString("TITULO"));
                 datos.setFecha(rs.getString("FECHA"));
                 datos.setTurno(rs.getString("TURNO"));
@@ -72,10 +72,13 @@ public class Metodos_capacitacion {
                 datos.setMensaje(rs.getString("MENSAJE"));
                 conectar.close();
             } else {
-            JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró la capacitación", 
+                    "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage(), 
+                    "Error", JOptionPane.WARNING_MESSAGE);
+            System.out.println(e);
         }
     }
     //ELIMINAR CAPACITACION
@@ -169,7 +172,7 @@ public class Metodos_capacitacion {
                 ResultSet resultado=preparedStmt.executeQuery();
 
                 while(resultado.next()){
-                    String titulo_capacitacion=resultado.getString("TITULO")+"   ID:"+resultado.getString("ID_CAPACITACION");
+                    String titulo_capacitacion=resultado.getString("ID_CAPACITACION")+". "+resultado.getString("TITULO");
                     modelo.addElement(titulo_capacitacion);
                 }
                 preparedStmt.close();

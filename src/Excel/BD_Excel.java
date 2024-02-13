@@ -2,6 +2,7 @@
 package Excel;
 import Mensajes.Importacion_Exitosa;
 import datos.DatosEgresados;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -293,4 +294,75 @@ public class BD_Excel{
     
     }
     
+    //OBTENER EL CODIGO UCV
+    public String obtener_codigo_ucv(String correo, String numero_documento){
+        try {
+            Connection conectar=conexion.abrirconeccion();
+            String query = "SELECT * FROM EGRESADOS WHERE Correo_electronico = ? AND Numero_documento_identidad = ?;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, correo);
+            st.setString(2, numero_documento);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getString("Codigo_de_estudiante");
+            }
+        } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al obtener el codigo UCV correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);   
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void importar_compromiso_asistencia(String file) throws FileNotFoundException, IOException, SQLException{
+        FileInputStream archivo = new FileInputStream(file);
+        XSSFWorkbook libro= new XSSFWorkbook(archivo);
+        XSSFSheet hoja = libro.getSheetAt(0);
+        try {
+            //Abrir coneccion 
+        Connection conectar=conexion.abrirconeccion();
+        //Consulta filial
+                String consulta_historial="UPDATE HISTORIAL_CAPACITACIONES SET COMPROMISO=? WHERE CODIGO_EGRESADO=? AND ID_CAPACITACION=?";
+                PreparedStatement historial = conectar.prepareStatement(consulta_historial);
+        //Obtener inicio de filas y columnas
+        int numero_Filas= hoja.getLastRowNum();
+        int fila_no_nula=0;
+        for(int f=0; f<=numero_Filas;f++){
+            Row inicio = hoja.getRow(f);
+            if(inicio != null){
+                //Agregamos una unidad para no contar el titulo de las celdas
+                fila_no_nula=f+1 ;break;
+            }
+        }
+        //Guardamos los datos
+        for(int i=fila_no_nula; i<=numero_Filas; i ++){
+            Row fila = hoja.getRow(i);
+            //numero de inicio columna no nula
+            int numero_columna= fila.getLastCellNum();
+
+            int columna_no_nula=0;
+            for(int c=0; c<numero_columna;c++){
+            Cell celda=fila.getCell(c);
+            if(celda != null){
+                columna_no_nula=c;break;
+                }
+            }
+            Cell Celda_dni=fila.getCell(columna_no_nula+2);
+            double numero=Celda_dni.getNumericCellValue();
+            long dni=(long)numero;
+            String []partes_titulo=conexion.obtener_partes_titulo(fila.getCell(columna_no_nula+4).toString());
+            System.out.println(dni);
+            historial.setString(1, fila.getCell(columna_no_nula+3).toString());
+            historial.setString(2, obtener_codigo_ucv(fila.getCell(columna_no_nula+1).toString(), String.valueOf(dni)));
+            historial.setInt(3, Integer.parseInt(partes_titulo[0]));
+            historial.executeUpdate();
+        }
+        historial.close();
+        conectar.close();
+        JOptionPane.showMessageDialog(null, "Asistencia importada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Asistencia no importada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println(e);
+        }
+                
+    }
 }

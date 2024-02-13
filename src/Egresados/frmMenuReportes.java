@@ -2,12 +2,19 @@
 package Egresados;
 
 import Capacitaciones.Metodos_capacitacion;
+import Excel.BD_Excel;
 import Reportes.metodos_reportes;
 import datos.DatosEgresados;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import metodos.Metodoss;
@@ -24,7 +31,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
     int contador_capacitaciones=0;
     DefaultTableModel modelo_centro_labores = new DefaultTableModel();
     String[][] centro_labores;
-    Object[] indice={"ID", "AREA", "ESPECIALIZACIÓN", "TÍTULO", "FECHA", "TURNO", "HORA", "MODALIDAD", "COSTO", "MENSAJE"};
+    Object[] indice={"ID. TÍTULO", "AREA", "ESPECIALIZACIÓN", "FECHA", "TURNO", "HORA", "MODALIDAD", "COSTO", "MENSAJE"};
     Object[] indice_labores={"ID", "AREA","ESPECIALIZACIÓN"};
     //
     //Botones
@@ -65,7 +72,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
         modelo_capacitaciones.setColumnIdentifiers(indice);
 
         tbl_reporte_capacitaciones.setModel(modelo_capacitaciones);
-        tbl_reporte_capacitaciones.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbl_reporte_capacitaciones.getColumnModel().getColumn(0).setPreferredWidth(370);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(1).setPreferredWidth(170);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(2).setPreferredWidth(170);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(3).setPreferredWidth(370);
@@ -74,7 +81,6 @@ public class frmMenuReportes extends javax.swing.JFrame {
         tbl_reporte_capacitaciones.getColumnModel().getColumn(6).setPreferredWidth(100);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(7).setPreferredWidth(100);
         tbl_reporte_capacitaciones.getColumnModel().getColumn(8).setPreferredWidth(100);
-        tbl_reporte_capacitaciones.getColumnModel().getColumn(9).setPreferredWidth(400);
         
         modelo_centro_labores.setColumnIdentifiers(indice_labores);
         String[][] datos = metodos.mostrarEgresados();
@@ -146,6 +152,8 @@ public class frmMenuReportes extends javax.swing.JFrame {
         jbtnbuscarFecha = new javax.swing.JButton();
         jdc_fecha_inicio = new com.toedter.calendar.JDateChooser();
         jdc_fecha_fin = new com.toedter.calendar.JDateChooser();
+        btnImportar = new javax.swing.JButton();
+        cbx_importar_asitencia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1605, 828));
@@ -262,7 +270,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel8)))
-                .addContainerGap(741, Short.MAX_VALUE))
+                .addContainerGap(669, Short.MAX_VALUE))
         );
 
         materialTabbed2.addTab("PERFILES", jPanel2);
@@ -449,6 +457,29 @@ public class frmMenuReportes extends javax.swing.JFrame {
         jdc_fecha_fin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jdc_fecha_fin.setDateFormatString("yyyy-MM-dd");
 
+        btnImportar.setBackground(new java.awt.Color(76, 128, 76));
+        btnImportar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        btnImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/IMPORTAR.png"))); // NOI18N
+        btnImportar.setText("IMPORTAR");
+        btnImportar.setBorder(null);
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
+
+        cbx_importar_asitencia.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_importar_asitencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMPROMISO DE ASISTENCIA", "ASISTENCIA DE CAPACITACIONES" }));
+        cbx_importar_asitencia.setToolTipText("");
+        cbx_importar_asitencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_importar_asitencia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbx_importar_asitencia.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cbx_importar_asitencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_importar_asitenciaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -462,7 +493,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(213, 213, 213)
@@ -500,12 +531,16 @@ public class frmMenuReportes extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addGap(24, 24, 24)
                                 .addComponent(lbl_contador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbx_importar_asitencia, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(216, 216, 216)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(424, 424, 424))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,22 +577,24 @@ public class frmMenuReportes extends javax.swing.JFrame {
                     .addComponent(btn_nuevabuqueda_egresados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnbuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdc_fecha_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtnbuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdc_fecha_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jdc_fecha_fin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbx_importar_asitencia, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnImportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         materialTabbed2.addTab("CAPACITACIONES", jPanel4);
@@ -743,7 +780,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         String rutaArchivo=reporte.obtenerRutaArchivo();
         if(rutaArchivo!=null){
-        reporte.exportar_Excel(indice, capacitaciones, rutaArchivo);
+                reporte.exportar_Excel(indice, capacitaciones, rutaArchivo);
         }else{
             JOptionPane.showMessageDialog(null, "Exportación cancelada");
         }
@@ -788,7 +825,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
 
     private void btn_nuevabuqueda_egresadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevabuqueda_egresadosActionPerformed
         btn_egresado_activo=true;
-        Object[] indice_egresados={"ID","AREA","ESPECIALIZACION", "TÍTULO", "FECHA", "HORA"};
+        Object[] indice_egresados={"ID","AREA","ESPECIALIZACION", "TÍTULO", "FECHA", "HORA", "COMPROMISO", "ASISTENCIA"};
         modelo_capacitaciones.setColumnIdentifiers(indice_egresados);
         modelo_capacitaciones.setRowCount(0);
         tbl_reporte_capacitaciones.setModel(modelo_capacitaciones);
@@ -808,7 +845,6 @@ public class frmMenuReportes extends javax.swing.JFrame {
             capacitaciones = reporte.Buscar_CAPACITACION_EGRESADOS_por_fecha(Fecha_I, Fecha_F);
         }else{
             capacitaciones = reporte.Buscar_capacitacion_por_fecha(Fecha_I, Fecha_F);
-            
         }
         if (capacitaciones != null) {
                 for (String[] row : capacitaciones) {
@@ -836,6 +872,31 @@ public class frmMenuReportes extends javax.swing.JFrame {
 //        lbl_contador.setText(String.valueOf(contador_capacitaciones));
 //        
     }//GEN-LAST:event_jbtnbuscarFechaActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        JFileChooser  dlg = new JFileChooser(); // crear un objeto de dialogo
+        int option = dlg.showOpenDialog(this); //ABRE LA VENTANA DE DIALOGO
+        if(option==JFileChooser.APPROVE_OPTION){ /// Se hace click en el boton abrir del dialogo
+            String direccion = dlg.getSelectedFile().getPath(); // Obtieme ruta y nombre del archivo seleccionado
+            BD_Excel importar = new BD_Excel();
+            try {
+                if(cbx_importar_asitencia.getSelectedIndex()==0){
+                    importar.importar_compromiso_asistencia(direccion);
+                }else{
+                    
+                }
+               
+            } catch (IOException ex) {
+                Logger.getLogger(frmEgresados.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmEgresados.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnImportarActionPerformed
+
+    private void cbx_importar_asitenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_importar_asitenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_importar_asitenciaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -872,6 +933,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnImportar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_buscar_centro_labores;
     private javax.swing.JButton btn_nuevabuqueda_egresados;
@@ -879,6 +941,7 @@ public class frmMenuReportes extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx_area;
     private javax.swing.JComboBox<String> cbx_area_labores;
     private javax.swing.JComboBox<String> cbx_especializacion;
+    private javax.swing.JComboBox<String> cbx_importar_asitencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

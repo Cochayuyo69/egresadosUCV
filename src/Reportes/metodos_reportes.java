@@ -28,7 +28,7 @@ public class metodos_reportes {
     public String[][] mostrar_capacitaciones(String Area, String Especializacion) {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE AREA = ? and ESPECIALIZACION = ?;";
+            String query = "SELECT ID_CAPACITACION, TITULO, AREA, ESPECIALIZACION, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE AREA = ? and ESPECIALIZACION = ?;";
 
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, Area);
@@ -38,16 +38,20 @@ public class metodos_reportes {
 
             List<String[]> lista_capacitaciones = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[10]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 10; j++) { // Ajusta el límite en función de las columnas que estás recuperando
-                    data[j] = rs.getString(j + 1);
+                String[] data = new String[9]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 9; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    if(j==0){
+                        data[j] = rs.getString(1)+". "+rs.getString(2);
+                    }else{
+                        data[j] = rs.getString(j+2);
+                    }
                 }
                 lista_capacitaciones.add(data);
             }
             conectar.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][10];
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][9];
             for (int i = 0; i < lista_capacitaciones.size(); i++) {
                 matriz_capacitaciones[i] = lista_capacitaciones.get(i);
             }
@@ -141,7 +145,7 @@ public class metodos_reportes {
     public String[][] Capacitaciones() {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones";
+            String query = "SELECT ID_CAPACITACION, TITULO, AREA, ESPECIALIZACION, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones";
 
             PreparedStatement st = conectar.prepareStatement(query);
             
@@ -149,16 +153,20 @@ public class metodos_reportes {
 
             List<String[]> lista_capacitaciones = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[10]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 10; j++) { // Ajusta el límite en función de las columnas que estás recuperando
-                    data[j] = rs.getString(j + 1);
+                String[] data = new String[9]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 9; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    if(j==0){
+                        data[j] = rs.getString(1)+". "+rs.getString(2);
+                    }else{
+                        data[j] = rs.getString(j+2);
+                    }
                 }
                 lista_capacitaciones.add(data);
             }
             conectar.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][8];
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][9];
             for (int i = 0; i < lista_capacitaciones.size(); i++) {
                 matriz_capacitaciones[i] = lista_capacitaciones.get(i);
             }
@@ -172,7 +180,7 @@ public class metodos_reportes {
     public String[][] mostrar_capacitaciones_egresado(String Codigo) {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT ID_HISTORIAL, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO FROM HISTORIAL_CAPACITACIONES WHERE CODIGO_EGRESADO = ?;";
+            String query = "SELECT ID_HISTORIAL, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO, COMPROMISO, ASISTENCIA FROM HISTORIAL_CAPACITACIONES WHERE CODIGO_EGRESADO = ?;";
 
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, Codigo);
@@ -180,10 +188,10 @@ public class metodos_reportes {
             
             List<String[]> lista_capacitaciones = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[6]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 6; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                String[] data = new String[8]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 8; j++) { // Ajusta el límite en función de las columnas que estás recuperando
                     if(j==3){
-                        data[j]=metodos.obtener_titulo_capacitacion(Integer.parseInt(rs.getString(j+1)));
+                        data[j]=rs.getString(j+1)+". "+metodos.obtener_titulo_capacitacion(Integer.parseInt(rs.getString(j+1)));
                     }else {
                         data[j] = rs.getString(j + 1);
                     }
@@ -193,7 +201,7 @@ public class metodos_reportes {
             conectar.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][6];
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][8];
             for (int i = 0; i < lista_capacitaciones.size(); i++) {
                 matriz_capacitaciones[i] = lista_capacitaciones.get(i);
             }
@@ -251,23 +259,26 @@ public class metodos_reportes {
     public String[][] Buscar_capacitacion_por_fecha(String Fecha_inicio, String Fecha_fin) {
         try {
             Connection conectar=metodos.abrirconeccion();
-            String query = "SELECT ID_CAPACITACION, AREA, ESPECIALIZACION, TITULO, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE FECHA BETWEEN '"+Fecha_inicio+"' AND '"+Fecha_fin+"';";
+            String query = "SELECT ID_CAPACITACION, TITULO, AREA, ESPECIALIZACION, FECHA, TURNO, HORA, MODALIDAD, MONTO, MENSAJE FROM Capacitaciones WHERE FECHA BETWEEN '"+Fecha_inicio+"' AND '"+Fecha_fin+"';";
             PreparedStatement st = conectar.prepareStatement(query);
             ResultSet rs = st.executeQuery();
             
             List<String[]> lista_capacitaciones = new ArrayList<>();
             while (rs.next()) {
-                String[] data = new String[10]; // Ajusta el tamaño en función de las columnas que estás recuperando
-                for (int j = 0; j < 10; j++) { // Ajusta el límite en función de las columnas que estás recuperando
-                   
-                        data[j] = rs.getString(j + 1);
+                String[] data = new String[9]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 9; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                   if(j==0){
+                        data[j] = rs.getString(1)+". "+rs.getString(2);
+                    }else{
+                        data[j] = rs.getString(j+2);
+                    }
                 }
                 lista_capacitaciones.add(data);
             }
             conectar.close();
 
             // Convertir la lista en una matriz de dos dimensiones
-            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][10];
+            String[][] matriz_capacitaciones = new String[lista_capacitaciones.size()][9];
             for (int i = 0; i < lista_capacitaciones.size(); i++) {
                 matriz_capacitaciones[i] = lista_capacitaciones.get(i);
             }
