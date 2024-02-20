@@ -5,7 +5,7 @@ import Capacitaciones.Datos_Capacitaciones;
 import Capacitaciones.Metodos_capacitacion;
 import java.io.FileOutputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import datos.DatosEgresados;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class metodos_reportes {
     Metodoss metodos=new Metodoss();
     Metodos_capacitacion ejecutar = new Metodos_capacitacion();
-    Datos_Capacitaciones datos= new Datos_Capacitaciones();
+    DatosEgresados datos= new DatosEgresados();
 //METODO PARA MOSTRAR capacitaciones creadas
     public String[][] mostrar_capacitaciones(String Area, String Especializacion) {
         try {
@@ -318,6 +318,42 @@ public class metodos_reportes {
             return matriz_capacitaciones;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,  "No se encontraron capacitaciones del egresado" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
+    
+    public String[][] buscar_asistencias_por_capacitacion(String area, String especializacion, String id_titulo){
+        try {
+            Connection conectar=metodos.abrirconeccion();
+            String query = "SELECT CODIGO_EGRESADO, COMPROMISO, ASISTENCIA FROM HISTORIAL_CAPACITACIONES WHERE AREA = ? AND ESPECIALIZACION=? AND ID_CAPACITACION=?;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, area);
+            st.setString(2, especializacion);
+            st.setString(3, id_titulo);
+            ResultSet rs = st.executeQuery();
+            List<String[]> lista_capacitaciones = new ArrayList<>();
+            
+            while (rs.next()) {
+                String[] data = new String[6]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                metodos.buscarPorCodigo(rs.getString(1), null, datos);
+                data[0]= datos.getCodigoUCV();
+                data[1]= datos.getApellidoP();
+                data[2]= datos.getApellidoM();
+                data[3]= datos.getNombres();
+                data[4]= rs.getString(2);
+                data[5]= rs.getString(3);
+                lista_capacitaciones.add(data);
+            }
+            
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_Asistencias = new String[lista_capacitaciones.size()][6];
+            for (int i = 0; i < lista_capacitaciones.size(); i++) {
+                matriz_Asistencias[i] = lista_capacitaciones.get(i);
+            } 
+            return matriz_Asistencias;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,  "No se encontraron asistencias de la capacitación" + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+            System.out.println(e);
         }
         return null;
     }

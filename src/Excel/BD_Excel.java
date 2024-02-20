@@ -346,15 +346,40 @@ public class BD_Excel{
                 columna_no_nula=c;break;
                 }
             }
-            Cell Celda_dni=fila.getCell(columna_no_nula+2);
+            Cell Celda_dni=fila.getCell(columna_no_nula+1);
             double numero=Celda_dni.getNumericCellValue();
             long dni=(long)numero;
-            String []partes_titulo=conexion.obtener_partes_titulo(fila.getCell(columna_no_nula+4).toString());
+            conexion.buscarPorCodigo(null, String.valueOf(dni), datos);
+            String []partes_titulo=conexion.obtener_partes_titulo(fila.getCell(columna_no_nula+2).toString());
             System.out.println(dni);
             historial.setString(1, fila.getCell(columna_no_nula+3).toString());
-            historial.setString(2, obtener_codigo_ucv(fila.getCell(columna_no_nula+1).toString(), String.valueOf(dni)));
+            historial.setString(2, datos.getCodigoUCV());
             historial.setInt(3, Integer.parseInt(partes_titulo[0]));
             historial.executeUpdate();
+            String Capacitacion_general=fila.getCell(columna_no_nula+4).toString();
+            if(!Capacitacion_general.equalsIgnoreCase("Ninguno") ){
+                try {
+                    //Guardar el interes del egresado
+            String sqlinsertar ="INSERT INTO HISTORIAL_CAPACITACIONES (CODIGO_EGRESADO, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO, COMPROMISO)" + 
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmtSeleccionar = conectar.prepareStatement(sqlinsertar);
+            String []partes_titulo2=conexion.obtener_partes_titulo(fila.getCell(columna_no_nula+4).toString());
+            stmtSeleccionar.setString(1, datos.getCodigoUCV());
+            stmtSeleccionar.setString(2, "General");
+            stmtSeleccionar.setString(3, "General");
+            stmtSeleccionar.setInt(4, Integer.parseInt(partes_titulo2[0]));
+            stmtSeleccionar.setString(5, conexion.fecha());
+            stmtSeleccionar.setString(6, conexion.hora());
+            stmtSeleccionar.setString(7, "Sí");
+            stmtSeleccionar.executeUpdate();
+            stmtSeleccionar.close();
+            
+            conexion.enviarCorreoEgre(datos.getCorreo(), "Invitado a la capacitación "+partes_titulo2[1], partes_titulo2[1]);
+            
+                } catch (Exception e) {
+                    System.out.println("Error en el guardado de interes del egresado: "+e);
+                }
+            }
         }
         historial.close();
         conectar.close();
