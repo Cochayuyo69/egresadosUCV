@@ -644,9 +644,7 @@ public class frmInvitaciones extends javax.swing.JFrame {
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
         String Especializacion=cbx_especializacion.getSelectedItem().toString();
         Partes_titulo=metodos.obtener_partes_titulo(cbx_titulo.getSelectedItem().toString());
-        String id = Partes_titulo[0].trim();
-        Datos_Capacitaciones capacitaciones= new Datos_Capacitaciones();
-        Date dia = null;
+        
         
         int perfil = metodos.obtenerIdPerfil(Area_seleccionada);
         int espe = metodos.obtenerIdEspe(Especializacion);
@@ -656,6 +654,12 @@ public class frmInvitaciones extends javax.swing.JFrame {
         
         
         cbx_area2.setEnabled(true);
+        
+        //agarrar titulo
+        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion);
+        jtxaMensaje.setText(capacitacion[6]);
+        
+        
 //        ejecutar.buscar_capacitacion(Area_seleccionada, Especializacion,id, capacitaciones);
 //        if(capacitaciones.getTitulo()!=null){
 //            txt_titulo.setText(capacitaciones.getTitulo());
@@ -707,11 +711,27 @@ public class frmInvitaciones extends javax.swing.JFrame {
         String especializacion=cbx_especializacion.getSelectedItem().toString();
         int ID_Cap=Integer.parseInt(Partes_titulo[0]);
         String[][] seleccionados = obtenerSeleccionados(jtblEgreEspe);
+        
+        //AGARRAR TITULO, FECHA, HORA, MONTO Y MODALIDAD
+        String Area_seleccionada=cbx_area.getSelectedItem().toString();
+        String Especializacion=cbx_especializacion.getSelectedItem().toString();
+        
+        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion);
+        capacitacion = metodos.modificarDetalles(capacitacion);
+        System.out.println(capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]+", con un costo de "+capacitacion[5]+" soles");
+        
+        String mensajecompleto = "<figure><p><h2>"+capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]
+                +", con un costo de "+capacitacion[5]+" soles" +"</h2><p>"+ mensaje+"</p>"+"<blockquote>" +
+                "En caso de requerir ayuda, comunicarse con:<br>" +
+                "- Canal Correo electrónico: soporte@ucv.edu.pe<br>"+
+                "- Canal telefónico: (01)2024342 - Opción 5<br>"+
+                "- Canal WhatsApp: (01)2024342<br>"+
+                "© UNIVERSIDAD CÉSAR VALLEJO"+"</blockquote></figure>";
         for (String[] datos : seleccionados) {
             String Codigo_ucv= datos[0];
             String nombre = datos[1];
             String correo = datos[2];
-            metodos.enviarCorreoEgre(correo, mensaje, Titulo);
+            metodos.enviarCorreoEgre(correo, mensajecompleto, Titulo);
             ejecutar.guardar_en_historial(Codigo_ucv, area, especializacion, ID_Cap);
         }
         //metodos.enviarCorreoEgre("correo", mensaje, Titulo);

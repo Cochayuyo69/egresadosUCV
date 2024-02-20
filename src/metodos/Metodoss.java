@@ -10,8 +10,11 @@ import java.util.List;
 import datos.DatosUsuarios;
 import javax.swing.JOptionPane;
 import datos.DatosEgresados;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
@@ -1187,6 +1190,58 @@ public class Metodoss{
         String[] parts = Titulo.split("\\.");
         return parts;
     }
+    
+    public String[] obtenerDetallesCapacitacion(String perfil, String espe) {
+        String[] detalles = new String[7]; // Vector para almacenar los detalles de la capacitación
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT * FROM CAPACITACIONES WHERE AREA = ? AND ESPECIALIZACION = ?";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, perfil);
+            st.setString(2, espe);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Obtener los detalles de la capacitación
+                detalles[0] = rs.getString("TITULO");
+                detalles[1] = rs.getString("FECHA");
+                detalles[2] = rs.getString("TURNO");
+                detalles[3] = rs.getString("HORA");
+                detalles[4] = rs.getString("MODALIDAD");
+                detalles[5] = rs.getString("MONTO");
+                detalles[6] = rs.getString("MENSAJE");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la capacitación", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la capacitación: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
+    public static String[] modificarDetalles(String[] detalles) {
+        // Modificar la fecha
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd 'de' MMMM");
+
+        try {
+            Date fecha = formatoEntrada.parse(detalles[1]);
+            detalles[1] = formatoSalida.format(fecha);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Manejar la excepción apropiadamente según tus necesidades
+        }
+
+        // Modificar el monto
+        detalles[5] = detalles[5].split("\\.")[0]; // Eliminar los decimales
+
+        return detalles;
+    }
+    
 }
 
 
