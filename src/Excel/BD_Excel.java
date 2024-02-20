@@ -374,8 +374,18 @@ public class BD_Excel{
             stmtSeleccionar.executeUpdate();
             stmtSeleccionar.close();
             
-            conexion.enviarCorreoEgre(datos.getCorreo(), "Invitado a la capacitación "+partes_titulo2[1], partes_titulo2[1]);
-            
+            //eNVIAR El correo de deseo del empleado
+            String[] capacitacion = conexion.obtenerDetallesCapacitacion("General", "General", partes_titulo2[1].trim());
+            capacitacion = conexion.modificarDetalles(capacitacion);
+            System.out.println(capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]+", con un costo de "+capacitacion[5]+" soles");
+            String mensajecompleto = "<figure><p><h2>"+capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]
+                +", con un costo de "+capacitacion[5]+" soles" +"</h2><p>"+ capacitacion[6]+"</p>"+"<blockquote>" +
+                "En caso de requerir ayuda, comunicarse con:<br>" +
+                "- Canal Correo electrónico: soporte@ucv.edu.pe<br>"+
+                "- Canal telefónico: (01)2024342 - Opción 5<br>"+
+                "- Canal WhatsApp: (01)2024342<br>"+
+                "© UNIVERSIDAD CÉSAR VALLEJO"+"</blockquote></figure>";
+            conexion.enviarCorreoEgre(datos.getCorreo(), mensajecompleto, "Hola has sido invitado por la Universidad Cesar Vallejo a la capacitación: "+partes_titulo2[1]);
                 } catch (Exception e) {
                     System.out.println("Error en el guardado de interes del egresado: "+e);
                 }

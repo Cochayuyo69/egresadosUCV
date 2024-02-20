@@ -761,14 +761,38 @@ public class frmInvitaciones extends javax.swing.JFrame {
     private void btn_EnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EnviarTodosActionPerformed
         String Titulo = jtxtTitulo.getText();
         String mensaje = jtxaMensaje.getText();
-        int ID_Cap=metodos.obtener_id_del_titulo(cbx_titulo.getSelectedItem().toString());
+        int ID_Cap=Integer.parseInt(Partes_titulo[0]);
         String[][] seleccionados = obtenerSeleccionados(jtblEgreTodos);
+        
+        //Agarrar titulo
+        String titulo = cbx_titulo.getSelectedItem().toString();
+        int indiceEspacio = titulo.indexOf(' ');
+        if (indiceEspacio != -1) {
+            titulo = titulo.substring(indiceEspacio + 1);
+        }
+        
+        
+        //AGARRAR TITULO, FECHA, HORA, MONTO Y MODALIDAD
+        String Area_seleccionada=cbx_area.getSelectedItem().toString();
+        String Especializacion=cbx_especializacion.getSelectedItem().toString();
+        
+        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion, titulo);
+        capacitacion = metodos.modificarDetalles(capacitacion);
+        System.out.println(capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]+", con un costo de "+capacitacion[5]+" soles");
+        
+        String mensajecompleto = "<figure><p><h2>"+capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]
+                +", con un costo de "+capacitacion[5]+" soles" +"</h2><p>"+ mensaje+"</p>"+"<blockquote>" +
+                "En caso de requerir ayuda, comunicarse con:<br>" +
+                "- Canal Correo electrónico: soporte@ucv.edu.pe<br>"+
+                "- Canal telefónico: (01)2024342 - Opción 5<br>"+
+                "- Canal WhatsApp: (01)2024342<br>"+
+                "© UNIVERSIDAD CÉSAR VALLEJO"+"</blockquote></figure>";
         for (String[] datos : seleccionados) {
             String Codigo_ucv= datos[0];
             String nombre = datos[1];
             String correo = datos[2];
-            metodos.enviarCorreoEgre(correo, mensaje, Titulo);
-//            ejecutar.guardar_en_historial(Codigo_ucv, ID_Cap);
+            metodos.enviarCorreoEgre(correo, mensajecompleto, Titulo);
+            ejecutar.guardar_en_historial(Codigo_ucv, Area_seleccionada, Especializacion, ID_Cap);
         }
     }//GEN-LAST:event_btn_EnviarTodosActionPerformed
 
