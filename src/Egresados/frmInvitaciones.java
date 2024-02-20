@@ -655,8 +655,16 @@ public class frmInvitaciones extends javax.swing.JFrame {
         
         cbx_area2.setEnabled(true);
         
-        //agarrar titulo
-        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion);
+        //Agarrar y colocar titulo
+        String titulo = cbx_titulo.getSelectedItem().toString();
+        int indiceEspacio = titulo.indexOf(' ');
+        if (indiceEspacio != -1) {
+            titulo = titulo.substring(indiceEspacio + 1);
+        }
+        jtxtTitulo.setText("INVITACION A CAPACITACION DE " + titulo);
+        
+        //agarrar y colocar mensaje
+        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion, titulo);
         jtxaMensaje.setText(capacitacion[6]);
         
         
@@ -712,11 +720,19 @@ public class frmInvitaciones extends javax.swing.JFrame {
         int ID_Cap=Integer.parseInt(Partes_titulo[0]);
         String[][] seleccionados = obtenerSeleccionados(jtblEgreEspe);
         
+        //Agarrar titulo
+        String titulo = cbx_titulo.getSelectedItem().toString();
+        int indiceEspacio = titulo.indexOf(' ');
+        if (indiceEspacio != -1) {
+            titulo = titulo.substring(indiceEspacio + 1);
+        }
+        
+        
         //AGARRAR TITULO, FECHA, HORA, MONTO Y MODALIDAD
         String Area_seleccionada=cbx_area.getSelectedItem().toString();
         String Especializacion=cbx_especializacion.getSelectedItem().toString();
         
-        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion);
+        String[] capacitacion = metodos.obtenerDetallesCapacitacion(Area_seleccionada, Especializacion, titulo);
         capacitacion = metodos.modificarDetalles(capacitacion);
         System.out.println(capacitacion[0]+", el día "+capacitacion[1]+" a las "+capacitacion[3]+" de la "+capacitacion[2]+", de manera "+capacitacion[4]+", con un costo de "+capacitacion[5]+" soles");
         

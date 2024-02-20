@@ -1191,15 +1191,16 @@ public class Metodoss{
         return parts;
     }
     
-    public String[] obtenerDetallesCapacitacion(String perfil, String espe) {
+    public String[] obtenerDetallesCapacitacion(String perfil, String espe, String titulo) {
         String[] detalles = new String[7]; // Vector para almacenar los detalles de la capacitación
 
         try {
             Connection conectar = abrirconeccion();
-            String query = "SELECT * FROM CAPACITACIONES WHERE AREA = ? AND ESPECIALIZACION = ?";
+            String query = "SELECT * FROM CAPACITACIONES WHERE AREA = ? AND ESPECIALIZACION = ? and TITULO = ?;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, perfil);
             st.setString(2, espe);
+            st.setString(3, titulo);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
