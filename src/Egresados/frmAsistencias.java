@@ -25,6 +25,8 @@ public class frmAsistencias extends javax.swing.JFrame {
     metodos_reportes reporte= new metodos_reportes();
     String[][] Asistencias;
     int contador_invitados=0;
+    int contador_Asistencias=0;
+    int contador_Faltas=0;
     Object[] indice={"CODIGO UCV", "APELLIDO PATERNO", "APELLIDO MATERNO", "NOMBRES", "COMPROMISO", "ASISTENCIA"};
     public frmAsistencias() {
         initComponents();
@@ -50,7 +52,6 @@ public class frmAsistencias extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_asistencias = new javax.swing.JTable();
         btnImportar = new javax.swing.JButton();
-        cbx_importar_asitencia = new javax.swing.JComboBox<>();
         cbx_area = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -61,9 +62,9 @@ public class frmAsistencias extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lbl_contador = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        lbl_contador2 = new javax.swing.JLabel();
+        lbl_asitencias = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        lbl_contador3 = new javax.swing.JLabel();
+        lbl_faltas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,18 +91,10 @@ public class frmAsistencias extends javax.swing.JFrame {
         btnImportar.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         btnImportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/IMPORTAR.png"))); // NOI18N
         btnImportar.setText("IMPORTAR");
-        btnImportar.setBorder(null);
+        btnImportar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImportarActionPerformed(evt);
-            }
-        });
-
-        cbx_importar_asitencia.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
-        cbx_importar_asitencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMPROMISO DE ASISTENCIA", "ASISTENCIAS" }));
-        cbx_importar_asitencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbx_importar_asitenciaActionPerformed(evt);
             }
         });
 
@@ -160,71 +153,62 @@ public class frmAsistencias extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel12.setText("ASISTENCIAS");
 
-        lbl_contador2.setFont(new java.awt.Font("Segoe UI Light", 1, 20)); // NOI18N
-        lbl_contador2.setText("0");
+        lbl_asitencias.setFont(new java.awt.Font("Segoe UI Light", 1, 20)); // NOI18N
+        lbl_asitencias.setText("0");
 
         jLabel13.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel13.setText("FALTAS");
 
-        lbl_contador3.setFont(new java.awt.Font("Segoe UI Light", 1, 20)); // NOI18N
-        lbl_contador3.setText("0");
+        lbl_faltas.setFont(new java.awt.Font("Segoe UI Light", 1, 20)); // NOI18N
+        lbl_faltas.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbx_importar_asitencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(375, 375, 375))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(225, 225, 225)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbl_contador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbl_faltas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_asitencias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbx_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(286, 286, 286)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(225, 225, 225)
-                                    .addComponent(jLabel6))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel11)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lbl_contador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel13)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lbl_contador3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel12)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(lbl_contador2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel15))
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(cbx_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGap(178, 178, 178)
-                            .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,27 +227,25 @@ public class frmAsistencias extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbx_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbx_area, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbx_especializacion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbx_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnImportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_contador, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13)
-                        .addComponent(lbl_contador3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_faltas, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)
-                        .addComponent(lbl_contador2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbl_asitencias, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_importar_asitencia, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addGap(38, 38, 38))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,32 +256,16 @@ public class frmAsistencias extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
-        JFileChooser  dlg = new JFileChooser(); // crear un objeto de dialogo
-        int option = dlg.showOpenDialog(this); //ABRE LA VENTANA DE DIALOGO
-        if(option==JFileChooser.APPROVE_OPTION){ /// Se hace click en el boton abrir del dialogo
-            String direccion = dlg.getSelectedFile().getPath(); // Obtieme ruta y nombre del archivo seleccionado
-            BD_Excel importar = new BD_Excel();
-            try {
-                if(cbx_importar_asitencia.getSelectedIndex()==0){
-                    importar.importar_compromiso_asistencia(direccion);
-                }else{
-
-                }
-            } catch (Exception e) {
-            }
-        }
+        FrmImportarAsistencias asistencias= new FrmImportarAsistencias();
+        asistencias.setVisible(true);
     }//GEN-LAST:event_btnImportarActionPerformed
-
-    private void cbx_importar_asitenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_importar_asitenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbx_importar_asitenciaActionPerformed
 
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
 
@@ -330,7 +296,9 @@ public class frmAsistencias extends javax.swing.JFrame {
     }//GEN-LAST:event_cbx_especializacionActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-
+            int i=0;
+            contador_Asistencias=0;
+            contador_Faltas=0;
             modelo_asistencias.setRowCount(0);
             String Area=cbx_area.getSelectedItem().toString();
             String Especializacion=cbx_especializacion.getSelectedItem().toString();
@@ -340,11 +308,20 @@ public class frmAsistencias extends javax.swing.JFrame {
             if (Asistencias != null) {
                 for (String[] row : Asistencias) {
                     modelo_asistencias.addRow(row);
+                    String Asistencia=Asistencias[i][5];
+                    if(Asistencia.equalsIgnoreCase("No")){
+                        contador_Faltas++;
+                    }else if (Asistencia.equalsIgnoreCase("Sí")) {
+                        contador_Asistencias++;
+                    }
+                    i++;
                 }
             }
             tbl_asistencias.setModel(modelo_asistencias);
             contador_invitados=Asistencias.length;
             lbl_contador.setText(String.valueOf(contador_invitados));
+            lbl_asitencias.setText(String.valueOf(contador_Asistencias));
+            lbl_faltas.setText(String.valueOf(contador_Faltas));
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbx_tituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_tituloActionPerformed
@@ -391,7 +368,6 @@ public class frmAsistencias extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JComboBox<String> cbx_area;
     private javax.swing.JComboBox<String> cbx_especializacion;
-    private javax.swing.JComboBox<String> cbx_importar_asitencia;
     private javax.swing.JComboBox<String> cbx_titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -404,9 +380,9 @@ public class frmAsistencias extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_asitencias;
     private javax.swing.JLabel lbl_contador;
-    private javax.swing.JLabel lbl_contador2;
-    private javax.swing.JLabel lbl_contador3;
+    private javax.swing.JLabel lbl_faltas;
     private javax.swing.JTable tbl_asistencias;
     // End of variables declaration//GEN-END:variables
 }

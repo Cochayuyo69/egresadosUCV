@@ -317,11 +317,13 @@ public class BD_Excel{
         FileInputStream archivo = new FileInputStream(file);
         XSSFWorkbook libro= new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
+        String Asistencia="";
+        String Compromiso="";
         try {
             //Abrir coneccion 
         Connection conectar=conexion.abrirconeccion();
         //Consulta filial
-                String consulta_historial="UPDATE HISTORIAL_CAPACITACIONES SET COMPROMISO=? WHERE CODIGO_EGRESADO=? AND ID_CAPACITACION=?";
+                String consulta_historial="UPDATE HISTORIAL_CAPACITACIONES SET COMPROMISO=?, ASISTENCIA=? WHERE CODIGO_EGRESADO=? AND ID_CAPACITACION=?";
                 PreparedStatement historial = conectar.prepareStatement(consulta_historial);
         //Obtener inicio de filas y columnas
         int numero_Filas= hoja.getLastRowNum();
@@ -352,12 +354,17 @@ public class BD_Excel{
             conexion.buscarPorCodigo(null, String.valueOf(dni), datos);
             String []partes_titulo=conexion.obtener_partes_titulo(fila.getCell(columna_no_nula+2).toString());
             System.out.println(dni);
-            historial.setString(1, fila.getCell(columna_no_nula+3).toString());
-            historial.setString(2, datos.getCodigoUCV());
-            historial.setInt(3, Integer.parseInt(partes_titulo[0]));
+            Compromiso=fila.getCell(columna_no_nula+3).toString();
+            if(Compromiso.equalsIgnoreCase("No")){
+                Asistencia="No";
+            }
+            historial.setString(1,Compromiso);
+            historial.setString(2, Asistencia);
+            historial.setString(3, datos.getCodigoUCV());
+            historial.setInt(4, Integer.parseInt(partes_titulo[0]));
             historial.executeUpdate();
             String Capacitacion_general=fila.getCell(columna_no_nula+4).toString();
-            if(!Capacitacion_general.equalsIgnoreCase("Ninguno") ){
+            if(Capacitacion_general!=null && !Capacitacion_general.equalsIgnoreCase("Ninguno") && !Capacitacion_general.equals("") ){
                 try {
                     //Guardar el interes del egresado
             String sqlinsertar ="INSERT INTO HISTORIAL_CAPACITACIONES (CODIGO_EGRESADO, AREA, ESPECIALIZACION, ID_CAPACITACION, FECHA_ENVIO, HORA_ENVIO, COMPROMISO)" + 
@@ -393,11 +400,62 @@ public class BD_Excel{
         }
         historial.close();
         conectar.close();
-        JOptionPane.showMessageDialog(null, "Asistencia importada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Compromiso de asistencia importado correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Asistencia no importada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Compromiso de asistencia no se importó correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
             System.out.println(e);
         }
                 
+    }
+    
+    public void importar_asistencias(String Titulo, String file) throws FileNotFoundException, IOException, SQLException{
+        FileInputStream archivo = new FileInputStream(file);
+        XSSFWorkbook libro= new XSSFWorkbook(archivo);
+        XSSFSheet hoja = libro.getSheetAt(0);
+        try {
+            Connection conectar=conexion.abrirconeccion();
+            //Consulta filial
+            String consulta_historial="UPDATE HISTORIAL_CAPACITACIONES SET ASISTENCIA=? WHERE CODIGO_EGRESADO=? AND ID_CAPACITACION=?";
+            PreparedStatement historial = conectar.prepareStatement(consulta_historial);
+            //Obtener inicio de filas y columnas
+        int numero_Filas= hoja.getLastRowNum();
+        int fila_no_nula=0;
+        for(int f=0; f<=numero_Filas;f++){
+            Row inicio = hoja.getRow(f);
+            if(inicio != null){
+                //Agregamos una unidad para no contar el titulo de las celdas
+                fila_no_nula=f+1 ;break;
+            }
+        }
+        //Guardamos los datos
+        for(int i=fila_no_nula; i<=numero_Filas; i ++){
+            Row fila = hoja.getRow(i);
+            //numero de inicio columna no nula
+            int numero_columna= fila.getLastCellNum();
+
+            int columna_no_nula=0;
+            for(int c=0; c<numero_columna;c++){
+            Cell celda=fila.getCell(c);
+            if(celda != null){
+                columna_no_nula=c;break;
+                }
+            }
+            Cell Celda_dni=fila.getCell(columna_no_nula+1);
+            double numero=Celda_dni.getNumericCellValue();
+            long dni=(long)numero;
+            conexion.buscarPorCodigo(null, String.valueOf(dni), datos);
+            String []partes_titulo=conexion.obtener_partes_titulo(Titulo);
+            System.out.println(dni);
+            historial.setString(1, fila.getCell(columna_no_nula+2).toString());
+            historial.setString(2, datos.getCodigoUCV());
+            historial.setInt(3, Integer.parseInt(partes_titulo[0]));
+            historial.executeUpdate();
+            historial.close();
+        }
+        JOptionPane.showMessageDialog(null, "Asistencia importada correctamente", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("Error al importar la asistencia: "+e);
+        }
+        
     }
 }
