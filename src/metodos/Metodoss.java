@@ -1345,6 +1345,37 @@ public class Metodoss{
         return detalles;
     }
     
+    public String[] ConsultaTotalEgre(String codEgre) {
+        String[] detalles = new String[8]; // Actualizado para eliminar No_Asistencias
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT CONCAT(e.Nombres, ' ', e.Apellido_paterno, ' ', e.Apellido_materno) AS Nombres, e.Num_telefono, e.Num_telefono2, e.Num_telefono3, COUNT(hc.ASISTENCIA) AS Total_Asistencias, ROUND(COUNT(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 END) / COUNT(*) * 100, 2) AS Porcentaje_Asistencias, ROUND(COUNT(CASE WHEN hc.COMPROMISO = 'SI' THEN 1 END) / COUNT(*) * 100, 2) AS Porcentaje_Comprometido_no_Asistido, COUNT(*) AS Numero_Invitaciones FROM EGRESADOS e LEFT JOIN HISTORIAL_CAPACITACIONES hc ON e.Codigo_de_estudiante = hc.CODIGO_EGRESADO WHERE e.Codigo_de_estudiante = ? GROUP BY e.id;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, codEgre);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                detalles[0] = rs.getString("Nombres");
+                detalles[1] = rs.getString("Num_telefono");
+                detalles[2] = rs.getString("Num_telefono2");
+                detalles[3] = rs.getString("Num_telefono3");
+                detalles[4] = rs.getString("Total_Asistencias");
+                detalles[5] = rs.getString("Porcentaje_Asistencias");
+                detalles[6] = rs.getString("Porcentaje_Comprometido_no_Asistido");
+                detalles[7] = rs.getString("Numero_Invitaciones");
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del Egresado: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
+    
+    
     public static String[] modificarDetalles(String[] detalles) {
         // Modificar la fecha
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
@@ -1363,6 +1394,67 @@ public class Metodoss{
         return detalles;
     }
     
+    
+    //MÉTODO PARA CONSULTA DE LOS COMPROMETIDOS PERO QUE NO FUERON
+    public String[][] mostrar_C_noFueron() {
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT DISTINCT CONCAT(e.Nombres, ' ', e.Apellido_paterno, ' ', e.Apellido_materno) AS nombre_completo, e.Num_telefono AS numero_1, e.Num_telefono2 AS numero_2, e.Num_telefono3 AS numero_3, hc.COMPROMISO, hc.ASISTENCIA FROM EGRESADOS e LEFT JOIN HISTORIAL_CAPACITACIONES hc ON e.Codigo_de_estudiante = hc.CODIGO_EGRESADO WHERE hc.COMPROMISO = 'SI' AND hc.ASISTENCIA = 'NO' ORDER BY (CASE WHEN hc.COMPROMISO = 'SI' AND hc.ASISTENCIA = 'NO' THEN 1 ELSE 0 END) DESC";
+
+            PreparedStatement st = conectar.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            List<String[]> lista_egresados = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[6]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 6; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    data[j] = rs.getString(j + 1);
+                }
+                lista_egresados.add(data);
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_egresados = new String[lista_egresados.size()][6];
+            for (int i = 0; i < lista_egresados.size(); i++) {
+                matriz_egresados[i] = lista_egresados.get(i);
+            }
+            return matriz_egresados;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener egresados: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
+    //MOSTRAR EGRESADOS QUE NUNCA FUERON
+    public String[][] Egre_nunca_fueron() {
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT CONCAT(Nombres, ' ', Apellido_paterno, ' ', Apellido_materno) AS nombre_completo, Num_telefono AS numero_1, Num_telefono2 AS numero_2, Num_telefono3 AS numero_3 FROM EGRESADOS INNER JOIN HISTORIAL_CAPACITACIONES ON EGRESADOS.Codigo_de_estudiante = HISTORIAL_CAPACITACIONES.CODIGO_EGRESADO WHERE HISTORIAL_CAPACITACIONES.COMPROMISO = 'no' AND HISTORIAL_CAPACITACIONES.ASISTENCIA = 'no' ORDER BY IFNULL(HISTORIAL_CAPACITACIONES.COMPROMISO, 0) DESC, IFNULL(HISTORIAL_CAPACITACIONES.ASISTENCIA, 0) ASC;";
+
+            PreparedStatement st = conectar.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            List<String[]> lista_egresados = new ArrayList<>();
+            while (rs.next()) {
+                String[] data = new String[4]; // Ajusta el tamaño en función de las columnas que estás recuperando
+                for (int j = 0; j < 4; j++) { // Ajusta el límite en función de las columnas que estás recuperando
+                    data[j] = rs.getString(j + 1);
+                }
+                lista_egresados.add(data);
+            }
+            conectar.close();
+
+            // Convertir la lista en una matriz de dos dimensiones
+            String[][] matriz_egresados = new String[lista_egresados.size()][6];
+            for (int i = 0; i < lista_egresados.size(); i++) {
+                matriz_egresados[i] = lista_egresados.get(i);
+            }
+            return matriz_egresados;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener egresados: " + e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
+    }
 }
 
 

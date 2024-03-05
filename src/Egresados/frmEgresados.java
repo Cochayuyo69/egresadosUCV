@@ -30,7 +30,6 @@ public class frmEgresados extends javax.swing.JFrame {
         initComponents();
         DefaultComboBoxModel<String> model5 = metodos.obtener_areas_trabajo();
         cbxarea_trabajo.setModel(model5);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("EGRESADOS");
         llenarCombobox();
         jscpegresados.getVerticalScrollBar().setUnitIncrement(16);
@@ -176,7 +175,7 @@ public class frmEgresados extends javax.swing.JFrame {
         btnExportar = new javax.swing.JButton();
         btnImportar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
