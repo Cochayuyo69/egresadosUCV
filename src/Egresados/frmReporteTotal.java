@@ -36,7 +36,6 @@ public class frmReporteTotal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         cbx_C_consulta = new javax.swing.JComboBox<>();
         cbx_area = new javax.swing.JComboBox<>();
         cbx_especializacion = new javax.swing.JComboBox<>();
@@ -56,6 +55,27 @@ public class frmReporteTotal extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         ckx_especialidad = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lbl_pAsistencias_CAPA = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cbx_C_consulta1 = new javax.swing.JComboBox<>();
+        cbx_area1 = new javax.swing.JComboBox<>();
+        cbx_especializacion1 = new javax.swing.JComboBox<>();
+        lbl_cAsistencias_CAPA1 = new javax.swing.JLabel();
+        btn_Buscar1 = new javax.swing.JButton();
+        lbl_NOMBRE_Egre = new javax.swing.JLabel();
+        lbl_MONTO_CAPA1 = new javax.swing.JLabel();
+        lbl_MODALIDAD_CAPA1 = new javax.swing.JLabel();
+        lbl_cInvitaciones_CAPA1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        ckx_especialidad1 = new javax.swing.JCheckBox();
+        jtxt_CodigoE = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,10 +88,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("FECHA INICIO:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
-
-        jLabel1.setText("FECHA FIN:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         cbx_C_consulta.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         cbx_C_consulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "% ASISTENCIAS MAYOR", "% ASISTENCIAS MENOR" }));
@@ -81,7 +98,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 cbx_C_consultaActionPerformed(evt);
             }
         });
-        jPanel2.add(cbx_C_consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 210, 50));
+        jPanel2.add(cbx_C_consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 210, 50));
 
         cbx_area.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         cbx_area.setToolTipText("");
@@ -94,7 +111,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 cbx_areaActionPerformed(evt);
             }
         });
-        jPanel2.add(cbx_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 180, 50));
+        jPanel2.add(cbx_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 180, 50));
 
         cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         cbx_especializacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
@@ -104,22 +121,22 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 cbx_especializacionActionPerformed(evt);
             }
         });
-        jPanel2.add(cbx_especializacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 180, 50));
+        jPanel2.add(cbx_especializacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 180, 50));
 
         lbl_cAsistencias_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_cAsistencias_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 70, 20));
+        jPanel2.add(lbl_cAsistencias_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 70, 20));
 
         jdc_FechaFin.setBackground(new java.awt.Color(255, 255, 255));
         jdc_FechaFin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jdc_FechaFin.setDateFormatString("yyyy-MM-dd");
         jdc_FechaFin.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        jPanel2.add(jdc_FechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 160, 50));
+        jPanel2.add(jdc_FechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 160, 50));
 
         jdc_FechaInicio.setBackground(new java.awt.Color(255, 255, 255));
         jdc_FechaInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jdc_FechaInicio.setDateFormatString("yyyy-MM-dd");
         jdc_FechaInicio.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        jPanel2.add(jdc_FechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 160, 50));
+        jPanel2.add(jdc_FechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 160, 50));
 
         btn_Buscar.setBackground(new java.awt.Color(255, 51, 51));
         btn_Buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
@@ -128,46 +145,46 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 btn_BuscarActionPerformed(evt);
             }
         });
-        jPanel2.add(btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 50, 50));
+        jPanel2.add(btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 50, 50));
 
         lbl_id_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_id_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 70, 20));
+        jPanel2.add(lbl_id_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 70, 20));
 
         lbl_NOMBRE_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_NOMBRE_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 220, 20));
+        jPanel2.add(lbl_NOMBRE_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 220, 20));
 
         lbl_MONTO_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_MONTO_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 70, 20));
+        jPanel2.add(lbl_MONTO_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 70, 20));
 
         lbl_MODALIDAD_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_MODALIDAD_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 70, 20));
+        jPanel2.add(lbl_MODALIDAD_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 70, 20));
 
         lbl_cInvitaciones_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jPanel2.add(lbl_cInvitaciones_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 70, 20));
+        jPanel2.add(lbl_cInvitaciones_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 70, 20));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
-        jLabel4.setText("C. Asistentes:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+        jLabel4.setText("% Asistencias:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel6.setText("ID:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel7.setText("Nombre:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel8.setText("Costo:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel9.setText("Modalidad:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         jLabel10.setText("C. Invitados:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         ckx_especialidad.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         ckx_especialidad.setText("ESPECIALIDAD");
@@ -176,9 +193,117 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 ckx_especialidadActionPerformed(evt);
             }
         });
-        jPanel2.add(ckx_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
+        jPanel2.add(ckx_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
+
+        jLabel5.setText("FECHA FIN:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel11.setText("C. Asistentes:");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+
+        lbl_pAsistencias_CAPA.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel2.add(lbl_pAsistencias_CAPA, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 210, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 600, 400));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "EGRESADOS"));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cbx_C_consulta1.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        cbx_C_consulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "% ASISTENCIAS MAYOR", "% ASISTENCIAS MENOR" }));
+        cbx_C_consulta1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_C_consulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_C_consulta1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbx_C_consulta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 210, 50));
+
+        cbx_area1.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_area1.setToolTipText("");
+        cbx_area1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cbx_area1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cbx_area1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cbx_area1.setEnabled(false);
+        cbx_area1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_area1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbx_area1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 180, 50));
+
+        cbx_especializacion1.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        cbx_especializacion1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        cbx_especializacion1.setEnabled(false);
+        cbx_especializacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_especializacion1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cbx_especializacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 180, 50));
+
+        lbl_cAsistencias_CAPA1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(lbl_cAsistencias_CAPA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 70, 20));
+
+        btn_Buscar1.setBackground(new java.awt.Color(255, 51, 51));
+        btn_Buscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        btn_Buscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Buscar1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_Buscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 50, 50));
+
+        lbl_NOMBRE_Egre.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(lbl_NOMBRE_Egre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 220, 20));
+
+        lbl_MONTO_CAPA1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(lbl_MONTO_CAPA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 70, 20));
+
+        lbl_MODALIDAD_CAPA1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(lbl_MODALIDAD_CAPA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 70, 20));
+
+        lbl_cInvitaciones_CAPA1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(lbl_cInvitaciones_CAPA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 70, 20));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel12.setText("C. Asistentes:");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel14.setText("Nombre:");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel15.setText("Costo:");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel16.setText("Modalidad:");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel17.setText("C. Invitados:");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+
+        ckx_especialidad1.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        ckx_especialidad1.setText("ESPECIALIDAD");
+        ckx_especialidad1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckx_especialidad1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(ckx_especialidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
+
+        jtxt_CodigoE.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jPanel3.add(jtxt_CodigoE, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 210, 50));
+
+        jLabel1.setText("CÓDIGO DEL EGRESADO:");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 600, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,8 +311,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1303, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +361,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
         String Fecha_I=formato_fecha.format(jdc_FechaInicio.getDate());
         String Fecha_F=formato_fecha.format(jdc_FechaFin.getDate());
         
-        String[] detalles_capa = new String[6];
+        String[] detalles_capa = new String[7];
         
         int num = cbx_C_consulta.getSelectedIndex();
         
@@ -254,6 +378,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
                     lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                     lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
                     lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
+                    lbl_pAsistencias_CAPA.setText("%"+detalles_capa[6]);
                     }
                     else if(num==1){
                         detalles_capa = m.CapaMenorAsistEspe(Fecha_I, Fecha_F, area, espe);
@@ -263,6 +388,8 @@ public class frmReporteTotal extends javax.swing.JFrame {
                         lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                         lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
                         lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
+                        lbl_pAsistencias_CAPA.setText("%"+detalles_capa[6]);
+                        
                     }
                 }
                 else{
@@ -284,6 +411,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                 lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
                 lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
+                lbl_pAsistencias_CAPA.setText("%"+detalles_capa[6]);
             }
             else if(num==1){
                 detalles_capa = m.CapaMenorAsist(Fecha_I, Fecha_F);
@@ -293,6 +421,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                 lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
                 lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
+                lbl_pAsistencias_CAPA.setText("%"+detalles_capa[6]);
             }
         }
     }//GEN-LAST:event_btn_BuscarActionPerformed
@@ -306,6 +435,26 @@ public class frmReporteTotal extends javax.swing.JFrame {
             cbx_especializacion.setEnabled(false);
         }
     }//GEN-LAST:event_ckx_especialidadActionPerformed
+
+    private void cbx_C_consulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_C_consulta1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_C_consulta1ActionPerformed
+
+    private void cbx_area1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_area1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_area1ActionPerformed
+
+    private void cbx_especializacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_especializacion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbx_especializacion1ActionPerformed
+
+    private void btn_Buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Buscar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Buscar1ActionPerformed
+
+    private void ckx_especialidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckx_especialidad1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckx_especialidad1ActionPerformed
     
     private void llenarCombobox() {
         DefaultComboBoxModel<String> model5 = m.obtener_areas_trabajo();
@@ -348,28 +497,48 @@ public class frmReporteTotal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Buscar;
+    private javax.swing.JButton btn_Buscar1;
     private javax.swing.JComboBox<String> cbx_C_consulta;
+    private javax.swing.JComboBox<String> cbx_C_consulta1;
     private javax.swing.JComboBox<String> cbx_area;
+    private javax.swing.JComboBox<String> cbx_area1;
     private javax.swing.JComboBox<String> cbx_especializacion;
+    private javax.swing.JComboBox<String> cbx_especializacion1;
     private javax.swing.JCheckBox ckx_especialidad;
+    private javax.swing.JCheckBox ckx_especialidad1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private com.toedter.calendar.JDateChooser jdc_FechaFin;
     private com.toedter.calendar.JDateChooser jdc_FechaInicio;
+    private javax.swing.JTextField jtxt_CodigoE;
     private javax.swing.JLabel lbl_MODALIDAD_CAPA;
+    private javax.swing.JLabel lbl_MODALIDAD_CAPA1;
     private javax.swing.JLabel lbl_MONTO_CAPA;
+    private javax.swing.JLabel lbl_MONTO_CAPA1;
     private javax.swing.JLabel lbl_NOMBRE_CAPA;
+    private javax.swing.JLabel lbl_NOMBRE_Egre;
     private javax.swing.JLabel lbl_cAsistencias_CAPA;
+    private javax.swing.JLabel lbl_cAsistencias_CAPA1;
     private javax.swing.JLabel lbl_cInvitaciones_CAPA;
+    private javax.swing.JLabel lbl_cInvitaciones_CAPA1;
     private javax.swing.JLabel lbl_id_CAPA;
+    private javax.swing.JLabel lbl_pAsistencias_CAPA;
     // End of variables declaration//GEN-END:variables
 }

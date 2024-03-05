@@ -1225,11 +1225,11 @@ public class Metodoss{
     }
     
     public String[] CapaMayorAsist(String fechaInicio, String fechaFin) {
-        String[] detalles = new String[6];
+        String[] detalles = new String[7];
 
         try {
             Connection conectar = abrirconeccion();
-            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) DESC LIMIT 1;";
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES, ROUND((SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PORCENTAJE_ASISTENCIAS FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY PORCENTAJE_ASISTENCIAS DESC LIMIT 1;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, fechaInicio);
             st.setString(2, fechaFin);
@@ -1242,6 +1242,7 @@ public class Metodoss{
                 detalles[3] = rs.getString("MODALIDAD");
                 detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
                 detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+                detalles[6] = rs.getString("PORCENTAJE_ASISTENCIAS");
             }
 
             conectar.close();
@@ -1253,11 +1254,11 @@ public class Metodoss{
     }
     
     public String[] CapaMenorAsist(String fechaInicio, String fechaFin) {
-        String[] detalles = new String[6];
+        String[] detalles = new String[7];
 
         try {
             Connection conectar = abrirconeccion();
-            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) ASC LIMIT 1;";
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES, ROUND((SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PORCENTAJE_ASISTENCIAS FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY PORCENTAJE_ASISTENCIAS ASC LIMIT 1;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, fechaInicio);
             st.setString(2, fechaFin);
@@ -1270,6 +1271,7 @@ public class Metodoss{
                 detalles[3] = rs.getString("MODALIDAD");
                 detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
                 detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+                detalles[6] = rs.getString("PORCENTAJE_ASISTENCIAS");
             }
 
             conectar.close();
@@ -1281,11 +1283,11 @@ public class Metodoss{
     }
     
     public String[] CapaMayorAsistEspe(String fechaInicio, String fechaFin, String area, String espe) {
-        String[] detalles = new String[6];
+        String[] detalles = new String[7];
 
         try {
             Connection conectar = abrirconeccion();
-            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) DESC LIMIT 1;";
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES, ROUND((SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PORCENTAJE_ASISTENCIAS FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY PORCENTAJE_ASISTENCIAS DESC LIMIT 1;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, fechaInicio);
             st.setString(2, fechaFin);
@@ -1300,6 +1302,7 @@ public class Metodoss{
                 detalles[3] = rs.getString("MODALIDAD");
                 detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
                 detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+                detalles[6] = rs.getString("PORCENTAJE_ASISTENCIAS");
             }
 
             conectar.close();
@@ -1312,11 +1315,11 @@ public class Metodoss{
     
     
     public String[] CapaMenorAsistEspe(String fechaInicio, String fechaFin, String area, String espe) {
-        String[] detalles = new String[6];
+        String[] detalles = new String[7];
 
         try {
             Connection conectar = abrirconeccion();
-            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) ASC LIMIT 1;";
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES, ROUND((SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) AS PORCENTAJE_ASISTENCIAS FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY PORCENTAJE_ASISTENCIAS ASC LIMIT 1;";
             PreparedStatement st = conectar.prepareStatement(query);
             st.setString(1, fechaInicio);
             st.setString(2, fechaFin);
@@ -1331,6 +1334,7 @@ public class Metodoss{
                 detalles[3] = rs.getString("MODALIDAD");
                 detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
                 detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+                detalles[6] = rs.getString("PORCENTAJE_ASISTENCIAS");
             }
 
             conectar.close();
