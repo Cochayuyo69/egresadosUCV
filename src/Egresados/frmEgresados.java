@@ -176,7 +176,7 @@ public class frmEgresados extends javax.swing.JFrame {
         btnExportar = new javax.swing.JButton();
         btnImportar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
@@ -270,7 +270,6 @@ public class frmEgresados extends javax.swing.JFrame {
         jLabel11.setText("Especialización");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 210, 40));
 
-        cbxarea_trabajo.setBackground(new java.awt.Color(255, 255, 255));
         cbxarea_trabajo.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbxarea_trabajo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbxarea_trabajo.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +279,6 @@ public class frmEgresados extends javax.swing.JFrame {
         });
         jPanel2.add(cbxarea_trabajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 240, 50));
 
-        cbx_especializacion.setBackground(new java.awt.Color(255, 255, 255));
         cbx_especializacion.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         cbx_especializacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cbx_especializacion.addActionListener(new java.awt.event.ActionListener() {

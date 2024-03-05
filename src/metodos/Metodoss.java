@@ -1224,6 +1224,123 @@ public class Metodoss{
         return detalles;
     }
     
+    public String[] CapaMayorAsist(String fechaInicio, String fechaFin) {
+        String[] detalles = new String[6];
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) DESC LIMIT 1;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, fechaInicio);
+            st.setString(2, fechaFin);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                detalles[0] = rs.getString("ID_CAPACITACION");
+                detalles[1] = rs.getString("NOMBRE");
+                detalles[2] = rs.getString("MONTO");
+                detalles[3] = rs.getString("MODALIDAD");
+                detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
+                detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la capacitación: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
+    public String[] CapaMenorAsist(String fechaInicio, String fechaFin) {
+        String[] detalles = new String[6];
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) ASC LIMIT 1;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, fechaInicio);
+            st.setString(2, fechaFin);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                detalles[0] = rs.getString("ID_CAPACITACION");
+                detalles[1] = rs.getString("NOMBRE");
+                detalles[2] = rs.getString("MONTO");
+                detalles[3] = rs.getString("MODALIDAD");
+                detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
+                detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la capacitación: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
+    public String[] CapaMayorAsistEspe(String fechaInicio, String fechaFin, String area, String espe) {
+        String[] detalles = new String[6];
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) DESC LIMIT 1;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, fechaInicio);
+            st.setString(2, fechaFin);
+            st.setString(3, area);
+            st.setString(4, espe);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                detalles[0] = rs.getString("ID_CAPACITACION");
+                detalles[1] = rs.getString("NOMBRE");
+                detalles[2] = rs.getString("MONTO");
+                detalles[3] = rs.getString("MODALIDAD");
+                detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
+                detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la capacitación: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
+    
+    public String[] CapaMenorAsistEspe(String fechaInicio, String fechaFin, String area, String espe) {
+        String[] detalles = new String[6];
+
+        try {
+            Connection conectar = abrirconeccion();
+            String query = "SELECT hc.ID_CAPACITACION AS ID_CAPACITACION, c.TITULO AS NOMBRE, c.MONTO AS MONTO, c.MODALIDAD AS MODALIDAD, COUNT(hc.CODIGO_EGRESADO) AS CANTIDAD_INVITACIONES, SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) AS CANTIDAD_ASISTENTES FROM HISTORIAL_CAPACITACIONES hc INNER JOIN Capacitaciones c ON hc.ID_CAPACITACION = c.ID_CAPACITACION WHERE hc.FECHA_ENVIO BETWEEN ? AND ? AND c.AREA = ? AND c.ESPECIALIZACION = ? GROUP BY hc.ID_CAPACITACION ORDER BY SUM(CASE WHEN hc.ASISTENCIA = 'SI' THEN 1 ELSE 0 END) / COUNT(*) ASC LIMIT 1;";
+            PreparedStatement st = conectar.prepareStatement(query);
+            st.setString(1, fechaInicio);
+            st.setString(2, fechaFin);
+            st.setString(3, area);
+            st.setString(4, espe);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                detalles[0] = rs.getString("ID_CAPACITACION");
+                detalles[1] = rs.getString("NOMBRE");
+                detalles[2] = rs.getString("MONTO");
+                detalles[3] = rs.getString("MODALIDAD");
+                detalles[4] = rs.getString("CANTIDAD_INVITACIONES");
+                detalles[5] = rs.getString("CANTIDAD_ASISTENTES");
+            }
+
+            conectar.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la capacitación: " + e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return detalles;
+    }
+    
     public static String[] modificarDetalles(String[] detalles) {
         // Modificar la fecha
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
@@ -1234,7 +1351,6 @@ public class Metodoss{
             detalles[1] = formatoSalida.format(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
-            // Manejar la excepción apropiadamente según tus necesidades
         }
 
         // Modificar el monto
