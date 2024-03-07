@@ -391,6 +391,7 @@ public class frmReporteTotal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbx_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_areaActionPerformed
@@ -445,8 +446,8 @@ public class frmReporteTotal extends javax.swing.JFrame {
                     lbl_id_CAPA.setText(detalles_capa[0]);
                     lbl_NOMBRE_CAPA.setText(detalles_capa[1]);
                     lbl_MONTO_CAPA.setText(detalles_capa[2]);
-                    lbl_cInvitaciones_CAPA.setText(detalles_capa[3]);
-                    lbl_MODALIDAD_CAPA.setText(detalles_capa[4]);
+                    lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
+                    lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                     lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
                     lbl_pAsistencias_CAPA.setText("% "+detalles_capa[6]);
                     }
@@ -455,8 +456,8 @@ public class frmReporteTotal extends javax.swing.JFrame {
                         lbl_id_CAPA.setText(detalles_capa[0]);
                         lbl_NOMBRE_CAPA.setText(detalles_capa[1]);
                         lbl_MONTO_CAPA.setText(detalles_capa[2]);
-                        lbl_cInvitaciones_CAPA.setText(detalles_capa[3]);
-                        lbl_MODALIDAD_CAPA.setText(detalles_capa[4]);
+                        lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
+                        lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                         lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
                         lbl_pAsistencias_CAPA.setText("% "+detalles_capa[6]);
                         
@@ -478,8 +479,8 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 lbl_id_CAPA.setText(detalles_capa[0]);
                 lbl_NOMBRE_CAPA.setText(detalles_capa[1]);
                 lbl_MONTO_CAPA.setText(detalles_capa[2]);
-                lbl_cInvitaciones_CAPA.setText(detalles_capa[3]);
-                lbl_MODALIDAD_CAPA.setText(detalles_capa[4]);
+                lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
+                lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                 lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
                 lbl_pAsistencias_CAPA.setText("% "+detalles_capa[6]);
             }
@@ -488,8 +489,8 @@ public class frmReporteTotal extends javax.swing.JFrame {
                 lbl_id_CAPA.setText(detalles_capa[0]);
                 lbl_NOMBRE_CAPA.setText(detalles_capa[1]);
                 lbl_MONTO_CAPA.setText(detalles_capa[2]);
-                lbl_cInvitaciones_CAPA.setText(detalles_capa[3]);
-                lbl_MODALIDAD_CAPA.setText(detalles_capa[4]);
+                lbl_cInvitaciones_CAPA.setText(detalles_capa[4]);
+                lbl_MODALIDAD_CAPA.setText(detalles_capa[3]);
                 lbl_cAsistencias_CAPA.setText(detalles_capa[5]);
                 lbl_pAsistencias_CAPA.setText("% "+detalles_capa[6]);
             }
